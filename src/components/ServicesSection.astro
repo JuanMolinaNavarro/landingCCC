@@ -1,21 +1,21 @@
 ---
 const services = [
   {
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-light)" stroke-width="1.75"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`,
+    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`,
     title: 'Cable TV',
     description:
       'Más de 200 canales con deportes premium, películas y programación local — en impactante calidad HD y 4K.',
     features: ['200+ canales', 'Calidad 4K y HD', 'DVR incluido', 'Biblioteca on demand'],
   },
   {
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-light)" stroke-width="1.75"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="var(--color-accent-light)"/></svg>`,
+    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="var(--color-accent)"/></svg>`,
     title: 'Internet de Alta Velocidad',
     description:
       'Internet por fibra de hasta 10 Gbps con velocidades simétricas — diseñado para streaming, gaming y trabajo remoto.',
     features: ['Hasta 10 Gbps', 'Subida/bajada simétrica', 'Sin límite de datos', 'Módem y router gratis'],
   },
   {
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-light)" stroke-width="1.75"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5 19.79 19.79 0 0 1 1.62 4.92 2 2 0 0 1 3.59 3h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 10.56a16 16 0 0 0 6.07 5.73l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17.92z"/></svg>`,
+    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5 19.79 19.79 0 0 1 1.62 4.92 2 2 0 0 1 3.59 3h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 10.56a16 16 0 0 0 6.07 5.73l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17.92z"/></svg>`,
     title: 'Telefonía Fija',
     description:
       'Voz nítida con llamadas locales y de larga distancia ilimitadas, más funciones avanzadas.',
@@ -29,7 +29,7 @@ const services = [
     <!-- Section header -->
     <div style="text-align: center; margin-bottom: 3.5rem;">
       <p
-        style="font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-light); margin-bottom: 0.75rem;"
+        style="font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 0.75rem;"
       >
         Nuestros Servicios
       </p>
@@ -51,7 +51,7 @@ const services = [
         <div class="service-card">
           <!-- Icon -->
           <div
-            style="width: 44px; height: 44px; border-radius: 10px; background: var(--color-accent-subtle); border: 1px solid var(--color-accent-light); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; flex-shrink: 0;"
+            style="width: 44px; height: 44px; border-radius: 10px; background: var(--color-accent-subtle); border: 1px solid var(--color-accent); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; flex-shrink: 0;"
             set:html={service.icon}
           />
 
@@ -68,7 +68,7 @@ const services = [
           <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.45rem;">
             {service.features.map((f) => (
               <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: var(--color-muted);">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-light)" stroke-width="2.5">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5">
                   <polyline points="20 6 9 17 4 12"/>
                 </svg>
                 {f}
@@ -90,7 +90,7 @@ const services = [
     transition: border-color 0.25s, transform 0.2s, box-shadow 0.25s;
   }
   .service-card:hover {
-    border-color: var(--color-accent-light);
+    border-color: var(--color-accent);
     transform: translateY(-3px);
     box-shadow: 0 12px 40px var(--color-card-shadow);
   }

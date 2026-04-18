@@ -270,7 +270,8 @@ export default function Dither({
   // Swap colors in light mode: a strong logo-blue base, with white/light-gray waves.
   // This makes the blue highly noticeable while still blending the white waves into it.
   const isLight = theme === 'light';
-  const bg = isLight ? [0.05, 0.25, 0.75] : [0.047, 0.0, 0.047];
+  // Exact logo blue: [0, 0.2706, 0.7137]
+  const bg = isLight ? [0, 0.2706, 0.7137] : [0.047, 0.0, 0.047];
   const activeWave = isLight ? [0.976, 0.980, 0.984] : waveColor;
 
   return (

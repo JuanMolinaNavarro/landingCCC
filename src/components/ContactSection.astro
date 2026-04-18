@@ -6,7 +6,7 @@
     <div class="contact-grid">
       <!-- Left: info -->
       <div>
-        <p style="font-size: 0.8125rem; font-weight: 600; color: var(--color-accent-light); letter-spacing: 0.1em; text-transform: uppercase; margin: 0 0 0.75rem;">Contacto</p>
+        <p style="font-size: 0.8125rem; font-weight: 600; color: var(--color-accent); letter-spacing: 0.1em; text-transform: uppercase; margin: 0 0 0.75rem;">Contacto</p>
         <h2 style="font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 800; color: var(--color-foreground); letter-spacing: -0.04em; line-height: 1.1; margin: 0 0 1.25rem;">
           ¿Tenés alguna<br/>pregunta?
         </h2>
@@ -38,7 +38,7 @@
           ].map((item) => (
             <a href={item.href} class="contact-detail">
               <div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-light)" stroke-width="1.75">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75">
                   <path d={item.icon}/>
                 </svg>
               </div>
@@ -83,7 +83,7 @@
             <label style="display: block; font-size: 0.8125rem; font-weight: 500; color: var(--color-muted); margin-bottom: 0.5rem;">Mensaje</label>
             <textarea placeholder="Contanos en qué podemos ayudarte..." class="form-input form-textarea" rows="4"></textarea>
           </div>
-          <button type="submit" class="submit-btn" style="margin-top: 1.75rem; width: 100%; padding: 0.875rem 1.5rem; background: var(--color-accent-light); color: white; font-size: 0.9375rem; font-weight: 600; border: none; border-radius: 9999px; cursor: pointer; transition: background 0.2s, transform 0.1s;">
+          <button type="submit" class="submit-btn" style="margin-top: 1.75rem; width: 100%; padding: 0.875rem 1.5rem; background: var(--color-accent); color: white; font-size: 0.9375rem; font-weight: 600; border: none; border-radius: 9999px; cursor: pointer; transition: background 0.2s, transform 0.1s;">
             Enviar mensaje
           </button>
           <p style="font-size: 0.75rem; color: var(--color-foreground-alt); text-align: center; margin: 1rem 0 0;">Respondemos en menos de 24 horas hábiles.</p>
@@ -132,7 +132,7 @@
     color: var(--color-foreground-alt);
   }
   .form-input:focus {
-    border-color: var(--color-accent-light);
+    border-color: var(--color-accent);
   }
   .form-select {
     appearance: none;

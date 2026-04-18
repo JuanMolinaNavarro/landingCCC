@@ -51,11 +51,11 @@ const tagColors: Record<string, string> = {
         <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
           <span style="font-size: 1.5rem; font-weight: 900; color: var(--color-foreground); letter-spacing: -0.04em;">CCC</span>
           <span style="font-size: 1.5rem; font-weight: 900; background: linear-gradient(135deg, var(--color-accent-light), #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: -0.04em;">Go</span>
-          <span style="font-size: 0.6875rem; font-weight: 700; color: var(--color-accent-light); background: var(--color-accent-subtle); border: 1px solid var(--color-accent-light); border-radius: 9999px; padding: 0.2rem 0.6rem; letter-spacing: 0.08em;">STREAMING</span>
+          <span style="font-size: 0.6875rem; font-weight: 700; color: var(--color-accent); background: var(--color-accent-subtle); border: 1px solid var(--color-accent); border-radius: 9999px; padding: 0.2rem 0.6rem; letter-spacing: 0.08em;">STREAMING</span>
         </div>
         <p style="font-size: 0.9375rem; color: var(--color-foreground-alt); margin: 0;">Deportes en vivo, series y películas incluidos en tu plan</p>
       </div>
-      <a href="#" style="font-size: 0.875rem; color: var(--color-accent-light); text-decoration: none; display: flex; align-items: center; gap: 0.4rem; white-space: nowrap;" class="see-all-link">
+      <a href="#" style="font-size: 0.875rem; color: var(--color-accent); text-decoration: none; display: flex; align-items: center; gap: 0.4rem; white-space: nowrap;" class="see-all-link">
         Ver todo el catálogo
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
@@ -183,7 +183,7 @@ const tagColors: Record<string, string> = {
   .tab-btn.active {
     background: rgba(59,130,246,0.12) !important;
     border-color: rgba(59,130,246,0.35) !important;
-    color: var(--color-accent-light) !important;
+    color: var(--color-accent) !important;
   }
   .tab-btn:hover:not(.active) {
     border-color: var(--color-border) !important;
@@ -192,10 +192,10 @@ const tagColors: Record<string, string> = {
   .hidden { display: none !important; }
   .see-all-link:hover { color: #60a5fa !important; }
 
-  .dot.active { background: var(--color-accent-light) !important; width: 20px !important; }
+  .dot.active { background: var(--color-accent) !important; width: 20px !important; }
   .dot:hover { background: var(--color-foreground-alt) !important; }
 
-  .slider-arrow:hover { background: var(--color-accent) !important; border-color: var(--color-accent-light) !important; }
+  .slider-arrow:hover { background: var(--color-accent) !important; border-color: var(--color-accent) !important; }
 </style>
 
 <script>
