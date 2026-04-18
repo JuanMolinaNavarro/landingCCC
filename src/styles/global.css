@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+:root {
+  /* Default: Dark theme as per project current design */
+  --color-bg: #0c0c0c;
+  --color-surface: #111111;
+  --color-surface2: #161616;
+  --color-border: #1f1f1f;
+  --color-border-light: rgba(255, 255, 255, 0.1);
+  --color-muted: #888888;
+  --color-foreground: #ededed;
+  --color-foreground-alt: #aaa;
+  --color-accent: #1d4ed8;
+  --color-accent-light: #3b82f6;
+  --color-accent-subtle: rgba(29, 78, 216, 0.12);
+  --color-pill-bg: rgba(255, 255, 255, 0.06);
+  --color-pill-hover: rgba(255, 255, 255, 0.07);
+  --color-overlay: rgba(0, 0, 0, 0.6);
+  --color-card-shadow: rgba(0, 0, 0, 0.4);
+}
+
+:root.light {
+  /* Light theme */
+  --color-bg: #f9fafb;
+  --color-surface: #ffffff;
+  --color-surface2: #f3f4f6;
+  --color-border: #e5e7eb;
+  --color-border-light: rgba(0, 0, 0, 0.1);
+  --color-muted: #6b7280;
+  --color-foreground: #111827;
+  --color-foreground-alt: #4b5563;
+  --color-accent: #2563eb;
+  --color-accent-light: #3b82f6;
+  --color-accent-subtle: rgba(37, 99, 235, 0.12);
+  --color-pill-bg: rgba(0, 0, 0, 0.04);
+  --color-pill-hover: rgba(0, 0, 0, 0.08);
+  --color-overlay: rgba(255, 255, 255, 0.6);
+  --color-card-shadow: rgba(0, 0, 0, 0.05);
+}
+
+@theme {
+  --color-bg: var(--color-bg);
+  --color-surface: var(--color-surface);
+  --color-surface2: var(--color-surface2);
+  --color-border: var(--color-border);
+  --color-muted: var(--color-muted);
+  --color-foreground: var(--color-foreground);
+  --color-accent: var(--color-accent);
+  --color-accent-light: var(--color-accent-light);
+  --color-accent-subtle: var(--color-accent-subtle);
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-foreground);
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+::selection {
+  background: var(--color-accent-subtle);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted);
+}
+
+/* Theme-dependent logos */
+html:not(.light) .logo-light {
+  display: none !important;
+}
+html.light .logo-dark {
+  display: none !important;
+}

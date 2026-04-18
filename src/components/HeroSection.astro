@@ -1,0 +1,215 @@
+---
+import Dither from './Dither.jsx';
+---
+
+<section class="hero-section">
+
+  <!-- Dither: large blob in the upper-right, fades into the background via radial mask -->
+  <div class="dither-blob" aria-hidden="true">
+    <Dither
+      client:only="react"
+      waveSpeed={0.025}
+      waveFrequency={4.2}
+      waveAmplitude={0.25}
+      waveColor={[0, 0.2706, 0.7137]}
+      colorNum={4}
+      pixelSize={1}
+    />
+  </div>
+
+  <!-- Content -->
+  <div class="hero-content">
+
+    <!-- Badge pill -->
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      <span>Rápido. Confiable. Conectado.</span>
+    </div>
+
+    <!-- Headline -->
+    <h1 class="hero-title">
+      Conectate al<br />
+      <em>futuro.</em>
+    </h1>
+
+    <!-- Sub-text -->
+    <p class="hero-sub">
+      CCC te lleva internet ultrarrápido, cable HD impecable y telefonía fija
+      confiable a tu puerta&mdash;todo en un solo plan simple.
+    </p>
+
+    <!-- CTA buttons -->
+    <div class="hero-ctas">
+      <a href="#plans" class="btn-primary">
+        Ver planes
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+      <a href="#coverage" class="btn-secondary">Ver cobertura</a>
+    </div>
+
+    <!-- Trust line -->
+    <p class="hero-trust">
+      Elegido por más de <span>500.000</span> hogares en toda la región.
+    </p>
+  </div>
+
+</section>
+
+<style>
+  /* ── Section ── */
+  .hero-section {
+    position: relative;
+    min-height: 100vh;
+    background: var(--color-bg);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  /* ── Dither blob ── */
+  .dither-blob {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    /* Circle center sits exactly at the corner → top-right quarter is visible */
+    transform: translate(-50%, 50%);
+    width:  clamp(560px, 70vw, 900px);
+    height: clamp(560px, 70vw, 900px);
+    overflow: hidden;
+
+    /* Fade from the corner outward, ensuring it reaches transparent before the edges */
+    -webkit-mask-image: radial-gradient(circle closest-side at 50% 50%,
+      black 0%, rgba(0,0,0,0.8) 35%, rgba(0,0,0,0.3) 65%, transparent 90%);
+    mask-image: radial-gradient(circle closest-side at 50% 50%,
+      black 0%, rgba(0,0,0,0.8) 35%, rgba(0,0,0,0.3) 65%, transparent 90%);
+  }
+
+  /* Astro injects an <astro-island> wrapper — force it to fill the blob */
+  .dither-blob astro-island {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ── Content ── */
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 8rem 2rem 6rem;
+  }
+
+  /* ── Badge ── */
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.9rem;
+    background: var(--color-pill-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    margin-bottom: 1.75rem;
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  .badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-accent-light);
+    flex-shrink: 0;
+    box-shadow: 0 0 6px var(--color-accent-light);
+  }
+
+  /* ── Headline ── */
+  .hero-title {
+    font-size: clamp(2.5rem, 5.5vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.06;
+    letter-spacing: -0.035em;
+    color: var(--color-foreground);
+    margin: 0 0 1.25rem;
+    max-width: 640px;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--color-accent-light);
+  }
+
+  /* ── Sub ── */
+  .hero-sub {
+    font-size: clamp(1rem, 1.8vw, 1.125rem);
+    color: var(--color-muted);
+    line-height: 1.65;
+    max-width: 480px;
+    margin: 0 0 2.25rem;
+  }
+
+  /* ── CTAs ── */
+  .hero-ctas {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.7rem 1.4rem;
+    background: var(--color-accent);
+    color: #fff;
+    border-radius: 9999px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid var(--color-accent);
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 0 20px var(--color-accent-subtle);
+  }
+  .btn-primary:hover { background: var(--color-accent-light); transform: translateY(-1px); }
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.7rem 1.4rem;
+    background: transparent;
+    color: var(--color-foreground);
+    border-radius: 9999px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-decoration: none;
+    border: 1px solid var(--color-border);
+    transition: border-color 0.2s, color 0.2s, transform 0.15s;
+  }
+  .btn-secondary:hover { border-color: var(--color-accent-light); color: var(--color-accent-light); transform: translateY(-1px); }
+
+  /* ── Trust line ── */
+  .hero-trust {
+    font-size: 0.8125rem;
+    color: var(--color-foreground-alt);
+    margin: 0;
+  }
+  .hero-trust span { color: var(--color-muted); }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    .hero-content { padding: 6rem 1.5rem 4rem; }
+    .hero-title { max-width: 100%; }
+    .hero-sub   { max-width: 100%; }
+    .dither-blob {
+      left: 0;
+      bottom: 0;
+      transform: translate(-50%, 50%);
+      width:  90vw;
+      height: 90vw;
+      opacity: 0.55;
+    }
+  }
+</style>

@@ -1,0 +1,202 @@
+---
+const plans = [
+  {
+    name: 'Esencial',
+    price: '49',
+    speed: '300 Mbps',
+    description: 'Ideal para streaming liviano y navegación.',
+    features: [
+      'Internet 300 Mbps',
+      '80+ Canales de Cable',
+      'Telefonía Fija',
+      'Instalación gratis',
+      'Soporte estándar',
+    ],
+    cta: 'Contratar Esencial',
+    highlighted: false,
+  },
+  {
+    name: 'Estándar',
+    price: '89',
+    speed: '1 Gbps',
+    description: 'El plan más elegido por las familias.',
+    features: [
+      'Internet 1 Gbps',
+      '150+ Canales de Cable',
+      'Telefonía + Correo de voz',
+      'Router y Módem gratis',
+      'DVR incluido',
+      'Soporte prioritario',
+    ],
+    cta: 'Contratar Estándar',
+    highlighted: true,
+    badge: 'Más popular',
+  },
+  {
+    name: 'Premium',
+    price: '139',
+    speed: '10 Gbps',
+    description: 'Velocidad máxima para usuarios exigentes y empresas.',
+    features: [
+      'Internet por Fibra 10 Gbps',
+      '200+ Canales de Cable',
+      'Telefonía + Todas las funciones',
+      'Router Wi-Fi 7 incluido',
+      'DVR ilimitado',
+      'Pack de streaming 4K',
+      'Línea de soporte dedicada',
+    ],
+    cta: 'Contratar Premium',
+    highlighted: false,
+  },
+];
+---
+
+<section id="plans" style="padding: 6rem 1.5rem; background: var(--color-bg);">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <!-- Section header -->
+    <div style="text-align: center; margin-bottom: 3.5rem;">
+      <p
+        style="font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-light); margin-bottom: 0.75rem;"
+      >
+        Precios
+      </p>
+      <h2
+        style="font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; letter-spacing: -0.025em; color: var(--color-foreground); margin: 0 0 1rem;"
+      >
+        Precios simples y transparentes
+      </h2>
+      <p style="font-size: 1rem; color: var(--color-muted); max-width: 400px; margin: 0 auto; line-height: 1.6;">
+        Sin costos ocultos, sin sorpresas en la factura. Elegí el plan que mejor le queda a tu hogar.
+      </p>
+    </div>
+
+    <!-- Plans grid -->
+    <div
+      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; align-items: stretch;"
+    >
+      {plans.map((plan) => (
+        <div
+          class={plan.highlighted ? 'plan-card plan-highlighted' : 'plan-card'}
+          style={plan.highlighted ? 'position: relative;' : ''}
+        >
+          <!-- Popular badge -->
+          {plan.badge && (
+            <div
+              style="position: absolute; top: -13px; left: 50%; transform: translateX(-50%); padding: 0.25rem 0.875rem; background: var(--color-accent); color: #fff; font-size: 0.75rem; font-weight: 700; border-radius: 999px; white-space: nowrap; letter-spacing: 0.03em;"
+            >
+              {plan.badge}
+            </div>
+          )}
+
+          <!-- Plan name & price -->
+          <div style="margin-bottom: 1.5rem;">
+            <h3
+              style="font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-muted); margin: 0 0 0.75rem;"
+            >
+              {plan.name}
+            </h3>
+            <div style="display: flex; align-items: baseline; gap: 0.25rem; margin-bottom: 0.5rem;">
+              <span style="font-size: 0.9375rem; color: var(--color-muted); font-weight: 400; align-self: flex-start; margin-top: 0.35rem;">$</span>
+              <span
+                style={`font-size: 3rem; font-weight: 800; letter-spacing: -0.04em; color: ${plan.highlighted ? 'var(--color-accent-light)' : 'var(--color-foreground)'}; line-height: 1;`}
+              >
+                {plan.price}
+              </span>
+              <span style="font-size: 0.875rem; color: var(--color-muted); font-weight: 400; align-self: flex-end; margin-bottom: 0.3rem;">/mes</span>
+            </div>
+            <div
+              style={`display: inline-block; padding: 0.2rem 0.6rem; background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.2); border-radius: 5px; font-size: 0.8rem; font-weight: 600; color: var(--color-accent-light); margin-bottom: 0.75rem;`}
+            >
+              {plan.speed}
+            </div>
+            <p style="font-size: 0.875rem; color: var(--color-muted); line-height: 1.5; margin: 0;">
+              {plan.description}
+            </p>
+          </div>
+
+          <!-- Divider -->
+          <div style={`height: 1px; background: ${plan.highlighted ? 'rgba(59,130,246,0.25)' : 'var(--color-border)'}; margin-bottom: 1.25rem;`}></div>
+
+          <!-- Features -->
+          <ul style="list-style: none; padding: 0; margin: 0 0 1.75rem; display: flex; flex-direction: column; gap: 0.55rem;">
+            {plan.features.map((f) => (
+              <li style="display: flex; align-items: center; gap: 0.625rem; font-size: 0.875rem; color: #aaa;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-light)" stroke-width="2.5" style="flex-shrink:0;">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                {f}
+              </li>
+            ))}
+          </ul>
+
+          <!-- CTA -->
+          <a
+            href="#contact"
+            class={plan.highlighted ? 'plan-btn plan-btn-primary' : 'plan-btn plan-btn-secondary'}
+          >
+            {plan.cta}
+          </a>
+        </div>
+      ))}
+    </div>
+
+    <!-- Footer note -->
+    <p style="text-align: center; margin-top: 2.5rem; font-size: 0.8125rem; color: var(--color-foreground-alt);">
+      Todos los planes incluyen garantía de devolución de 30 días. Sin contratos.
+    </p>
+  </div>
+</section>
+
+<style>
+  .plan-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: border-color 0.25s, transform 0.2s;
+    height: 100%;
+  }
+  .plan-card:hover {
+    transform: translateY(-2px);
+  }
+  .plan-highlighted {
+    border-color: rgba(29, 78, 216, 0.5);
+    box-shadow: 0 0 0 1px rgba(29, 78, 216, 0.15), 0 20px 60px rgba(29, 78, 216, 0.12);
+    background: var(--color-accent-subtle);
+  }
+  .plan-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    margin-top: auto;
+  }
+  .plan-btn-primary {
+    background: var(--color-accent);
+    color: #fff;
+    border: 1px solid var(--color-accent);
+    box-shadow: 0 4px 20px rgba(29, 78, 216, 0.3);
+  }
+  .plan-btn-primary:hover {
+    background: var(--color-accent-light);
+    transform: translateY(-1px);
+  }
+  .plan-btn-secondary {
+    background: transparent;
+    color: var(--color-foreground);
+    border: 1px solid var(--color-border);
+  }
+  .plan-btn-secondary:hover {
+    border-color: var(--color-accent-light);
+    color: var(--color-accent-light);
+    transform: translateY(-1px);
+  }
+</style>

@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create:*)",
+      "Bash(cp -r whole-wavelength/src .)",
+      "Bash(cp -r whole-wavelength/public .)",
+      "Bash(cp whole-wavelength/astro.config.mjs .)",
+      "Bash(cp whole-wavelength/package.json .)",
+      "Bash(cp whole-wavelength/package-lock.json .)",
+      "Bash(npx astro:*)",
+      "Bash(npm install:*)",
+      "Bash(cp logo.png public/logo.png)",
+      "Bash(cp logoBlue.png public/logoBlue.png)",
+      "Bash(rm -rf whole-wavelength)",
+      "Bash(npm run:*)",
+      "mcp__Claude_Preview__preview_start",
+      "WebFetch(domain:reactbits.dev)",
+      "WebFetch(domain:www.reactbits.dev)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(find \"C:\\\\Users\\\\Olart\\\\OneDrive\\\\Desktop\\\\landingCCC\\\\dist\\\\_astro\" -type f -exec ls -lah {} \\\\;)",
+      "Bash(curl -s \"http://localhost:4321/src/components/Dither.jsx\")"
+    ]
+  }
+}

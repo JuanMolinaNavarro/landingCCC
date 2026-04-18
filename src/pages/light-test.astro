@@ -1,0 +1,196 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Dither from '../components/Dither.jsx';
+---
+
+<Layout title="Light Mode Test">
+  <main class="light-mode-wrapper">
+    <!-- Navbar placeholder for testing -->
+    <nav class="test-nav">
+      <img src="/logo.png" alt="CCC Logo" class="test-logo" />
+      <span class="test-links">
+        <a href="/">Volver al inicio</a>
+      </span>
+    </nav>
+
+    <section class="light-hero">
+      <!-- Dither Blob -->
+      <div class="dither-blob" aria-hidden="true">
+        <Dither
+          client:only="react"
+          waveSpeed={0.03}
+          waveFrequency={3.5}
+          waveAmplitude={0.3}
+          waveColor={[0.1, 0.4, 0.9]} 
+          backgroundColor={[1, 1, 1]} 
+          colorNum={4}
+          pixelSize={1}
+        />
+      </div>
+
+      <div class="content">
+        <div class="badge">
+          <span class="dot"></span>
+          Prueba de Light Mode
+        </div>
+        <h1 class="title">
+          El futuro es <br />
+          <em>brillante.</em>
+        </h1>
+        <p class="subtitle">
+          Esta es una página de prueba para visualizar nuestro efecto Dither shader combinado con un fondo y paleta de colores claros.
+        </p>
+        <button class="action-btn">Comenzar</button>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  /* Override global resets cleanly */
+  .light-mode-wrapper {
+    background: #ffffff;
+    min-height: 100vh;
+    color: #111111;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Simple pseudo nav */
+  .test-nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+  }
+  .test-logo {
+    height: 30px;
+    filter: invert(100%); /* Invert logo to black */
+  }
+  .test-links a {
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .test-links a:hover {
+    color: #2563eb;
+  }
+
+  .light-hero {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  .dither-blob {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(30%, -50%);
+    width: clamp(500px, 60vw, 850px);
+    height: clamp(500px, 60vw, 850px);
+    overflow: hidden;
+    z-index: 1;
+
+    /* Proper fade-out to blend seamlessly into white */
+    -webkit-mask-image: radial-gradient(circle closest-side at 50% 50%,
+      black 0%, rgba(0,0,0,0.8) 40%, rgba(0,0,0,0.2) 70%, transparent 95%);
+    mask-image: radial-gradient(circle closest-side at 50% 50%,
+      black 0%, rgba(0,0,0,0.8) 40%, rgba(0,0,0,0.2) 70%, transparent 95%);
+  }
+
+  /* Force <astro-island> wrapper to fill */
+  .dither-blob :global(astro-island) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .content {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem 3rem;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.9rem;
+    background: rgba(0,0,0,0.04);
+    border: 1px solid #e5e5e5;
+    border-radius: 999px;
+    margin-bottom: 1.5rem;
+    font-size: 0.8125rem;
+    color: #555;
+    font-weight: 600;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #3b82f6;
+  }
+
+  .title {
+    font-size: clamp(3.5rem, 6vw, 6rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    color: #111;
+    margin: 0 0 1.25rem;
+    max-width: 600px;
+  }
+
+  .title em {
+    font-style: italic;
+    color: #2563eb;
+  }
+
+  .subtitle {
+    font-size: 1.125rem;
+    color: #555;
+    line-height: 1.6;
+    max-width: 480px;
+    margin-bottom: 2rem;
+  }
+
+  .action-btn {
+    padding: 0.75rem 1.5rem;
+    background: #111;
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    transition: transform 0.2s, background 0.2s;
+  }
+
+  .action-btn:hover {
+    background: #2563eb;
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    .dither-blob {
+      top: 0;
+      right: auto;
+      left: 50%;
+      transform: translate(-50%, -20%);
+      width: 100vw;
+      height: 100vw;
+    }
+  }
+</style>
