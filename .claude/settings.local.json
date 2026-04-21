@@ -18,7 +18,11 @@
       "WebFetch(domain:www.reactbits.dev)",
       "WebFetch(domain:raw.githubusercontent.com)",
       "Bash(find \"C:\\\\Users\\\\Olart\\\\OneDrive\\\\Desktop\\\\landingCCC\\\\dist\\\\_astro\" -type f -exec ls -lah {} \\\\;)",
-      "Bash(curl -s \"http://localhost:4321/src/components/Dither.jsx\")"
+      "Bash(curl -s \"http://localhost:4321/src/components/Dither.jsx\")",
+      "Bash(taskkill /F /IM node.exe)",
+      "Bash(ping -n 3 127.0.0.1)",
+      "Bash(cmd.exe /c \"taskkill /F /IM node.exe\")",
+      "Bash(netstat -ano)"
     ]
   }
 }

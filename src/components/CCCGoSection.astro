@@ -5,15 +5,7 @@ const categories = [
   { id: 'peliculas', label: 'Películas' },
 ];
 
-const content: Record<string, { title: string; subtitle: string; tag: string; color: string }[]> = {
-  deportes: [
-    { title: 'Champions League', subtitle: 'UEFA · En vivo', tag: 'EN VIVO', color: 'linear-gradient(135deg, #0f2744 0%, #1e3a5f 50%, #0a1a33 100%)' },
-    { title: 'Copa Libertadores', subtitle: 'CONMEBOL · Semifinal', tag: 'HOY', color: 'linear-gradient(135deg, #0a2010 0%, #1a3a1a 50%, #051008 100%)' },
-    { title: 'NBA Playoffs', subtitle: 'Basketball · Conferencia Este', tag: 'HOY', color: 'linear-gradient(135deg, #2a0a0a 0%, #3a1a1a 50%, #1a0505 100%)' },
-    { title: 'Fórmula 1', subtitle: 'Gran Premio Monaco', tag: 'PRÓXIMO', color: 'linear-gradient(135deg, #1a1a00 0%, #2a2a0a 50%, #0f0f00 100%)' },
-    { title: 'ATP Masters', subtitle: 'Tenis · Madrid Open', tag: 'PRÓXIMO', color: 'linear-gradient(135deg, #0a1a2a 0%, #1a2a3a 50%, #050f1a 100%)' },
-    { title: 'Rugby World Cup', subtitle: 'Fase de grupos', tag: 'PRÓXIMO', color: 'linear-gradient(135deg, #1a0a2a 0%, #2a1a3a 50%, #0f0519 100%)' },
-  ],
+const staticContent: Record<string, { title: string; subtitle: string; tag: string; color: string }[]> = {
   tv: [
     { title: 'El Marginal', subtitle: 'Drama · Temporada 5', tag: 'NUEVO', color: 'linear-gradient(135deg, #0f1a2a 0%, #1e2a3a 50%, #070f1a 100%)' },
     { title: 'Crónica Final', subtitle: 'Thriller · Serie original', tag: 'EXCLUSIVO', color: 'linear-gradient(135deg, #1a0f0f 0%, #2a1e1e 50%, #0f0707 100%)' },
@@ -75,36 +67,69 @@ const tagColors: Record<string, string> = {
     </div>
   </div>
 
-  <!-- Carousels -->
-  {Object.entries(content).map(([catId, items]) => (
-    <div class={`carousel-wrapper ${catId !== 'deportes' ? 'hidden' : ''}`} data-carousel={catId}>
+  <!-- Deportes carousel (populated via API) -->
+  <div class="carousel-wrapper" data-carousel="deportes">
 
-      <!-- Desktop slider (21:9) -->
+    <!-- Desktop slider -->
+    <div class="desktop-slider" style="position: relative;">
+      <div class="slider-viewport" style="overflow: hidden; position: relative;">
+        <div class="slider-track" id="deportes-track" style="display: flex; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);">
+          <!-- Skeleton loading cards -->
+          <div class="skeleton-card" style="flex: 0 0 33.333%; padding: 0 0.5rem; box-sizing: border-box;">
+            <div class="skeleton-pulse" style="border-radius: 14px; background: var(--color-surface2); aspect-ratio: 16/9; border: 1px solid var(--color-border);"></div>
+          </div>
+          <div class="skeleton-card" style="flex: 0 0 33.333%; padding: 0 0.5rem; box-sizing: border-box;">
+            <div class="skeleton-pulse" style="border-radius: 14px; background: var(--color-surface2); aspect-ratio: 16/9; border: 1px solid var(--color-border);"></div>
+          </div>
+          <div class="skeleton-card" style="flex: 0 0 33.333%; padding: 0 0.5rem; box-sizing: border-box;">
+            <div class="skeleton-pulse" style="border-radius: 14px; background: var(--color-surface2); aspect-ratio: 16/9; border: 1px solid var(--color-border);"></div>
+          </div>
+        </div>
+      </div>
+
+      <button class="slider-arrow arrow-prev" aria-label="Anterior" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 9999px; background: var(--color-overlay); border: 1px solid var(--color-border-light); backdrop-filter: blur(8px); color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; transition: background 0.2s;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="slider-arrow arrow-next" aria-label="Siguiente" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 9999px; background: var(--color-overlay); border: 1px solid var(--color-border-light); backdrop-filter: blur(8px); color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; transition: background 0.2s;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+
+      <div class="slider-dots" id="deportes-dots" style="display: flex; justify-content: center; gap: 0.4rem; margin-top: 1.25rem; padding: 0 1.5rem;"></div>
+    </div>
+
+    <!-- Mobile scroll track -->
+    <div class="mobile-track-outer" style="padding: 0 1.5rem;">
+      <div class="mobile-track" id="deportes-mobile-track" style="display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;">
+        <!-- Skeleton -->
+        <div class="skeleton-pulse" style="flex: 0 0 85vw; max-width: 400px; border-radius: 12px; background: var(--color-surface2); aspect-ratio: 16/9; border: 1px solid var(--color-border);"></div>
+        <div class="skeleton-pulse" style="flex: 0 0 85vw; max-width: 400px; border-radius: 12px; background: var(--color-surface2); aspect-ratio: 16/9; border: 1px solid var(--color-border);"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Static carousels: TV & Películas -->
+  {Object.entries(staticContent).map(([catId, items]) => (
+    <div class="carousel-wrapper hidden" data-carousel={catId}>
+
       <div class="desktop-slider" style="position: relative;">
         <div class="slider-viewport" style="overflow: hidden; position: relative;">
           <div class="slider-track" style="display: flex; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);">
             {items.map((item) => (
-              <div
-                class="slider-card"
-                style={`flex: 0 0 50%; padding: 0 0.5rem; box-sizing: border-box;`}
-              >
-                <div style={`border-radius: 14px; background: ${item.color}; border: 1px solid var(--color-pill-bg); overflow: hidden; cursor: pointer; position: relative; aspect-ratio: 21/9; display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem 1.75rem;`} class="inner-card">
-                  <!-- noise texture overlay -->
-                  <div style="position: absolute; inset: 0; opacity: 0.04; background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"200\" height=\"200\"><filter id=\"n\"><feTurbulence type=\"fractalNoise\" baseFrequency=\"0.9\" numOctaves=\"4\"/></filter><rect width=\"200\" height=\"200\" filter=\"url(%23n)\" opacity=\"1\"/></svg>'); pointer-events: none;"></div>
-                  <!-- gradient overlay -->
-                  <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 45%, transparent 100%); pointer-events: none;"></div>
-                  <!-- play button -->
-                  <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 52px; height: 52px; border-radius: 9999px; background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s;" class="play-btn">
+              <div class="slider-card" style={`flex: 0 0 50%; padding: 0 0.5rem; box-sizing: border-box;`}>
+                <div style={`border-radius: 14px; background: ${item.color}; border: 1px solid var(--color-pill-bg); overflow: hidden; cursor: pointer; position: relative; aspect-ratio: 16/9; display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem 1.75rem;`} class="inner-card">
+                  <img src={`https://image.pollinations.ai/prompt/${encodeURIComponent(item.title + ' cinematic cover')}?width=840&height=473&nologo=true`} alt={item.title} style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.5s ease;" class="card-img" loading="lazy" crossorigin="anonymous" />
+                  <div style="position: absolute; inset: 0; opacity: 0.04; background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"200\" height=\"200\"><filter id=\"n\"><feTurbulence type=\"fractalNoise\" baseFrequency=\"0.9\" numOctaves=\"4\"/></filter><rect width=\"200\" height=\"200\" filter=\"url(%23n)\" opacity=\"1\"/></svg>'); pointer-events: none; z-index: 1;"></div>
+                  <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%); pointer-events: none; z-index: 1;"></div>
+                  <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 52px; height: 52px; border-radius: 9999px; background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s; z-index: 2;" class="play-btn">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg>
                   </div>
-                  <!-- tag -->
-                  <div style={`position: absolute; top: 1rem; left: 1.25rem; font-size: 0.625rem; font-weight: 700; letter-spacing: 0.1em; color: white; background: ${tagColors[item.tag] ?? 'var(--color-accent-light)'}; border-radius: 9999px; padding: 0.25rem 0.6rem;`}>
+                  <div style={`position: absolute; top: 1rem; left: 1.25rem; font-size: 0.625rem; font-weight: 700; letter-spacing: 0.1em; color: white; background: ${tagColors[item.tag] ?? 'var(--color-accent-light)'}; border-radius: 9999px; padding: 0.25rem 0.6rem; z-index: 2;`}>
                     {item.tag}
                   </div>
-                  <!-- text -->
-                  <div style="position: relative; z-index: 1;">
+                  <div style="position: relative; z-index: 2;">
                     <div style="font-size: 1.125rem; font-weight: 700; color: #ededed; line-height: 1.2; margin-bottom: 0.3rem;">{item.title}</div>
-                    <div style="font-size: 0.8125rem; color: rgba(255,255,255,0.5);">{item.subtitle}</div>
+                    <div style="font-size: 0.8125rem; color: rgba(255,255,255,0.7);">{item.subtitle}</div>
                   </div>
                 </div>
               </div>
@@ -112,7 +137,6 @@ const tagColors: Record<string, string> = {
           </div>
         </div>
 
-        <!-- Prev / Next arrows -->
         <button class="slider-arrow arrow-prev" aria-label="Anterior" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 9999px; background: var(--color-overlay); border: 1px solid var(--color-border-light); backdrop-filter: blur(8px); color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; transition: background 0.2s;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
         </button>
@@ -120,7 +144,6 @@ const tagColors: Record<string, string> = {
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
         </button>
 
-        <!-- Dot indicators -->
         <div class="slider-dots" style="display: flex; justify-content: center; gap: 0.4rem; margin-top: 1.25rem; padding: 0 1.5rem;">
           {items.map((_, i) => (
             <button
@@ -133,7 +156,6 @@ const tagColors: Record<string, string> = {
         </div>
       </div>
 
-      <!-- Mobile scroll track (2:3 cards, unchanged) -->
       <div class="mobile-track-outer" style="padding: 0 1.5rem;">
         <div class="mobile-track" style="display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;">
           {items.map((item) => (
@@ -141,13 +163,14 @@ const tagColors: Record<string, string> = {
               class="mobile-card"
               style={`flex: 0 0 200px; border-radius: 12px; background: ${item.color}; border: 1px solid var(--color-pill-bg); overflow: hidden; cursor: pointer; scroll-snap-align: start; position: relative; aspect-ratio: 2/3; display: flex; flex-direction: column; justify-content: flex-end; padding: 1rem;`}
             >
-              <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 50%, transparent 100%); pointer-events: none;"></div>
-              <div style={`position: absolute; top: 0.75rem; left: 0.75rem; font-size: 0.625rem; font-weight: 700; letter-spacing: 0.1em; color: white; background: ${tagColors[item.tag] ?? 'var(--color-accent-light)'}; border-radius: 9999px; padding: 0.2rem 0.5rem;`}>
+              <img src={`https://image.pollinations.ai/prompt/${encodeURIComponent(item.title + ' cinematic poster')}?width=400&height=600&nologo=true`} alt={item.title} style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.5s ease;" class="card-img" loading="lazy" crossorigin="anonymous" />
+              <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%); pointer-events: none; z-index: 1;"></div>
+              <div style={`position: absolute; top: 0.75rem; left: 0.75rem; font-size: 0.625rem; font-weight: 700; letter-spacing: 0.1em; color: white; background: ${tagColors[item.tag] ?? 'var(--color-accent-light)'}; border-radius: 9999px; padding: 0.2rem 0.5rem; z-index: 2;`}>
                 {item.tag}
               </div>
-              <div style="position: relative; z-index: 1;">
+              <div style="position: relative; z-index: 2;">
                 <div style="font-size: 0.9375rem; font-weight: 700; color: #ededed; line-height: 1.2; margin-bottom: 0.25rem;">{item.title}</div>
-                <div style="font-size: 0.75rem; color: rgba(255,255,255,0.55);">{item.subtitle}</div>
+                <div style="font-size: 0.75rem; color: rgba(255,255,255,0.75);">{item.subtitle}</div>
               </div>
             </div>
           ))}
@@ -159,11 +182,9 @@ const tagColors: Record<string, string> = {
 </section>
 
 <style>
-  /* Desktop: show slider, hide mobile track */
   .desktop-slider { display: block; }
   .mobile-track-outer { display: none; }
 
-  /* Mobile: hide slider, show scroll track */
   @media (max-width: 768px) {
     .desktop-slider { display: none; }
     .mobile-track-outer { display: block; }
@@ -176,9 +197,11 @@ const tagColors: Record<string, string> = {
   .inner-card:hover .play-btn { opacity: 1 !important; }
   .inner-card { transition: box-shadow 0.2s; }
   .inner-card:hover { box-shadow: 0 20px 50px var(--color-card-shadow); }
+  .inner-card:hover .card-img { transform: scale(1.03); }
 
   .mobile-card { transition: transform 0.2s; }
   .mobile-card:hover { transform: translateY(-3px); }
+  .mobile-card:hover .card-img { transform: scale(1.03); }
 
   .tab-btn.active {
     background: rgba(59,130,246,0.12) !important;
@@ -196,6 +219,22 @@ const tagColors: Record<string, string> = {
   .dot:hover { background: var(--color-foreground-alt) !important; }
 
   .slider-arrow:hover { background: var(--color-accent) !important; border-color: var(--color-accent) !important; }
+
+  @keyframes skeleton-shimmer {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+  }
+  .skeleton-pulse { animation: skeleton-shimmer 1.5s ease-in-out infinite; }
+
+  /* Match card styles */
+  .match-inner-card { transition: box-shadow 0.2s; }
+  .match-inner-card:hover { box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+  .match-inner-card:hover .card-img { transform: scale(1.03); }
+  .match-mobile-card { transition: transform 0.2s; }
+  .match-mobile-card:hover { transform: translateY(-3px); }
+  .featured-card:hover { box-shadow: 0 0 32px rgba(249,115,22,0.5) !important; }
+  .f1-card:hover { box-shadow: 0 0 32px rgba(239,68,68,0.5) !important; }
 </style>
 
 <script>
@@ -218,54 +257,365 @@ const tagColors: Record<string, string> = {
     });
   });
 
-  // Auto-advancing slider per carousel wrapper
-  wrappers.forEach((wrapper) => {
+  // Reusable slider initializer
+  function initSlider(wrapper: HTMLElement) {
     const track = wrapper.querySelector<HTMLElement>('.slider-track');
-    const dots = wrapper.querySelectorAll<HTMLButtonElement>('.dot');
+    const dotsContainer = wrapper.querySelector<HTMLElement>('.slider-dots');
     const prevBtn = wrapper.querySelector<HTMLButtonElement>('.arrow-prev');
     const nextBtn = wrapper.querySelector<HTMLButtonElement>('.arrow-next');
     const cards = wrapper.querySelectorAll<HTMLElement>('.slider-card');
 
     if (!track || cards.length === 0) return;
 
-    // 2 cards visible at a time, step 1 card
     const total = cards.length;
-    const visibleCount = 2;
-    const maxIndex = total - visibleCount;
+    const visibleCount = 3;
+    const maxIndex = Math.max(0, total - visibleCount);
     let current = 0;
     let timer: ReturnType<typeof setInterval>;
 
+    function getDots() {
+      return dotsContainer ? dotsContainer.querySelectorAll<HTMLButtonElement>('.dot') : [];
+    }
+
     function goTo(index: number) {
       current = ((index % total) + total) % total;
-      // Don't scroll past last valid position
       if (current > maxIndex) current = 0;
       const pct = (100 / visibleCount) * current;
       track!.style.transform = `translateX(-${pct}%)`;
-      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      getDots().forEach((d, i) => d.classList.toggle('active', i === current));
     }
 
     function next() { goTo(current + 1); }
     function prev() { goTo(current - 1 < 0 ? maxIndex : current - 1); }
-
-    function startAuto() {
-      timer = setInterval(next, 3500);
-    }
-    function stopAuto() {
-      clearInterval(timer);
-    }
+    function startAuto() { timer = setInterval(next, 3500); }
+    function stopAuto() { clearInterval(timer); }
 
     nextBtn?.addEventListener('click', () => { stopAuto(); next(); startAuto(); });
     prevBtn?.addEventListener('click', () => { stopAuto(); prev(); startAuto(); });
 
-    dots.forEach((dot, i) => {
-      dot.addEventListener('click', () => { stopAuto(); goTo(i); startAuto(); });
-    });
-
-    // Pause on hover
     const viewport = wrapper.querySelector<HTMLElement>('.slider-viewport');
     viewport?.addEventListener('mouseenter', stopAuto);
     viewport?.addEventListener('mouseleave', startAuto);
 
+    // Dots are re-queried on click since they may be dynamic
+    dotsContainer?.addEventListener('click', (e) => {
+      const dot = (e.target as HTMLElement).closest<HTMLButtonElement>('.dot');
+      if (!dot) return;
+      const idx = parseInt(dot.dataset.index ?? '0', 10);
+      stopAuto();
+      goTo(idx);
+      startAuto();
+    });
+
     startAuto();
+  }
+
+  // Init static carousels (TV, Películas)
+  wrappers.forEach((wrapper) => {
+    if (wrapper.dataset.carousel !== 'deportes') {
+      initSlider(wrapper);
+    }
   });
+
+  // TheSportsDB API
+  interface SportsEvent {
+    idEvent: string;
+    strEvent: string;
+    strHomeTeam: string;
+    strAwayTeam: string;
+    strHomeTeamBadge: string;
+    strAwayTeamBadge: string;
+    strThumb: string;
+    strLeague: string;
+    strLeagueBadge: string;
+    intHomeScore: string | null;
+    intAwayScore: string | null;
+    strStatus: string;
+    strTime: string;
+    strTimestamp: string;
+    strVenue: string;
+    intRound: string;
+    dateEvent: string;
+  }
+
+  function utcToUTC3(utcTime: string): string {
+    const [h, m] = utcTime.split(':').map(Number);
+    const hours = ((h - 3) + 24) % 24;
+    return `${String(hours).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+  }
+
+  function getMatchTag(event: SportsEvent): { label: string; color: string } {
+    const s = event.strStatus;
+    if (s === 'Match Finished') return { label: 'FINALIZADO', color: '#6b7280' };
+    if (['1H', '2H', 'HT', 'ET', 'PEN', 'Live', 'In Progress'].includes(s)) return { label: 'EN VIVO', color: '#ef4444' };
+    const time = event.strTime ? utcToUTC3(event.strTime) : '';
+    return { label: time || 'HOY', color: '#f97316' };
+  }
+
+  function formatEventDate(dateStr: string): string {
+    const months = ['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
+    const [, m, d] = dateStr.split('-').map(Number);
+    return `${d} ${months[m - 1]}`;
+  }
+
+  function buildFeaturedDesktopCard(event: SportsEvent): string {
+    const time = event.strTime?.substring(0, 5) ?? '';
+    const date = event.dateEvent ? formatEventDate(event.dateEvent) : '';
+    return `
+      <div class="slider-card" style="flex: 0 0 33.333%; padding: 0 0.5rem; box-sizing: border-box;">
+        <div class="match-inner-card featured-card" style="border-radius: 14px; border: 2px solid #f97316; box-shadow: 0 0 24px rgba(249,115,22,0.3); overflow: hidden; cursor: pointer; position: relative; aspect-ratio: 16/9; width: 100%; background: #1a0a00;">
+          <img src="/backgroundTarucas.png" alt="Tarucas" class="card-img" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.5s ease;" />
+          <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.75) 100%); pointer-events: none; z-index: 1;"></div>
+
+          <!-- Featured badge -->
+          <div style="position: absolute; top: 0.75rem; left: 0.875rem; z-index: 2;">
+            <span style="font-size: 0.5625rem; font-weight: 700; letter-spacing: 0.08em; color: white; background: #f97316; border-radius: 9999px; padding: 0.2rem 0.55rem;">★ Tarucas</span>
+          </div>
+
+          <!-- League logo -->
+          <div style="position: absolute; top: 0.75rem; right: 0.875rem; z-index: 2;">
+            <img src="${event.strLeagueBadge}" alt="${event.strLeague}" width="44" height="44" style="object-fit: contain;" />
+          </div>
+
+          <!-- Teams -->
+          <div style="position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 0.25rem; padding: 0 0.75rem; height: 100%;">
+            <div style="display: flex; align-items: center; justify-content: center; flex: 1; min-width: 0;">
+              <img src="${event.strHomeTeamBadge}" alt="${event.strHomeTeam}" width="96" height="96" style="object-fit: contain; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.8));" />
+            </div>
+            <div style="text-align: center; flex-shrink: 0; padding: 0 0.5rem;">
+              <div style="font-size: 1.375rem; font-weight: 900; color: white; line-height: 1;">vs</div>
+              <div style="font-size: 0.75rem; font-weight: 700; color: #f97316; margin-top: 0.25rem;">${time}</div>
+              <div style="font-size: 0.5625rem; color: rgba(255,255,255,0.5); margin-top: 0.1rem;">${date}</div>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: center; flex: 1; min-width: 0;">
+              <img src="${event.strAwayTeamBadge}" alt="${event.strAwayTeam}" width="96" height="96" style="object-fit: contain; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.8));" />
+            </div>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  function buildFeaturedMobileCard(event: SportsEvent): string {
+    const time = event.strTime?.substring(0, 5) ?? '';
+    const date = event.dateEvent ? formatEventDate(event.dateEvent) : '';
+    return `
+      <div class="mobile-card match-mobile-card" style="flex: 0 0 85vw; max-width: 400px; border-radius: 12px; border: 2px solid #f97316; box-shadow: 0 0 20px rgba(249,115,22,0.25); overflow: hidden; cursor: pointer; scroll-snap-align: start; position: relative; aspect-ratio: 16/9; box-sizing: border-box; background: #1a0a00;">
+        <img src="/backgroundTarucas.png" alt="Tarucas" class="card-img" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.5s ease;" />
+        <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.75) 100%); pointer-events: none; z-index: 1;"></div>
+        <div style="position: absolute; top: 0.6rem; left: 0.75rem; z-index: 2;">
+          <span style="font-size: 0.5rem; font-weight: 700; letter-spacing: 0.08em; color: white; background: #f97316; border-radius: 9999px; padding: 0.18rem 0.5rem;">★ Tarucas</span>
+        </div>
+        <div style="position: absolute; top: 0.6rem; right: 0.75rem; z-index: 2;">
+          <img src="${event.strLeagueBadge}" alt="${event.strLeague}" width="36" height="36" style="object-fit: contain;" />
+        </div>
+        <div style="position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 0.25rem; padding: 0 0.75rem; height: 100%;">
+          <div style="display: flex; align-items: center; justify-content: center; flex: 1; min-width: 0;">
+            <img src="${event.strHomeTeamBadge}" alt="${event.strHomeTeam}" width="72" height="72" style="object-fit: contain; filter: drop-shadow(0 3px 8px rgba(0,0,0,0.8));" />
+          </div>
+          <div style="text-align: center; flex-shrink: 0; padding: 0 0.35rem;">
+            <div style="font-size: 1.125rem; font-weight: 900; color: white; line-height: 1;">vs</div>
+            <div style="font-size: 0.6875rem; font-weight: 700; color: #f97316; margin-top: 0.15rem;">${time}</div>
+            <div style="font-size: 0.5rem; color: rgba(255,255,255,0.5); margin-top: 0.1rem;">${date}</div>
+          </div>
+          <div style="display: flex; align-items: center; justify-content: center; flex: 1; min-width: 0;">
+            <img src="${event.strAwayTeamBadge}" alt="${event.strAwayTeam}" width="72" height="72" style="object-fit: contain; filter: drop-shadow(0 3px 8px rgba(0,0,0,0.8));" />
+          </div>
+        </div>
+      </div>`;
+  }
+
+  function buildF1DesktopCard(event: SportsEvent): string {
+    const time = event.strTime ? utcToUTC3(event.strTime) : '';
+    const date = event.dateEvent ? formatEventDate(event.dateEvent) : '';
+    const thumb = event.strThumb || '';
+    return `
+      <div class="slider-card" style="flex: 0 0 33.333%; padding: 0 0.5rem; box-sizing: border-box;">
+        <div class="match-inner-card featured-card f1-card" style="border-radius: 14px; border: 2px solid #ef4444; box-shadow: 0 0 24px rgba(239,68,68,0.3); overflow: hidden; cursor: pointer; position: relative; aspect-ratio: 16/9; width: 100%; background: #1a0000;">
+          ${thumb ? `<img src="${thumb}" alt="${event.strEvent}" class="card-img" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.5s ease;" loading="lazy" />` : ''}
+          <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.8) 100%); pointer-events: none; z-index: 1;"></div>
+
+          <!-- F1 badge -->
+          <div style="position: absolute; top: 0.75rem; left: 0.875rem; z-index: 2;">
+            <span style="font-size: 0.5625rem; font-weight: 700; letter-spacing: 0.08em; color: white; background: #ef4444; border-radius: 9999px; padding: 0.2rem 0.55rem;">★ Fórmula 1</span>
+          </div>
+
+          <!-- League logo -->
+          <div style="position: absolute; top: 0.75rem; right: 0.875rem; z-index: 2;">
+            <img src="${event.strLeagueBadge}" alt="${event.strLeague}" width="44" height="44" style="object-fit: contain;" />
+          </div>
+
+          <!-- Race info -->
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 1rem 1.25rem;">
+            <div style="font-size: 1rem; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 0.35rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${event.strEvent}</div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span style="font-size: 0.75rem; font-weight: 700; color: #ef4444;">${time}</span>
+              <span style="font-size: 0.625rem; color: rgba(255,255,255,0.5);">${date}</span>
+            </div>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  function buildF1MobileCard(event: SportsEvent): string {
+    const time = event.strTime ? utcToUTC3(event.strTime) : '';
+    const date = event.dateEvent ? formatEventDate(event.dateEvent) : '';
+    const thumb = event.strThumb || '';
+    return `
+      <div class="mobile-card match-mobile-card" style="flex: 0 0 85vw; max-width: 400px; border-radius: 12px; border: 2px solid #ef4444; box-shadow: 0 0 20px rgba(239,68,68,0.25); overflow: hidden; cursor: pointer; scroll-snap-align: start; position: relative; aspect-ratio: 16/9; box-sizing: border-box; background: #1a0000;">
+        ${thumb ? `<img src="${thumb}" alt="${event.strEvent}" class="card-img" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.5s ease;" loading="lazy" />` : ''}
+        <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.8) 100%); pointer-events: none; z-index: 1;"></div>
+        <div style="position: absolute; top: 0.6rem; left: 0.75rem; z-index: 2;">
+          <span style="font-size: 0.5rem; font-weight: 700; letter-spacing: 0.08em; color: white; background: #ef4444; border-radius: 9999px; padding: 0.18rem 0.5rem;">★ Fórmula 1</span>
+        </div>
+        <div style="position: absolute; top: 0.6rem; right: 0.75rem; z-index: 2;">
+          <img src="${event.strLeagueBadge}" alt="${event.strLeague}" width="36" height="36" style="object-fit: contain;" />
+        </div>
+        <div style="position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 0.75rem 0.875rem;">
+          <div style="font-size: 0.8125rem; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 0.25rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${event.strEvent}</div>
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span style="font-size: 0.625rem; font-weight: 700; color: #ef4444;">${time}</span>
+            <span style="font-size: 0.5625rem; color: rgba(255,255,255,0.5);">${date}</span>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  function buildDesktopCard(event: SportsEvent): string {
+    const tag = getMatchTag(event);
+    const thumb = event.strThumb || '';
+
+    return `
+      <div class="slider-card" style="flex: 0 0 33.333%; padding: 0 0.5rem; box-sizing: border-box;">
+        <div class="match-inner-card" style="background: linear-gradient(135deg, #0f2744 0%, #1e3a5f 100%); border-radius: 14px; border: 1px solid var(--color-pill-bg); overflow: hidden; cursor: pointer; position: relative; aspect-ratio: 16/9; width: 100%;">
+          ${thumb ? `<img src="${thumb}" alt="${event.strEvent}" class="card-img" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.5s ease;" loading="lazy" />` : ''}
+          <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.5) 100%); pointer-events: none; z-index: 1;"></div>
+          <div style="position: absolute; top: 1rem; left: 1.25rem; font-size: 0.625rem; font-weight: 700; letter-spacing: 0.1em; color: white; background: ${tag.color}; border-radius: 9999px; padding: 0.25rem 0.6rem; z-index: 2;">
+            ${tag.label}
+          </div>
+        </div>
+      </div>`;
+  }
+
+  function buildMobileCard(event: SportsEvent): string {
+    const tag = getMatchTag(event);
+    const thumb = event.strThumb || '';
+
+    return `
+      <div class="mobile-card match-mobile-card" style="flex: 0 0 85vw; max-width: 400px; border-radius: 12px; background: linear-gradient(135deg, #0f2744 0%, #1e3a5f 100%); border: 1px solid var(--color-pill-bg); overflow: hidden; cursor: pointer; scroll-snap-align: start; position: relative; aspect-ratio: 16/9; box-sizing: border-box;">
+        ${thumb ? `<img src="${thumb}" alt="${event.strEvent}" class="card-img" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.5s ease;" loading="lazy" />` : ''}
+        <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.5) 100%); pointer-events: none; z-index: 1;"></div>
+        <div style="position: absolute; top: 0.6rem; left: 0.875rem; font-size: 0.5625rem; font-weight: 700; letter-spacing: 0.1em; color: white; background: ${tag.color}; border-radius: 9999px; padding: 0.2rem 0.5rem; z-index: 2;">${tag.label}</div>
+      </div>`;
+  }
+
+  async function loadDeportes() {
+    // Compute today and tomorrow in UTC-3
+    const nowUTC3 = new Date(Date.now() - 3 * 60 * 60 * 1000);
+    const todayUTC3 = nowUTC3.toISOString().split('T')[0];
+    const nextDayUTC3Date = new Date(nowUTC3);
+    nextDayUTC3Date.setUTCDate(nextDayUTC3Date.getUTCDate() + 1);
+    const nextDayUTC3 = nextDayUTC3Date.toISOString().split('T')[0];
+
+    const leagues = [4406, 4328, 4322, 4335, 4331, 4480, 4501];
+    const dates = [todayUTC3, nextDayUTC3];
+    const urls = leagues.flatMap((l) =>
+      dates.map((d) => `https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d=${d}&l=${l}`)
+    );
+
+    const deportesWrapper = document.querySelector<HTMLElement>('[data-carousel="deportes"]');
+    const track = document.getElementById('deportes-track');
+    const mobileTrack = document.getElementById('deportes-mobile-track');
+    const dotsContainer = document.getElementById('deportes-dots');
+
+    if (!track || !deportesWrapper) return;
+
+    try {
+      // Fetch daily league matches + featured next events in parallel
+      const [leagueResults, tarucasData, f1Data] = await Promise.all([
+        Promise.allSettled(
+          urls.map((u) => fetch(u).then((r) => r.json()).catch(() => null))
+        ),
+        fetch('https://www.thesportsdb.com/api/v1/json/123/eventsnext.php?id=152109')
+          .then((r) => r.json())
+          .catch(() => null),
+        fetch('https://www.thesportsdb.com/api/v1/json/123/eventsnextleague.php?id=4370')
+          .then((r) => r.json())
+          .catch(() => null),
+      ]);
+
+      const jsons = leagueResults
+        .map((r) => (r.status === 'fulfilled' ? r.value : null))
+        .filter(Boolean);
+
+      const dailyEvents: SportsEvent[] = jsons
+        .flatMap((data) => data.events ?? [])
+        .filter((e: SportsEvent) => {
+          const utcMs = new Date(e.strTimestamp + 'Z').getTime();
+          const utc3DateStr = new Date(utcMs - 3 * 60 * 60 * 1000).toISOString().split('T')[0];
+          return utc3DateStr === todayUTC3;
+        })
+        .sort((a: SportsEvent, b: SportsEvent) => a.strTimestamp.localeCompare(b.strTimestamp));
+
+      const tarucasEvent: SportsEvent | null = tarucasData?.events?.[0] ?? null;
+      const f1Event: SportsEvent | null = f1Data?.events?.[0] ?? null;
+
+      track.innerHTML = '';
+      if (mobileTrack) mobileTrack.innerHTML = '';
+      if (dotsContainer) dotsContainer.innerHTML = '';
+
+      // Build full list: Tarucas featured card first, then daily events
+      const allCards: { desktop: string; mobile: string }[] = [];
+
+      if (tarucasEvent) {
+        allCards.push({
+          desktop: buildFeaturedDesktopCard(tarucasEvent),
+          mobile: buildFeaturedMobileCard(tarucasEvent),
+        });
+      }
+
+      if (f1Event) {
+        allCards.push({
+          desktop: buildF1DesktopCard(f1Event),
+          mobile: buildF1MobileCard(f1Event),
+        });
+      }
+
+      dailyEvents.forEach((event) => {
+        allCards.push({
+          desktop: buildDesktopCard(event),
+          mobile: buildMobileCard(event),
+        });
+      });
+
+      if (allCards.length === 0) {
+        track.innerHTML = `
+          <div style="flex: 0 0 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; aspect-ratio: 16/9; color: var(--color-muted); gap: 0.5rem;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+            <span style="font-size: 0.9375rem; font-weight: 500;">No hay partidos hoy</span>
+          </div>`;
+        return;
+      }
+
+      allCards.forEach(({ desktop, mobile }, i) => {
+        track.insertAdjacentHTML('beforeend', desktop);
+        if (mobileTrack) mobileTrack.insertAdjacentHTML('beforeend', mobile);
+        if (dotsContainer) {
+          dotsContainer.insertAdjacentHTML('beforeend', `
+            <button class="dot${i === 0 ? ' active' : ''}" data-index="${i}" aria-label="Ir a slide ${i + 1}"
+              style="width: 6px; height: 6px; border-radius: 9999px; border: none; background: var(--color-muted); cursor: pointer; padding: 0; transition: all 0.3s;"></button>`);
+        }
+      });
+
+      initSlider(deportesWrapper);
+    } catch {
+      if (track) {
+        track.innerHTML = `
+          <div style="flex: 0 0 100%; display: flex; align-items: center; justify-content: center; aspect-ratio: 16/9; color: var(--color-muted); font-size: 0.875rem;">
+            Error al cargar los partidos
+          </div>`;
+      }
+    }
+  }
+
+  loadDeportes();
 </script>
