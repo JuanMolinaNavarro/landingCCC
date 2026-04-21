@@ -320,6 +320,7 @@ const tagColors: Record<string, string> = {
   // TheSportsDB API
   interface SportsEvent {
     idEvent: string;
+    idLeague: string;
     strEvent: string;
     strHomeTeam: string;
     strAwayTeam: string;
@@ -358,6 +359,25 @@ const tagColors: Record<string, string> = {
     return `${d} ${months[m - 1]}`;
   }
 
+  // Shared footer bar HTML for desktop and mobile
+  function footerBar(name: string, time: string, date: string, timeColor: string, mobile = false): string {
+    return mobile
+      ? `<div style="position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 0.5rem 0.75rem; display: flex; align-items: center; justify-content: space-between; gap: 0.4rem;">
+           <div style="font-size: 0.6875rem; font-weight: 800; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1;">${name}</div>
+           <div style="display: flex; align-items: center; gap: 0.4rem; flex-shrink: 0;">
+             <span style="font-size: 0.5625rem; font-weight: 700; color: ${timeColor};">${time}</span>
+             <span style="font-size: 0.5rem; color: rgba(255,255,255,0.45); white-space: nowrap;">${date}</span>
+           </div>
+         </div>`
+      : `<div style="position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 0.625rem 1rem; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;">
+           <div style="font-size: 0.8125rem; font-weight: 800; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1;">${name}</div>
+           <div style="display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0;">
+             <span style="font-size: 0.6875rem; font-weight: 700; color: ${timeColor};">${time}</span>
+             <span style="font-size: 0.5625rem; color: rgba(255,255,255,0.45); white-space: nowrap;">${date}</span>
+           </div>
+         </div>`;
+  }
+
   function buildFeaturedDesktopCard(event: SportsEvent): string {
     const time = event.strTime?.substring(0, 5) ?? '';
     const date = event.dateEvent ? formatEventDate(event.dateEvent) : '';
@@ -365,32 +385,17 @@ const tagColors: Record<string, string> = {
       <div class="slider-card" style="flex: 0 0 33.333%; padding: 0 0.5rem; box-sizing: border-box;">
         <div class="match-inner-card featured-card" style="border-radius: 14px; border: 2px solid #f97316; box-shadow: 0 0 24px rgba(249,115,22,0.3); overflow: hidden; cursor: pointer; position: relative; aspect-ratio: 16/9; width: 100%; background: #1a0a00;">
           <img src="/backgroundTarucas.png" alt="Tarucas" class="card-img" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.5s ease;" />
-          <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.75) 100%); pointer-events: none; z-index: 1;"></div>
-
-          <!-- Featured badge -->
-          <div style="position: absolute; top: 0.75rem; left: 0.875rem; z-index: 2;">
-            <span style="font-size: 0.5625rem; font-weight: 700; letter-spacing: 0.08em; color: white; background: #f97316; border-radius: 9999px; padding: 0.2rem 0.55rem;">★ Tarucas</span>
-          </div>
-
+          <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.97) 100%); pointer-events: none; z-index: 1;"></div>
           <!-- League logo -->
           <div style="position: absolute; top: 0.75rem; right: 0.875rem; z-index: 2;">
             <img src="${event.strLeagueBadge}" alt="${event.strLeague}" width="44" height="44" style="object-fit: contain;" />
           </div>
-
-          <!-- Teams -->
-          <div style="position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 0.25rem; padding: 0 0.75rem; height: 100%;">
-            <div style="display: flex; align-items: center; justify-content: center; flex: 1; min-width: 0;">
-              <img src="${event.strHomeTeamBadge}" alt="${event.strHomeTeam}" width="96" height="96" style="object-fit: contain; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.8));" />
-            </div>
-            <div style="text-align: center; flex-shrink: 0; padding: 0 0.5rem;">
-              <div style="font-size: 1.375rem; font-weight: 900; color: white; line-height: 1;">vs</div>
-              <div style="font-size: 0.75rem; font-weight: 700; color: #f97316; margin-top: 0.25rem;">${time}</div>
-              <div style="font-size: 0.5625rem; color: rgba(255,255,255,0.5); margin-top: 0.1rem;">${date}</div>
-            </div>
-            <div style="display: flex; align-items: center; justify-content: center; flex: 1; min-width: 0;">
-              <img src="${event.strAwayTeamBadge}" alt="${event.strAwayTeam}" width="96" height="96" style="object-fit: contain; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.8));" />
-            </div>
+          <!-- Team badges centred vertically (above footer) -->
+          <div style="position: absolute; inset: 0; bottom: 2.5rem; z-index: 2; display: flex; align-items: center; justify-content: space-around; padding: 0 1.5rem;">
+            <img src="${event.strHomeTeamBadge}" alt="${event.strHomeTeam}" width="120" height="120" style="object-fit: contain; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.8));" />
+            <img src="${event.strAwayTeamBadge}" alt="${event.strAwayTeam}" width="120" height="120" style="object-fit: contain; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.8));" />
           </div>
+          ${footerBar(`${event.strEvent} - ESPN 2/ESPN 3`, time, date, '#f97316')}
         </div>
       </div>`;
   }
@@ -401,26 +406,17 @@ const tagColors: Record<string, string> = {
     return `
       <div class="mobile-card match-mobile-card" style="flex: 0 0 85vw; max-width: 400px; border-radius: 12px; border: 2px solid #f97316; box-shadow: 0 0 20px rgba(249,115,22,0.25); overflow: hidden; cursor: pointer; scroll-snap-align: start; position: relative; aspect-ratio: 16/9; box-sizing: border-box; background: #1a0a00;">
         <img src="/backgroundTarucas.png" alt="Tarucas" class="card-img" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.5s ease;" />
-        <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.75) 100%); pointer-events: none; z-index: 1;"></div>
-        <div style="position: absolute; top: 0.6rem; left: 0.75rem; z-index: 2;">
-          <span style="font-size: 0.5rem; font-weight: 700; letter-spacing: 0.08em; color: white; background: #f97316; border-radius: 9999px; padding: 0.18rem 0.5rem;">★ Tarucas</span>
-        </div>
+        <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.97) 100%); pointer-events: none; z-index: 1;"></div>
+        <!-- League logo -->
         <div style="position: absolute; top: 0.6rem; right: 0.75rem; z-index: 2;">
           <img src="${event.strLeagueBadge}" alt="${event.strLeague}" width="36" height="36" style="object-fit: contain;" />
         </div>
-        <div style="position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 0.25rem; padding: 0 0.75rem; height: 100%;">
-          <div style="display: flex; align-items: center; justify-content: center; flex: 1; min-width: 0;">
-            <img src="${event.strHomeTeamBadge}" alt="${event.strHomeTeam}" width="72" height="72" style="object-fit: contain; filter: drop-shadow(0 3px 8px rgba(0,0,0,0.8));" />
-          </div>
-          <div style="text-align: center; flex-shrink: 0; padding: 0 0.35rem;">
-            <div style="font-size: 1.125rem; font-weight: 900; color: white; line-height: 1;">vs</div>
-            <div style="font-size: 0.6875rem; font-weight: 700; color: #f97316; margin-top: 0.15rem;">${time}</div>
-            <div style="font-size: 0.5rem; color: rgba(255,255,255,0.5); margin-top: 0.1rem;">${date}</div>
-          </div>
-          <div style="display: flex; align-items: center; justify-content: center; flex: 1; min-width: 0;">
-            <img src="${event.strAwayTeamBadge}" alt="${event.strAwayTeam}" width="72" height="72" style="object-fit: contain; filter: drop-shadow(0 3px 8px rgba(0,0,0,0.8));" />
-          </div>
+        <!-- Team badges -->
+        <div style="position: absolute; inset: 0; bottom: 2.25rem; z-index: 2; display: flex; align-items: center; justify-content: space-around; padding: 0 1.25rem;">
+          <img src="${event.strHomeTeamBadge}" alt="${event.strHomeTeam}" width="88" height="88" style="object-fit: contain; filter: drop-shadow(0 3px 8px rgba(0,0,0,0.8));" />
+          <img src="${event.strAwayTeamBadge}" alt="${event.strAwayTeam}" width="88" height="88" style="object-fit: contain; filter: drop-shadow(0 3px 8px rgba(0,0,0,0.8));" />
         </div>
+        ${footerBar(`${event.strEvent} - ESPN 2/ESPN 3`, time, date, '#f97316', true)}
       </div>`;
   }
 
@@ -432,26 +428,11 @@ const tagColors: Record<string, string> = {
       <div class="slider-card" style="flex: 0 0 33.333%; padding: 0 0.5rem; box-sizing: border-box;">
         <div class="match-inner-card featured-card f1-card" style="border-radius: 14px; border: 2px solid #ef4444; box-shadow: 0 0 24px rgba(239,68,68,0.3); overflow: hidden; cursor: pointer; position: relative; aspect-ratio: 16/9; width: 100%; background: #1a0000;">
           ${thumb ? `<img src="${thumb}" alt="${event.strEvent}" class="card-img" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.5s ease;" loading="lazy" />` : ''}
-          <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.8) 100%); pointer-events: none; z-index: 1;"></div>
-
-          <!-- F1 badge -->
-          <div style="position: absolute; top: 0.75rem; left: 0.875rem; z-index: 2;">
-            <span style="font-size: 0.5625rem; font-weight: 700; letter-spacing: 0.08em; color: white; background: #ef4444; border-radius: 9999px; padding: 0.2rem 0.55rem;">★ Fórmula 1</span>
-          </div>
-
-          <!-- League logo -->
-          <div style="position: absolute; top: 0.75rem; right: 0.875rem; z-index: 2;">
+          <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 45%, rgba(0,0,0,0.97) 100%); pointer-events: none; z-index: 1;"></div>
+          <div style="position: absolute; top: 0.625rem; right: 0.875rem; z-index: 2;">
             <img src="${event.strLeagueBadge}" alt="${event.strLeague}" width="44" height="44" style="object-fit: contain;" />
           </div>
-
-          <!-- Race info -->
-          <div style="position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 1rem 1.25rem;">
-            <div style="font-size: 1rem; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 0.35rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${event.strEvent}</div>
-            <div style="display: flex; align-items: center; gap: 0.75rem;">
-              <span style="font-size: 0.75rem; font-weight: 700; color: #ef4444;">${time}</span>
-              <span style="font-size: 0.625rem; color: rgba(255,255,255,0.5);">${date}</span>
-            </div>
-          </div>
+          ${footerBar(`${event.strEvent} - Fox Sports`, time, date, '#ef4444')}
         </div>
       </div>`;
   }
@@ -463,48 +444,37 @@ const tagColors: Record<string, string> = {
     return `
       <div class="mobile-card match-mobile-card" style="flex: 0 0 85vw; max-width: 400px; border-radius: 12px; border: 2px solid #ef4444; box-shadow: 0 0 20px rgba(239,68,68,0.25); overflow: hidden; cursor: pointer; scroll-snap-align: start; position: relative; aspect-ratio: 16/9; box-sizing: border-box; background: #1a0000;">
         ${thumb ? `<img src="${thumb}" alt="${event.strEvent}" class="card-img" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.5s ease;" loading="lazy" />` : ''}
-        <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.8) 100%); pointer-events: none; z-index: 1;"></div>
-        <div style="position: absolute; top: 0.6rem; left: 0.75rem; z-index: 2;">
-          <span style="font-size: 0.5rem; font-weight: 700; letter-spacing: 0.08em; color: white; background: #ef4444; border-radius: 9999px; padding: 0.18rem 0.5rem;">★ Fórmula 1</span>
-        </div>
-        <div style="position: absolute; top: 0.6rem; right: 0.75rem; z-index: 2;">
+        <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 45%, rgba(0,0,0,0.97) 100%); pointer-events: none; z-index: 1;"></div>
+        <div style="position: absolute; top: 0.55rem; right: 0.75rem; z-index: 2;">
           <img src="${event.strLeagueBadge}" alt="${event.strLeague}" width="36" height="36" style="object-fit: contain;" />
         </div>
-        <div style="position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 0.75rem 0.875rem;">
-          <div style="font-size: 0.8125rem; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 0.25rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${event.strEvent}</div>
-          <div style="display: flex; align-items: center; gap: 0.5rem;">
-            <span style="font-size: 0.625rem; font-weight: 700; color: #ef4444;">${time}</span>
-            <span style="font-size: 0.5625rem; color: rgba(255,255,255,0.5);">${date}</span>
-          </div>
-        </div>
+        ${footerBar(`${event.strEvent} - Fox Sports`, time, date, '#ef4444', true)}
       </div>`;
   }
 
   function buildDesktopCard(event: SportsEvent): string {
     const tag = getMatchTag(event);
+    const date = event.dateEvent ? formatEventDate(event.dateEvent) : '';
     const thumb = event.strThumb || '';
-
     return `
       <div class="slider-card" style="flex: 0 0 33.333%; padding: 0 0.5rem; box-sizing: border-box;">
         <div class="match-inner-card" style="background: linear-gradient(135deg, #0f2744 0%, #1e3a5f 100%); border-radius: 14px; border: 1px solid var(--color-pill-bg); overflow: hidden; cursor: pointer; position: relative; aspect-ratio: 16/9; width: 100%;">
           ${thumb ? `<img src="${thumb}" alt="${event.strEvent}" class="card-img" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.5s ease;" loading="lazy" />` : ''}
-          <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.5) 100%); pointer-events: none; z-index: 1;"></div>
-          <div style="position: absolute; top: 1rem; left: 1.25rem; font-size: 0.625rem; font-weight: 700; letter-spacing: 0.1em; color: white; background: ${tag.color}; border-radius: 9999px; padding: 0.25rem 0.6rem; z-index: 2;">
-            ${tag.label}
-          </div>
+          <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 45%, rgba(0,0,0,0.97) 100%); pointer-events: none; z-index: 1;"></div>
+          ${footerBar(event.strEvent, tag.label, date, tag.color)}
         </div>
       </div>`;
   }
 
   function buildMobileCard(event: SportsEvent): string {
     const tag = getMatchTag(event);
+    const date = event.dateEvent ? formatEventDate(event.dateEvent) : '';
     const thumb = event.strThumb || '';
-
     return `
       <div class="mobile-card match-mobile-card" style="flex: 0 0 85vw; max-width: 400px; border-radius: 12px; background: linear-gradient(135deg, #0f2744 0%, #1e3a5f 100%); border: 1px solid var(--color-pill-bg); overflow: hidden; cursor: pointer; scroll-snap-align: start; position: relative; aspect-ratio: 16/9; box-sizing: border-box;">
         ${thumb ? `<img src="${thumb}" alt="${event.strEvent}" class="card-img" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.5s ease;" loading="lazy" />` : ''}
-        <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.5) 100%); pointer-events: none; z-index: 1;"></div>
-        <div style="position: absolute; top: 0.6rem; left: 0.875rem; font-size: 0.5625rem; font-weight: 700; letter-spacing: 0.1em; color: white; background: ${tag.color}; border-radius: 9999px; padding: 0.2rem 0.5rem; z-index: 2;">${tag.label}</div>
+        <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 45%, rgba(0,0,0,0.97) 100%); pointer-events: none; z-index: 1;"></div>
+        ${footerBar(event.strEvent, tag.label, date, tag.color, true)}
       </div>`;
   }
 
@@ -547,12 +517,25 @@ const tagColors: Record<string, string> = {
         .map((r) => (r.status === 'fulfilled' ? r.value : null))
         .filter(Boolean);
 
+      const teamFilters: Record<string, string[]> = {
+        '4328': ['Chelsea', 'Arsenal', 'Manchester', 'Liverpool', 'Tottenham', 'Aston'],
+        '4335': ['Madrid', 'Barcelona'],
+        '4322': ['Milan', 'Inter', 'Roma', 'Atalanta', 'Juventus'],
+        '4331': ['Dortmund', 'Bayern'],
+      };
+
       const dailyEvents: SportsEvent[] = jsons
         .flatMap((data) => data.events ?? [])
         .filter((e: SportsEvent) => {
+          // Date filter: only today in UTC-3
           const utcMs = new Date(e.strTimestamp + 'Z').getTime();
           const utc3DateStr = new Date(utcMs - 3 * 60 * 60 * 1000).toISOString().split('T')[0];
-          return utc3DateStr === todayUTC3;
+          if (utc3DateStr !== todayUTC3) return false;
+          // Team filter per league
+          const allowed = teamFilters[e.idLeague];
+          if (!allowed) return true;
+          const teams = `${e.strHomeTeam} ${e.strAwayTeam}`;
+          return allowed.some((name) => teams.includes(name));
         })
         .sort((a: SportsEvent, b: SportsEvent) => a.strTimestamp.localeCompare(b.strTimestamp));
 
