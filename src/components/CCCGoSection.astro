@@ -353,6 +353,15 @@ const tagColors: Record<string, string> = {
     return { label: time || 'HOY', color: '#f97316' };
   }
 
+  function isWithin3Days(dateStr: string): boolean {
+    if (!dateStr) return false;
+    const nowUTC3 = new Date(Date.now() - 3 * 60 * 60 * 1000);
+    const todayStart = new Date(nowUTC3.toISOString().split('T')[0] + 'T00:00:00');
+    const eventDate = new Date(dateStr + 'T00:00:00');
+    const diffDays = (eventDate.getTime() - todayStart.getTime()) / (1000 * 60 * 60 * 24);
+    return diffDays >= 0 && diffDays <= 3;
+  }
+
   function formatEventDate(dateStr: string): string {
     const months = ['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
     const [, m, d] = dateStr.split('-').map(Number);
@@ -549,14 +558,14 @@ const tagColors: Record<string, string> = {
       // Build full list: Tarucas featured card first, then daily events
       const allCards: { desktop: string; mobile: string }[] = [];
 
-      if (tarucasEvent) {
+      if (tarucasEvent && isWithin3Days(tarucasEvent.dateEvent)) {
         allCards.push({
           desktop: buildFeaturedDesktopCard(tarucasEvent),
           mobile: buildFeaturedMobileCard(tarucasEvent),
         });
       }
 
-      if (f1Event) {
+      if (f1Event && isWithin3Days(f1Event.dateEvent)) {
         allCards.push({
           desktop: buildF1DesktopCard(f1Event),
           mobile: buildF1MobileCard(f1Event),
