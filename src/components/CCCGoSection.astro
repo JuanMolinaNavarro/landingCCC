@@ -562,7 +562,7 @@ const categories = [
 
     try {
       const data: OnDemandItem[] = await fetch(
-        "http://192.168.100.130:3000/api/on-demand",
+        `${import.meta.env.PUBLIC_API_ON_DEMAND_URL}/api/on-demand`,
       ).then((r) => r.json());
 
       track.innerHTML = "";
@@ -785,7 +785,7 @@ const categories = [
     if (!track || !deportesWrapper) return;
 
     try {
-      const res = await fetch("http://10.0.112.94:3000/api/sports");
+      const res = await fetch(`${import.meta.env.PUBLIC_API_SPORTS_URL}/api/sports`);
       if (!res.ok) throw new Error("Network response was not ok");
       const data = await res.json();
 
