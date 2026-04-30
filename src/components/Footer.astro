@@ -2,130 +2,221 @@
 const year = new Date().getFullYear();
 ---
 
-<footer style="background: var(--color-bg); border-top: 1px solid var(--color-border);">
-  <div style="max-width: 1200px; margin: 0 auto; padding: 4rem 1.5rem 2rem;">
-    <!-- Top grid -->
-    <div
-      style="display: grid; grid-template-columns: 2fr repeat(3, 1fr); gap: 3rem; margin-bottom: 3rem;"
-      class="footer-grid"
-    >
-      <!-- Brand column -->
-      <div>
-        <img src="/logo.png" alt="CCC" class="logo-dark" style="height: 26px; width: auto; margin-bottom: 1rem;" />
-        <img src="/logoBlue.png" alt="CCC" class="logo-light" style="height: 26px; width: auto; margin-bottom: 1rem;" />
-        <p style="font-size: 0.875rem; color: var(--color-foreground-alt); line-height: 1.65; max-width: 260px; margin: 0 0 1.5rem;">
-          Conectando comunidades con internet rápido y confiable, cable TV y telefonía fija.
-        </p>
-        <!-- Social icons -->
-        <div style="display: flex; gap: 0.75rem;">
-          {[
-            { label: 'Twitter/X', path: 'M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L2.378 2.25h6.955l4.266 5.632 4.645-5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z' },
-            { label: 'Facebook', path: 'M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z' },
-            { label: 'LinkedIn', path: 'M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z M4 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z' },
-          ].map((s) => (
-            <a
-              href="#"
-              aria-label={s.label}
-              style="width: 34px; height: 34px; border: 1px solid var(--color-border); border-radius: 9999px; display: flex; align-items: center; justify-content: center; transition: border-color 0.2s;"
-              class="social-icon"
+<footer
+    style="background: var(--color-bg); border-top: 1px solid var(--color-border);"
+>
+    <div style="max-width: 1200px; margin: 0 auto; padding: 4rem 1.5rem 2rem;">
+        <!-- Top grid -->
+        <div
+            style="display: grid; grid-template-columns: 2fr repeat(3, 1fr); gap: 3rem; margin-bottom: 3rem;"
+            class="footer-grid"
+        >
+            <!-- Brand column -->
+            <div>
+                <img
+                    src="/logo.png"
+                    alt="CCC"
+                    class="logo-dark"
+                    style="height: 26px; width: auto; margin-bottom: 1rem;"
+                />
+                <img
+                    src="/logoBlue.png"
+                    alt="CCC"
+                    class="logo-light"
+                    style="height: 26px; width: auto; margin-bottom: 1rem;"
+                />
+                <p
+                    style="font-size: 0.875rem; color: var(--color-foreground-alt); line-height: 1.65; max-width: 260px; margin: 0 0 1.5rem;"
+                >
+                    Conectando a Tucumán con internet rápido y TV por cable
+                    desde hace más de 30 años.
+                </p>
+                <!-- Social icons -->
+                <div style="display: flex; gap: 0.75rem;">
+                    <a
+                        href="https://www.instagram.com/ccc_cabletucuman/"
+                        aria-label="Instagram"
+                        style="width: 34px; height: 34px; border: 1px solid var(--color-border); border-radius: 9999px; display: flex; align-items: center; justify-content: center; transition: border-color 0.2s;"
+                        class="social-icon"
+                    >
+                        <svg
+                            width="15"
+                            height="15"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="var(--color-muted)"
+                            stroke-width="1.75"
+                        >
+                            <rect
+                                x="2"
+                                y="2"
+                                width="20"
+                                height="20"
+                                rx="5"
+                                ry="5"></rect>
+                            <path
+                                d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"
+                            ></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <a
+                        href="https://www.facebook.com/ccc.cabletucuman/"
+                        aria-label="Facebook"
+                        style="width: 34px; height: 34px; border: 1px solid var(--color-border); border-radius: 9999px; display: flex; align-items: center; justify-content: center; transition: border-color 0.2s;"
+                        class="social-icon"
+                    >
+                        <svg
+                            width="15"
+                            height="15"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="var(--color-muted)"
+                            stroke-width="1.75"
+                        >
+                            <path
+                                d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+                            ></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Services column -->
+            <div>
+                <h4
+                    style="font-size: 0.8125rem; font-weight: 600; color: var(--color-foreground); letter-spacing: 0.06em; text-transform: uppercase; margin: 0 0 1.1rem;"
+                >
+                    Servicios
+                </h4>
+                <ul
+                    style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.65rem;"
+                >
+                    {
+                        [
+                            "Internet de Alta Velocidad",
+                            "Cable TV",
+                            "Telefonía Fija",
+                            "Soluciones Empresariales",
+                            "Combos",
+                        ].map((item) => (
+                            <li>
+                                <a href="#" class="footer-link">
+                                    {item}
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+
+            <!-- Company column -->
+            <div>
+                <h4
+                    style="font-size: 0.8125rem; font-weight: 600; color: var(--color-foreground); letter-spacing: 0.06em; text-transform: uppercase; margin: 0 0 1.1rem;"
+                >
+                    Empresa
+                </h4>
+                <ul
+                    style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.65rem;"
+                >
+                    {
+                        [
+                            "Sobre CCC",
+                            "Trabajá con nosotros",
+                            "Prensa",
+                            "Inversores",
+                            "Comunidad",
+                        ].map((item) => (
+                            <li>
+                                <a href="#" class="footer-link">
+                                    {item}
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+
+            <!-- Support column -->
+            <div>
+                <h4
+                    style="font-size: 0.8125rem; font-weight: 600; color: var(--color-foreground); letter-spacing: 0.06em; text-transform: uppercase; margin: 0 0 1.1rem;"
+                >
+                    Soporte
+                </h4>
+                <ul
+                    style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.65rem;"
+                >
+                    {
+                        ["Centro de ayuda"].map((item) => (
+                            <li>
+                                <a href="#contact" class="footer-link">
+                                    {item}
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+                <!-- Phone -->
+            </div>
+        </div>
+
+        <!-- Bottom bar -->
+        <div
+            style="padding-top: 2rem; border-top: 1px solid var(--color-surface2); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;"
+        >
+            <p
+                style="font-size: 0.8125rem; color: var(--color-foreground-alt); margin: 0;"
             >
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-muted)" stroke-width="1.75">
-                <path d={s.path}/>
-              </svg>
-            </a>
-          ))}
+                © {year} Compañia de Circuitos Cerrados. Todos los derechos reservados.
+            </p>
+            <div style="display: flex; gap: 1.5rem;">
+                {
+                    [
+                        "Política de privacidad",
+                        "Términos de servicio",
+                        "Accesibilidad",
+                    ].map((item) => (
+                        <a
+                            href="#"
+                            class="footer-link"
+                            style="font-size: 0.8125rem;"
+                        >
+                            {item}
+                        </a>
+                    ))
+                }
+            </div>
         </div>
-      </div>
-
-      <!-- Services column -->
-      <div>
-        <h4 style="font-size: 0.8125rem; font-weight: 600; color: var(--color-foreground); letter-spacing: 0.06em; text-transform: uppercase; margin: 0 0 1.1rem;">
-          Servicios
-        </h4>
-        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.65rem;">
-          {['Internet de Alta Velocidad', 'Cable TV', 'Telefonía Fija', 'Soluciones Empresariales', 'Combos'].map((item) => (
-            <li>
-              <a href="#" class="footer-link">{item}</a>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <!-- Company column -->
-      <div>
-        <h4 style="font-size: 0.8125rem; font-weight: 600; color: var(--color-foreground); letter-spacing: 0.06em; text-transform: uppercase; margin: 0 0 1.1rem;">
-          Empresa
-        </h4>
-        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.65rem;">
-          {['Sobre CCC', 'Trabajá con nosotros', 'Prensa', 'Inversores', 'Comunidad'].map((item) => (
-            <li>
-              <a href="#" class="footer-link">{item}</a>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <!-- Support column -->
-      <div>
-        <h4 style="font-size: 0.8125rem; font-weight: 600; color: var(--color-foreground); letter-spacing: 0.06em; text-transform: uppercase; margin: 0 0 1.1rem;">
-          Soporte
-        </h4>
-        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.65rem;">
-          {['Centro de ayuda', 'Contactanos', 'Consultar cortes', 'Mapa de cobertura', 'Acceso a mi cuenta'].map((item) => (
-            <li>
-              <a href="#" class="footer-link">{item}</a>
-            </li>
-          ))}
-        </ul>
-        <!-- Phone -->
-        <div style="margin-top: 1.25rem; padding: 0.75rem 1rem; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 8px;">
-          <div style="font-size: 0.75rem; color: var(--color-foreground-alt); margin-bottom: 0.2rem;">Línea 24/7</div>
-          <a href="tel:1-800-CCC-FAST" style="font-size: 0.9375rem; font-weight: 600; color: var(--color-accent); text-decoration: none;">1-800-CCC-FAST</a>
-        </div>
-      </div>
     </div>
-
-    <!-- Bottom bar -->
-    <div
-      style="padding-top: 2rem; border-top: 1px solid var(--color-surface2); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;"
-    >
-      <p style="font-size: 0.8125rem; color: var(--color-foreground-alt); margin: 0;">
-        © {year} CCC Communications. Todos los derechos reservados.
-      </p>
-      <div style="display: flex; gap: 1.5rem;">
-        {['Política de privacidad', 'Términos de servicio', 'Accesibilidad'].map((item) => (
-          <a href="#" class="footer-link" style="font-size: 0.8125rem;">{item}</a>
-        ))}
-      </div>
-    </div>
-  </div>
 </footer>
 
 <style>
-  .footer-link {
-    font-size: 0.875rem;
-    color: var(--color-foreground-alt);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .footer-link:hover {
-    color: var(--color-foreground);
-  }
-  .social-icon:hover {
-    border-color: var(--color-accent) !important;
-  }
-  .social-icon:hover svg {
-    stroke: var(--color-accent-light);
-  }
+    .footer-link {
+        font-size: 0.875rem;
+        color: var(--color-foreground-alt);
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+    .footer-link:hover {
+        color: var(--color-foreground);
+    }
+    .social-icon:hover {
+        border-color: var(--color-accent) !important;
+    }
+    .social-icon:hover svg {
+        stroke: var(--color-accent-light);
+    }
 
-  @media (max-width: 900px) {
-    .footer-grid {
-      grid-template-columns: 1fr 1fr !important;
+    @media (max-width: 900px) {
+        .footer-grid {
+            grid-template-columns: 1fr 1fr !important;
+        }
     }
-  }
-  @media (max-width: 560px) {
-    .footer-grid {
-      grid-template-columns: 1fr !important;
+    @media (max-width: 560px) {
+        .footer-grid {
+            grid-template-columns: 1fr !important;
+        }
     }
-  }
 </style>

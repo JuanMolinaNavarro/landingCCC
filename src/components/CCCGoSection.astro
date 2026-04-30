@@ -526,7 +526,6 @@ const categories = [
                 ? `<img src="${item.logo}" alt="${item.title}" decoding="async" loading="${eager ? "eager" : "lazy"}" style="max-height: 52px; max-width: 160px; object-fit: contain; filter: drop-shadow(0 2px 10px rgba(0,0,0,0.9)); opacity: 0; transition: opacity 0.5s ease;" onload="this.style.opacity='1'" />`
                 : `<div style="font-size: 0.9375rem; font-weight: 800; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.title}</div>`
             }
-            <span style="font-size: 0.6875rem; color: rgba(255,255,255,0.5); flex-shrink: 0; padding-bottom: 0.1rem;">${item.year}</span>
           </div>
         </div>
       </div>`;
@@ -545,7 +544,6 @@ const categories = [
               ? `<img src="${item.logo}" alt="${item.title}" decoding="async" loading="${eager ? "eager" : "lazy"}" style="max-height: 36px; max-width: 120px; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.9)); opacity: 0; transition: opacity 0.5s ease;" onload="this.style.opacity='1'" />`
               : `<div style="font-size: 0.875rem; font-weight: 800; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.title}</div>`
           }
-          <span style="font-size: 0.625rem; color: rgba(255,255,255,0.5); flex-shrink: 0; padding-bottom: 0.05rem;">${item.year}</span>
         </div>
       </div>`;
   }
@@ -789,8 +787,16 @@ const categories = [
       if (!res.ok) throw new Error("Network response was not ok");
       const data = await res.json();
 
-      const featuredEvents: SportsEvent[] = data.featured || [];
-      const dailyEvents: SportsEvent[] = data.events || [];
+      const MONTHS: Record<string, number> = { ENE:1,FEB:2,MAR:3,ABR:4,MAY:5,JUN:6,JUL:7,AGO:8,SEP:9,OCT:10,NOV:11,DIC:12 };
+      const sortKey = (e: SportsEvent) => {
+        const [day, mon] = e.dateFormatted.split(" ");
+        const [hh, mm] = e.timeLocal.split(":");
+        return (MONTHS[mon] ?? 0) * 1e6 + Number(day) * 1e4 + Number(hh) * 100 + Number(mm);
+      };
+      const allEvents: SportsEvent[] = [
+        ...(data.featured || []),
+        ...(data.events || []),
+      ].sort((a: SportsEvent, b: SportsEvent) => sortKey(a) - sortKey(b));
 
       track.innerHTML = "";
       if (mobileTrack) mobileTrack.innerHTML = "";
@@ -798,18 +804,12 @@ const categories = [
 
       const allCards: { desktop: string; mobile: string }[] = [];
 
-      featuredEvents.forEach((event) => {
-        allCards.push({
-          desktop: buildFeaturedDesktopCard(event),
-          mobile: buildFeaturedMobileCard(event),
-        });
-      });
-
-      dailyEvents.forEach((event) => {
-        allCards.push({
-          desktop: buildDesktopCard(event),
-          mobile: buildMobileCard(event),
-        });
+      allEvents.forEach((event) => {
+        allCards.push(
+          event.type
+            ? { desktop: buildFeaturedDesktopCard(event), mobile: buildFeaturedMobileCard(event) }
+            : { desktop: buildDesktopCard(event), mobile: buildMobileCard(event) },
+        );
       });
 
       if (allCards.length === 0) {

@@ -1,31 +1,30 @@
 ---
 const stats = [
-  { value: '99.9%', label: 'Disponibilidad de red' },
-  { value: '10 Gbps', label: 'Velocidad máxima' },
-  { value: '500K+', label: 'Clientes atendidos' },
-  { value: '24/7', label: 'Soporte experto' },
+    { value: "99.9%", label: "Disponibilidad de red" },
+    { value: "100 Mbps", label: "Velocidad máxima" },
+    { value: "7 días", label: "de la semana de soporte" },
 ];
 ---
 
 <section
-  style="padding: 5rem 1.5rem; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); background: var(--color-surface);"
+    style="padding: 5rem 1.5rem; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); background: var(--color-surface);"
 >
-  <div style="max-width: 1200px; margin: 0 auto;">
-    <div
-      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 2.5rem; text-align: center;"
-    >
-      {stats.map((stat) => (
-        <div>
-          <div
-            style="font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 800; color: var(--color-accent); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 0.5rem;"
-          >
-            {stat.value}
-          </div>
-          <div style="font-size: 0.875rem; color: var(--color-muted); font-weight: 500;">
-            {stat.label}
-          </div>
+    <div style="max-width: 1200px; margin: 0 auto;">
+        <div
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 2.5rem; text-align: center;"
+        >
+            {
+                stats.map((stat) => (
+                    <div>
+                        <div style="font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 800; color: var(--color-accent); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 0.5rem;">
+                            {stat.value}
+                        </div>
+                        <div style="font-size: 0.875rem; color: var(--color-muted); font-weight: 500;">
+                            {stat.label}
+                        </div>
+                    </div>
+                ))
+            }
         </div>
-      ))}
     </div>
-  </div>
 </section>
