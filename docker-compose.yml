@@ -1,0 +1,10 @@
+services:
+  web:
+    build:
+      context: .
+      args:
+        PUBLIC_API_ON_DEMAND_URL: ${PUBLIC_API_ON_DEMAND_URL}
+        PUBLIC_API_SPORTS_URL: ${PUBLIC_API_SPORTS_URL}
+    ports:
+      - "4321:80"
+    restart: unless-stopped
