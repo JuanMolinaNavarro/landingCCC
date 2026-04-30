@@ -1,7 +1,7 @@
 ---
 const categories = [
-  { id: "deportes", label: "Deportes" },
-  { id: "peliculas", label: "On Demand" },
+    { id: "deportes", label: "Deportes" },
+    { id: "peliculas", label: "On Demand" },
 ];
 ---
 
@@ -11,508 +11,526 @@ const categories = [
 <link rel="preconnect" href="https://www.thesportsdb.com" crossorigin />
 
 <section
-  id="ccc-go"
-  style="padding: 5rem 0; background: var(--color-bg); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); overflow: hidden;"
+    id="ccc-go"
+    style="padding: 5rem 0; background: var(--color-bg); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); overflow: hidden;"
 >
-  <div style="max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;">
-    <!-- Header -->
-    <div
-      style="display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 2.5rem;"
-    >
-      <div>
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;">
+        <!-- Header -->
         <div
-          style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;"
+            style="display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 2.5rem;"
         >
-          <span
-            style="font-size: 1.5rem; font-weight: 900; color: var(--color-foreground); letter-spacing: -0.04em;"
-            >CCC</span
-          >
-          <span
-            style="font-size: 1.5rem; font-weight: 900; background: linear-gradient(135deg, var(--color-accent-light), #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: -0.04em;"
-            >Go</span
-          >
-          <span
-            style="font-size: 0.6875rem; font-weight: 700; color: var(--color-accent); background: var(--color-accent-subtle); border: 1px solid var(--color-accent); border-radius: 9999px; padding: 0.2rem 0.6rem; letter-spacing: 0.08em;"
-            >STREAMING</span
-          >
+            <div>
+                <div
+                    style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;"
+                >
+                    <img
+                        src="/logo.png"
+                        alt="CCC"
+                        class="logo-dark"
+                        style="height: 22px; width: auto;"
+                    />
+                    <img
+                        src="/logoBlue.png"
+                        alt="CCC"
+                        class="logo-light"
+                        style="height: 22px; width: auto;"
+                    />
+                    <span
+                        style="font-size: 1.5rem; font-weight: 900; background: linear-gradient(135deg, var(--color-accent-light), #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: -0.04em;"
+                        >Go</span
+                    >
+                    <span
+                        style="font-size: 0.6875rem; font-weight: 700; color: var(--color-accent); background: var(--color-accent-subtle); border: 1px solid var(--color-accent); border-radius: 9999px; padding: 0.2rem 0.6rem; letter-spacing: 0.08em;"
+                        >STREAMING</span
+                    >
+                </div>
+                <p
+                    style="font-size: 0.9375rem; color: var(--color-foreground-alt); margin: 0;"
+                >
+                    Deportes en vivo, series y películas incluidos en tu plan
+                </p>
+            </div>
+            <a
+                href="#"
+                style="font-size: 0.875rem; color: var(--color-accent); text-decoration: none; display: flex; align-items: center; gap: 0.4rem; white-space: nowrap;"
+                class="see-all-link"
+            >
+                Solicitar el servicio
+                <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    ><path d="M5 12h14M12 5l7 7-7 7"></path></svg
+                >
+            </a>
         </div>
-        <p
-          style="font-size: 0.9375rem; color: var(--color-foreground-alt); margin: 0;"
+
+        <!-- Category tabs -->
+        <div
+            style="display: flex; gap: 0.5rem; margin-bottom: 1.75rem;"
+            class="category-tabs"
         >
-          Deportes en vivo, series y películas incluidos en tu plan
-        </p>
-      </div>
-      <a
-        href="#"
-        style="font-size: 0.875rem; color: var(--color-accent); text-decoration: none; display: flex; align-items: center; gap: 0.4rem; white-space: nowrap;"
-        class="see-all-link"
-      >
-        Ver todo el catálogo
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg
-        >
-      </a>
+            {
+                categories.map((cat, i) => (
+                    <button
+                        class={`tab-btn ${i === 0 ? "active" : ""}`}
+                        data-category={cat.id}
+                        style="padding: 0.5rem 1.25rem; border-radius: 9999px; border: 1px solid var(--color-border); background: transparent; color: var(--color-muted); font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: all 0.2s; white-space: nowrap;"
+                    >
+                        {cat.label}
+                    </button>
+                ))
+            }
+        </div>
     </div>
 
-    <!-- Category tabs -->
-    <div
-      style="display: flex; gap: 0.5rem; margin-bottom: 1.75rem;"
-      class="category-tabs"
-    >
-      {
-        categories.map((cat, i) => (
-          <button
-            class={`tab-btn ${i === 0 ? "active" : ""}`}
-            data-category={cat.id}
-            style="padding: 0.5rem 1.25rem; border-radius: 9999px; border: 1px solid var(--color-border); background: transparent; color: var(--color-muted); font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: all 0.2s; white-space: nowrap;"
-          >
-            {cat.label}
-          </button>
-        ))
-      }
-    </div>
-  </div>
+    <!-- Deportes carousel (populated via API) -->
+    <div class="carousel-wrapper" data-carousel="deportes">
+        <!-- Desktop slider -->
+        <div class="desktop-slider" style="position: relative;">
+            <div
+                class="slider-viewport"
+                style="overflow: hidden; position: relative;"
+            >
+                <div
+                    class="slider-track"
+                    id="deportes-track"
+                    style="display: flex; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);"
+                >
+                    <!-- Skeleton loading cards -->
+                    <div
+                        class="skeleton-card"
+                        style="flex: 0 0 33.333%; padding: 0 0.5rem; box-sizing: border-box;"
+                    >
+                        <div
+                            class="skeleton-pulse"
+                            style="border-radius: 14px; background: var(--color-surface2); aspect-ratio: 16/9; border: 1px solid var(--color-border);"
+                        >
+                        </div>
+                    </div>
+                    <div
+                        class="skeleton-card"
+                        style="flex: 0 0 33.333%; padding: 0 0.5rem; box-sizing: border-box;"
+                    >
+                        <div
+                            class="skeleton-pulse"
+                            style="border-radius: 14px; background: var(--color-surface2); aspect-ratio: 16/9; border: 1px solid var(--color-border);"
+                        >
+                        </div>
+                    </div>
+                    <div
+                        class="skeleton-card"
+                        style="flex: 0 0 33.333%; padding: 0 0.5rem; box-sizing: border-box;"
+                    >
+                        <div
+                            class="skeleton-pulse"
+                            style="border-radius: 14px; background: var(--color-surface2); aspect-ratio: 16/9; border: 1px solid var(--color-border);"
+                        >
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-  <!-- Deportes carousel (populated via API) -->
-  <div class="carousel-wrapper" data-carousel="deportes">
-    <!-- Desktop slider -->
-    <div class="desktop-slider" style="position: relative;">
-      <div
-        class="slider-viewport"
-        style="overflow: hidden; position: relative;"
-      >
-        <div
-          class="slider-track"
-          id="deportes-track"
-          style="display: flex; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);"
-        >
-          <!-- Skeleton loading cards -->
-          <div
-            class="skeleton-card"
-            style="flex: 0 0 33.333%; padding: 0 0.5rem; box-sizing: border-box;"
-          >
+            <button
+                class="slider-arrow arrow-prev"
+                aria-label="Anterior"
+                style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 9999px; background: var(--color-overlay); border: 1px solid var(--color-border-light); backdrop-filter: blur(8px); color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; transition: background 0.2s;"
+            >
+                <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"><path d="M15 18l-6-6 6-6"></path></svg
+                >
+            </button>
+            <button
+                class="slider-arrow arrow-next"
+                aria-label="Siguiente"
+                style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 9999px; background: var(--color-overlay); border: 1px solid var(--color-border-light); backdrop-filter: blur(8px); color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; transition: background 0.2s;"
+            >
+                <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"><path d="M9 18l6-6-6-6"></path></svg
+                >
+            </button>
+
             <div
-              class="skeleton-pulse"
-              style="border-radius: 14px; background: var(--color-surface2); aspect-ratio: 16/9; border: 1px solid var(--color-border);"
+                class="slider-dots"
+                id="deportes-dots"
+                style="display: flex; justify-content: center; gap: 0.4rem; margin-top: 1.25rem; padding: 0 1.5rem;"
             >
             </div>
-          </div>
-          <div
-            class="skeleton-card"
-            style="flex: 0 0 33.333%; padding: 0 0.5rem; box-sizing: border-box;"
-          >
-            <div
-              class="skeleton-pulse"
-              style="border-radius: 14px; background: var(--color-surface2); aspect-ratio: 16/9; border: 1px solid var(--color-border);"
-            >
-            </div>
-          </div>
-          <div
-            class="skeleton-card"
-            style="flex: 0 0 33.333%; padding: 0 0.5rem; box-sizing: border-box;"
-          >
-            <div
-              class="skeleton-pulse"
-              style="border-radius: 14px; background: var(--color-surface2); aspect-ratio: 16/9; border: 1px solid var(--color-border);"
-            >
-            </div>
-          </div>
         </div>
-      </div>
 
-      <button
-        class="slider-arrow arrow-prev"
-        aria-label="Anterior"
-        style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 9999px; background: var(--color-overlay); border: 1px solid var(--color-border-light); backdrop-filter: blur(8px); color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; transition: background 0.2s;"
-      >
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"><path d="M15 18l-6-6 6-6"></path></svg
-        >
-      </button>
-      <button
-        class="slider-arrow arrow-next"
-        aria-label="Siguiente"
-        style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 9999px; background: var(--color-overlay); border: 1px solid var(--color-border-light); backdrop-filter: blur(8px); color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; transition: background 0.2s;"
-      >
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"><path d="M9 18l6-6-6-6"></path></svg
-        >
-      </button>
-
-      <div
-        class="slider-dots"
-        id="deportes-dots"
-        style="display: flex; justify-content: center; gap: 0.4rem; margin-top: 1.25rem; padding: 0 1.5rem;"
-      >
-      </div>
-    </div>
-
-    <!-- Mobile scroll track -->
-    <div class="mobile-track-outer" style="padding: 0 1.5rem;">
-      <div
-        class="mobile-track"
-        id="deportes-mobile-track"
-        style="display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;"
-      >
-        <!-- Skeleton -->
-        <div
-          class="skeleton-pulse"
-          style="flex: 0 0 85vw; max-width: 400px; border-radius: 12px; background: var(--color-surface2); aspect-ratio: 16/9; border: 1px solid var(--color-border);"
-        >
-        </div>
-        <div
-          class="skeleton-pulse"
-          style="flex: 0 0 85vw; max-width: 400px; border-radius: 12px; background: var(--color-surface2); aspect-ratio: 16/9; border: 1px solid var(--color-border);"
-        >
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- On Demand carousel (populated via API) -->
-  <div class="carousel-wrapper hidden" data-carousel="peliculas">
-    <!-- Desktop slider -->
-    <div class="desktop-slider" style="position: relative;">
-      <div
-        class="slider-viewport"
-        style="overflow: hidden; position: relative;"
-      >
-        <div
-          class="slider-track"
-          id="peliculas-track"
-          style="display: flex; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);"
-        >
-          <!-- Skeleton loading cards -->
-          <div
-            class="skeleton-card"
-            style="flex: 0 0 33.333%; padding: 0 0.5rem; box-sizing: border-box;"
-          >
+        <!-- Mobile scroll track -->
+        <div class="mobile-track-outer" style="padding: 0 1.5rem;">
             <div
-              class="skeleton-pulse"
-              style="border-radius: 14px; background: var(--color-surface2); aspect-ratio: 16/9; border: 1px solid var(--color-border);"
+                class="mobile-track"
+                id="deportes-mobile-track"
+                style="display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;"
             >
+                <!-- Skeleton -->
+                <div
+                    class="skeleton-pulse"
+                    style="flex: 0 0 85vw; max-width: 400px; border-radius: 12px; background: var(--color-surface2); aspect-ratio: 16/9; border: 1px solid var(--color-border);"
+                >
+                </div>
+                <div
+                    class="skeleton-pulse"
+                    style="flex: 0 0 85vw; max-width: 400px; border-radius: 12px; background: var(--color-surface2); aspect-ratio: 16/9; border: 1px solid var(--color-border);"
+                >
+                </div>
             </div>
-          </div>
-          <div
-            class="skeleton-card"
-            style="flex: 0 0 33.333%; padding: 0 0.5rem; box-sizing: border-box;"
-          >
-            <div
-              class="skeleton-pulse"
-              style="border-radius: 14px; background: var(--color-surface2); aspect-ratio: 16/9; border: 1px solid var(--color-border);"
-            >
-            </div>
-          </div>
-          <div
-            class="skeleton-card"
-            style="flex: 0 0 33.333%; padding: 0 0.5rem; box-sizing: border-box;"
-          >
-            <div
-              class="skeleton-pulse"
-              style="border-radius: 14px; background: var(--color-surface2); aspect-ratio: 16/9; border: 1px solid var(--color-border);"
-            >
-            </div>
-          </div>
         </div>
-      </div>
-
-      <button
-        class="slider-arrow arrow-prev"
-        aria-label="Anterior"
-        style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 9999px; background: var(--color-overlay); border: 1px solid var(--color-border-light); backdrop-filter: blur(8px); color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; transition: background 0.2s;"
-      >
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"><path d="M15 18l-6-6 6-6"></path></svg
-        >
-      </button>
-      <button
-        class="slider-arrow arrow-next"
-        aria-label="Siguiente"
-        style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 9999px; background: var(--color-overlay); border: 1px solid var(--color-border-light); backdrop-filter: blur(8px); color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; transition: background 0.2s;"
-      >
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"><path d="M9 18l6-6-6-6"></path></svg
-        >
-      </button>
-
-      <div
-        class="slider-dots"
-        id="peliculas-dots"
-        style="display: flex; justify-content: center; gap: 0.4rem; margin-top: 1.25rem; padding: 0 1.5rem;"
-      >
-      </div>
     </div>
 
-    <!-- Mobile scroll track -->
-    <div class="mobile-track-outer" style="padding: 0 1.5rem;">
-      <div
-        class="mobile-track"
-        id="peliculas-mobile-track"
-        style="display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;"
-      >
-        <!-- Skeleton -->
-        <div
-          class="skeleton-pulse"
-          style="flex: 0 0 85vw; max-width: 400px; border-radius: 12px; background: var(--color-surface2); aspect-ratio: 16/9; border: 1px solid var(--color-border);"
-        >
+    <!-- On Demand carousel (populated via API) -->
+    <div class="carousel-wrapper hidden" data-carousel="peliculas">
+        <!-- Desktop slider -->
+        <div class="desktop-slider" style="position: relative;">
+            <div
+                class="slider-viewport"
+                style="overflow: hidden; position: relative;"
+            >
+                <div
+                    class="slider-track"
+                    id="peliculas-track"
+                    style="display: flex; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);"
+                >
+                    <!-- Skeleton loading cards -->
+                    <div
+                        class="skeleton-card"
+                        style="flex: 0 0 33.333%; padding: 0 0.5rem; box-sizing: border-box;"
+                    >
+                        <div
+                            class="skeleton-pulse"
+                            style="border-radius: 14px; background: var(--color-surface2); aspect-ratio: 16/9; border: 1px solid var(--color-border);"
+                        >
+                        </div>
+                    </div>
+                    <div
+                        class="skeleton-card"
+                        style="flex: 0 0 33.333%; padding: 0 0.5rem; box-sizing: border-box;"
+                    >
+                        <div
+                            class="skeleton-pulse"
+                            style="border-radius: 14px; background: var(--color-surface2); aspect-ratio: 16/9; border: 1px solid var(--color-border);"
+                        >
+                        </div>
+                    </div>
+                    <div
+                        class="skeleton-card"
+                        style="flex: 0 0 33.333%; padding: 0 0.5rem; box-sizing: border-box;"
+                    >
+                        <div
+                            class="skeleton-pulse"
+                            style="border-radius: 14px; background: var(--color-surface2); aspect-ratio: 16/9; border: 1px solid var(--color-border);"
+                        >
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button
+                class="slider-arrow arrow-prev"
+                aria-label="Anterior"
+                style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 9999px; background: var(--color-overlay); border: 1px solid var(--color-border-light); backdrop-filter: blur(8px); color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; transition: background 0.2s;"
+            >
+                <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"><path d="M15 18l-6-6 6-6"></path></svg
+                >
+            </button>
+            <button
+                class="slider-arrow arrow-next"
+                aria-label="Siguiente"
+                style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 9999px; background: var(--color-overlay); border: 1px solid var(--color-border-light); backdrop-filter: blur(8px); color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; transition: background 0.2s;"
+            >
+                <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"><path d="M9 18l6-6-6-6"></path></svg
+                >
+            </button>
+
+            <div
+                class="slider-dots"
+                id="peliculas-dots"
+                style="display: flex; justify-content: center; gap: 0.4rem; margin-top: 1.25rem; padding: 0 1.5rem;"
+            >
+            </div>
         </div>
-        <div
-          class="skeleton-pulse"
-          style="flex: 0 0 85vw; max-width: 400px; border-radius: 12px; background: var(--color-surface2); aspect-ratio: 16/9; border: 1px solid var(--color-border);"
-        >
+
+        <!-- Mobile scroll track -->
+        <div class="mobile-track-outer" style="padding: 0 1.5rem;">
+            <div
+                class="mobile-track"
+                id="peliculas-mobile-track"
+                style="display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;"
+            >
+                <!-- Skeleton -->
+                <div
+                    class="skeleton-pulse"
+                    style="flex: 0 0 85vw; max-width: 400px; border-radius: 12px; background: var(--color-surface2); aspect-ratio: 16/9; border: 1px solid var(--color-border);"
+                >
+                </div>
+                <div
+                    class="skeleton-pulse"
+                    style="flex: 0 0 85vw; max-width: 400px; border-radius: 12px; background: var(--color-surface2); aspect-ratio: 16/9; border: 1px solid var(--color-border);"
+                >
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </section>
 
 <style>
-  .desktop-slider {
-    display: block;
-  }
-  .mobile-track-outer {
-    display: none;
-  }
-
-  @media (max-width: 768px) {
     .desktop-slider {
-      display: none;
+        display: block;
     }
     .mobile-track-outer {
-      display: block;
+        display: none;
     }
-  }
 
-  .mobile-track::-webkit-scrollbar {
-    height: 3px;
-  }
-  .mobile-track::-webkit-scrollbar-track {
-    background: var(--color-surface2);
-    border-radius: 9999px;
-  }
-  .mobile-track::-webkit-scrollbar-thumb {
-    background: var(--color-border);
-    border-radius: 9999px;
-  }
-
-  .inner-card:hover .play-btn {
-    opacity: 1 !important;
-  }
-  .inner-card {
-    transition: box-shadow 0.2s;
-  }
-  .inner-card:hover {
-    box-shadow: 0 20px 50px var(--color-card-shadow);
-  }
-  .inner-card:hover .card-img {
-    transform: scale(1.03);
-  }
-
-  .mobile-card {
-    transition: transform 0.2s;
-  }
-  .mobile-card:hover {
-    transform: translateY(-3px);
-  }
-  .mobile-card:hover .card-img {
-    transform: scale(1.03);
-  }
-
-  .tab-btn.active {
-    background: rgba(59, 130, 246, 0.12) !important;
-    border-color: rgba(59, 130, 246, 0.35) !important;
-    color: var(--color-accent) !important;
-  }
-  .tab-btn:hover:not(.active) {
-    border-color: var(--color-border) !important;
-    color: var(--color-foreground-alt) !important;
-  }
-  .hidden {
-    display: none !important;
-  }
-  .see-all-link:hover {
-    color: #60a5fa !important;
-  }
-
-  .dot.active {
-    background: var(--color-accent) !important;
-    width: 20px !important;
-  }
-  .dot:hover {
-    background: var(--color-foreground-alt) !important;
-  }
-
-  .slider-arrow:hover {
-    background: var(--color-accent) !important;
-    border-color: var(--color-accent) !important;
-  }
-
-  @keyframes skeleton-shimmer {
-    0% {
-      opacity: 0.5;
+    @media (max-width: 768px) {
+        .desktop-slider {
+            display: none;
+        }
+        .mobile-track-outer {
+            display: block;
+        }
     }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0.5;
-    }
-  }
-  .skeleton-pulse {
-    animation: skeleton-shimmer 1.5s ease-in-out infinite;
-  }
 
-  /* Match card styles */
-  .match-inner-card {
-    transition: box-shadow 0.2s;
-  }
-  .match-inner-card:hover {
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-  }
-  .match-inner-card:hover .card-img {
-    transform: scale(1.03);
-  }
-  .match-mobile-card {
-    transition: transform 0.2s;
-  }
-  .match-mobile-card:hover {
-    transform: translateY(-3px);
-  }
-  .featured-card:hover {
-    box-shadow: 0 0 32px var(--hover-shadow, rgba(249, 115, 22, 0.5)) !important;
-  }
+    .mobile-track::-webkit-scrollbar {
+        height: 3px;
+    }
+    .mobile-track::-webkit-scrollbar-track {
+        background: var(--color-surface2);
+        border-radius: 9999px;
+    }
+    .mobile-track::-webkit-scrollbar-thumb {
+        background: var(--color-border);
+        border-radius: 9999px;
+    }
+
+    .inner-card:hover .play-btn {
+        opacity: 1 !important;
+    }
+    .inner-card {
+        transition: box-shadow 0.2s;
+    }
+    .inner-card:hover {
+        box-shadow: 0 20px 50px var(--color-card-shadow);
+    }
+    .inner-card:hover .card-img {
+        transform: scale(1.03);
+    }
+
+    .mobile-card {
+        transition: transform 0.2s;
+    }
+    .mobile-card:hover {
+        transform: translateY(-3px);
+    }
+    .mobile-card:hover .card-img {
+        transform: scale(1.03);
+    }
+
+    .tab-btn.active {
+        background: rgba(59, 130, 246, 0.12) !important;
+        border-color: rgba(59, 130, 246, 0.35) !important;
+        color: var(--color-accent) !important;
+    }
+    .tab-btn:hover:not(.active) {
+        border-color: var(--color-border) !important;
+        color: var(--color-foreground-alt) !important;
+    }
+    .hidden {
+        display: none !important;
+    }
+    .see-all-link:hover {
+        color: #60a5fa !important;
+    }
+
+    .dot.active {
+        background: var(--color-accent) !important;
+        width: 20px !important;
+    }
+    .dot:hover {
+        background: var(--color-foreground-alt) !important;
+    }
+
+    .slider-arrow:hover {
+        background: var(--color-accent) !important;
+        border-color: var(--color-accent) !important;
+    }
+
+    @keyframes skeleton-shimmer {
+        0% {
+            opacity: 0.5;
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0.5;
+        }
+    }
+    .skeleton-pulse {
+        animation: skeleton-shimmer 1.5s ease-in-out infinite;
+    }
+
+    /* Match card styles */
+    .match-inner-card {
+        transition: box-shadow 0.2s;
+    }
+    .match-inner-card:hover {
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+    .match-inner-card:hover .card-img {
+        transform: scale(1.03);
+    }
+    .match-mobile-card {
+        transition: transform 0.2s;
+    }
+    .match-mobile-card:hover {
+        transform: translateY(-3px);
+    }
+    .featured-card:hover {
+        box-shadow: 0 0 32px var(--hover-shadow, rgba(249, 115, 22, 0.5)) !important;
+    }
 </style>
 
 <script>
-  // Tab switching
-  const tabs = document.querySelectorAll<HTMLButtonElement>(".tab-btn");
-  const wrappers = document.querySelectorAll<HTMLElement>(".carousel-wrapper");
+    // Tab switching
+    const tabs = document.querySelectorAll<HTMLButtonElement>(".tab-btn");
+    const wrappers =
+        document.querySelectorAll<HTMLElement>(".carousel-wrapper");
 
-  tabs.forEach((tab) => {
-    tab.addEventListener("click", () => {
-      const target = tab.dataset.category;
-      tabs.forEach((t) => t.classList.remove("active"));
-      tab.classList.add("active");
-      wrappers.forEach((w) => {
-        if (w.dataset.carousel === target) {
-          w.classList.remove("hidden");
-        } else {
-          w.classList.add("hidden");
+    tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+            const target = tab.dataset.category;
+            tabs.forEach((t) => t.classList.remove("active"));
+            tab.classList.add("active");
+            wrappers.forEach((w) => {
+                if (w.dataset.carousel === target) {
+                    w.classList.remove("hidden");
+                } else {
+                    w.classList.add("hidden");
+                }
+            });
+        });
+    });
+
+    // Reusable slider initializer
+    function initSlider(wrapper: HTMLElement) {
+        const track = wrapper.querySelector<HTMLElement>(".slider-track");
+        const dotsContainer =
+            wrapper.querySelector<HTMLElement>(".slider-dots");
+        const prevBtn = wrapper.querySelector<HTMLButtonElement>(".arrow-prev");
+        const nextBtn = wrapper.querySelector<HTMLButtonElement>(".arrow-next");
+        const cards = wrapper.querySelectorAll<HTMLElement>(".slider-card");
+
+        if (!track || cards.length === 0) return;
+
+        const total = cards.length;
+        const visibleCount = 3;
+        const maxIndex = Math.max(0, total - visibleCount);
+        let current = 0;
+        let timer: ReturnType<typeof setInterval>;
+
+        function getDots() {
+            return dotsContainer
+                ? dotsContainer.querySelectorAll<HTMLButtonElement>(".dot")
+                : [];
         }
-      });
-    });
-  });
 
-  // Reusable slider initializer
-  function initSlider(wrapper: HTMLElement) {
-    const track = wrapper.querySelector<HTMLElement>(".slider-track");
-    const dotsContainer = wrapper.querySelector<HTMLElement>(".slider-dots");
-    const prevBtn = wrapper.querySelector<HTMLButtonElement>(".arrow-prev");
-    const nextBtn = wrapper.querySelector<HTMLButtonElement>(".arrow-next");
-    const cards = wrapper.querySelectorAll<HTMLElement>(".slider-card");
+        function goTo(index: number) {
+            current = ((index % total) + total) % total;
+            if (current > maxIndex) current = 0;
+            const pct = (100 / visibleCount) * current;
+            track!.style.transform = `translateX(-${pct}%)`;
+            getDots().forEach((d, i) =>
+                d.classList.toggle("active", i === current),
+            );
+        }
 
-    if (!track || cards.length === 0) return;
+        function next() {
+            goTo(current + 1);
+        }
+        function prev() {
+            goTo(current - 1 < 0 ? maxIndex : current - 1);
+        }
+        function startAuto() {
+            timer = setInterval(next, 3500);
+        }
+        function stopAuto() {
+            clearInterval(timer);
+        }
 
-    const total = cards.length;
-    const visibleCount = 3;
-    const maxIndex = Math.max(0, total - visibleCount);
-    let current = 0;
-    let timer: ReturnType<typeof setInterval>;
+        nextBtn?.addEventListener("click", () => {
+            stopAuto();
+            next();
+            startAuto();
+        });
+        prevBtn?.addEventListener("click", () => {
+            stopAuto();
+            prev();
+            startAuto();
+        });
 
-    function getDots() {
-      return dotsContainer
-        ? dotsContainer.querySelectorAll<HTMLButtonElement>(".dot")
-        : [];
+        const viewport = wrapper.querySelector<HTMLElement>(".slider-viewport");
+        viewport?.addEventListener("mouseenter", stopAuto);
+        viewport?.addEventListener("mouseleave", startAuto);
+
+        // Dots are re-queried on click since they may be dynamic
+        dotsContainer?.addEventListener("click", (e) => {
+            const dot = (e.target as HTMLElement).closest<HTMLButtonElement>(
+                ".dot",
+            );
+            if (!dot) return;
+            const idx = parseInt(dot.dataset.index ?? "0", 10);
+            stopAuto();
+            goTo(idx);
+            startAuto();
+        });
+
+        startAuto();
     }
 
-    function goTo(index: number) {
-      current = ((index % total) + total) % total;
-      if (current > maxIndex) current = 0;
-      const pct = (100 / visibleCount) * current;
-      track!.style.transform = `translateX(-${pct}%)`;
-      getDots().forEach((d, i) => d.classList.toggle("active", i === current));
+    // TheSportsDB API — On Demand interface & card builders
+    interface OnDemandItem {
+        imdbID: string;
+        title: string;
+        year: string;
+        poster: string;
+        background: string;
+        logo: string;
     }
 
-    function next() {
-      goTo(current + 1);
-    }
-    function prev() {
-      goTo(current - 1 < 0 ? maxIndex : current - 1);
-    }
-    function startAuto() {
-      timer = setInterval(next, 3500);
-    }
-    function stopAuto() {
-      clearInterval(timer);
-    }
-
-    nextBtn?.addEventListener("click", () => {
-      stopAuto();
-      next();
-      startAuto();
-    });
-    prevBtn?.addEventListener("click", () => {
-      stopAuto();
-      prev();
-      startAuto();
-    });
-
-    const viewport = wrapper.querySelector<HTMLElement>(".slider-viewport");
-    viewport?.addEventListener("mouseenter", stopAuto);
-    viewport?.addEventListener("mouseleave", startAuto);
-
-    // Dots are re-queried on click since they may be dynamic
-    dotsContainer?.addEventListener("click", (e) => {
-      const dot = (e.target as HTMLElement).closest<HTMLButtonElement>(".dot");
-      if (!dot) return;
-      const idx = parseInt(dot.dataset.index ?? "0", 10);
-      stopAuto();
-      goTo(idx);
-      startAuto();
-    });
-
-    startAuto();
-  }
-
-  // TheSportsDB API — On Demand interface & card builders
-  interface OnDemandItem {
-    imdbID: string;
-    title: string;
-    year: string;
-    poster: string;
-    background: string;
-    logo: string;
-  }
-
-  function buildOnDemandDesktopCard(item: OnDemandItem, index: number): string {
-    const eager = index < 3;
-    const imgAttrs = `loading="${eager ? "eager" : "lazy"}" decoding="async"${eager ? ' fetchpriority="high"' : ""}`;
-    return `
+    function buildOnDemandDesktopCard(
+        item: OnDemandItem,
+        index: number,
+    ): string {
+        const eager = index < 3;
+        const imgAttrs = `loading="${eager ? "eager" : "lazy"}" decoding="async"${eager ? ' fetchpriority="high"' : ""}`;
+        return `
       <div class="slider-card" style="flex: 0 0 33.333%; padding: 0 0.5rem; box-sizing: border-box;">
         <div class="inner-card" style="border-radius: 14px; background: #0a0a0a; border: 1px solid var(--color-pill-bg); overflow: hidden; cursor: pointer; position: relative; aspect-ratio: 16/9; width: 100%;">
           ${item.background ? `<img src="${item.background}" alt="${item.title}" class="card-img" ${imgAttrs} style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: 0; transition: opacity 0.5s ease, transform 0.5s ease;" onload="this.style.opacity='1'" />` : ""}
@@ -522,237 +540,242 @@ const categories = [
           </div>
           <div style="position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 0.75rem 1rem; display: flex; align-items: flex-end; justify-content: space-between; gap: 0.75rem;">
             ${
-              item.logo
-                ? `<img src="${item.logo}" alt="${item.title}" decoding="async" loading="${eager ? "eager" : "lazy"}" style="max-height: 52px; max-width: 160px; object-fit: contain; filter: drop-shadow(0 2px 10px rgba(0,0,0,0.9)); opacity: 0; transition: opacity 0.5s ease;" onload="this.style.opacity='1'" />`
-                : `<div style="font-size: 0.9375rem; font-weight: 800; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.title}</div>`
+                item.logo
+                    ? `<img src="${item.logo}" alt="${item.title}" decoding="async" loading="${eager ? "eager" : "lazy"}" style="max-height: 52px; max-width: 160px; object-fit: contain; filter: drop-shadow(0 2px 10px rgba(0,0,0,0.9)); opacity: 0; transition: opacity 0.5s ease;" onload="this.style.opacity='1'" />`
+                    : `<div style="font-size: 0.9375rem; font-weight: 800; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.title}</div>`
             }
           </div>
         </div>
       </div>`;
-  }
+    }
 
-  function buildOnDemandMobileCard(item: OnDemandItem, index: number): string {
-    const eager = index < 2;
-    const imgAttrs = `loading="${eager ? "eager" : "lazy"}" decoding="async"${eager ? ' fetchpriority="high"' : ""}`;
-    return `
+    function buildOnDemandMobileCard(
+        item: OnDemandItem,
+        index: number,
+    ): string {
+        const eager = index < 2;
+        const imgAttrs = `loading="${eager ? "eager" : "lazy"}" decoding="async"${eager ? ' fetchpriority="high"' : ""}`;
+        return `
       <div class="mobile-card" style="flex: 0 0 85vw; max-width: 400px; border-radius: 12px; background: #0a0a0a; border: 1px solid var(--color-pill-bg); overflow: hidden; cursor: pointer; scroll-snap-align: start; position: relative; aspect-ratio: 16/9; box-sizing: border-box;">
         ${item.background ? `<img src="${item.background}" alt="${item.title}" class="card-img" ${imgAttrs} style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: 0; transition: opacity 0.5s ease, transform 0.5s ease;" onload="this.style.opacity='1'" />` : ""}
         <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 35%, rgba(0,0,0,0.92) 100%); pointer-events: none; z-index: 1;"></div>
         <div style="position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 0.6rem 0.875rem; display: flex; align-items: flex-end; justify-content: space-between; gap: 0.5rem;">
           ${
-            item.logo
-              ? `<img src="${item.logo}" alt="${item.title}" decoding="async" loading="${eager ? "eager" : "lazy"}" style="max-height: 36px; max-width: 120px; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.9)); opacity: 0; transition: opacity 0.5s ease;" onload="this.style.opacity='1'" />`
-              : `<div style="font-size: 0.875rem; font-weight: 800; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.title}</div>`
+              item.logo
+                  ? `<img src="${item.logo}" alt="${item.title}" decoding="async" loading="${eager ? "eager" : "lazy"}" style="max-height: 36px; max-width: 120px; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.9)); opacity: 0; transition: opacity 0.5s ease;" onload="this.style.opacity='1'" />`
+                  : `<div style="font-size: 0.875rem; font-weight: 800; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.title}</div>`
           }
         </div>
       </div>`;
-  }
+    }
 
-  async function loadOnDemand() {
-    const peliculasWrapper = document.querySelector<HTMLElement>(
-      '[data-carousel="peliculas"]',
-    );
-    const track = document.getElementById("peliculas-track");
-    const mobileTrack = document.getElementById("peliculas-mobile-track");
-    const dotsContainer = document.getElementById("peliculas-dots");
+    async function loadOnDemand() {
+        const peliculasWrapper = document.querySelector<HTMLElement>(
+            '[data-carousel="peliculas"]',
+        );
+        const track = document.getElementById("peliculas-track");
+        const mobileTrack = document.getElementById("peliculas-mobile-track");
+        const dotsContainer = document.getElementById("peliculas-dots");
 
-    if (!track || !peliculasWrapper) return;
+        if (!track || !peliculasWrapper) return;
 
-    try {
-      const data: OnDemandItem[] = await fetch(
-        `${import.meta.env.PUBLIC_API_ON_DEMAND_URL}/api/on-demand`,
-      ).then((r) => r.json());
+        try {
+            const data: OnDemandItem[] = await fetch(
+                `${import.meta.env.PUBLIC_API_ON_DEMAND_URL}/api/on-demand`,
+            ).then((r) => r.json());
 
-      track.innerHTML = "";
-      if (mobileTrack) mobileTrack.innerHTML = "";
-      if (dotsContainer) dotsContainer.innerHTML = "";
+            track.innerHTML = "";
+            if (mobileTrack) mobileTrack.innerHTML = "";
+            if (dotsContainer) dotsContainer.innerHTML = "";
 
-      if (!data || data.length === 0) {
-        track.innerHTML = `
+            if (!data || data.length === 0) {
+                track.innerHTML = `
           <div style="flex: 0 0 100%; display: flex; align-items: center; justify-content: center; aspect-ratio: 16/9; color: var(--color-muted); font-size: 0.9375rem; font-weight: 500;">
             No hay contenido disponible
           </div>`;
-        return;
-      }
+                return;
+            }
 
-      data.forEach((item, i) => {
-        track.insertAdjacentHTML(
-          "beforeend",
-          buildOnDemandDesktopCard(item, i),
-        );
-        if (mobileTrack)
-          mobileTrack.insertAdjacentHTML(
-            "beforeend",
-            buildOnDemandMobileCard(item, i),
-          );
-        if (dotsContainer) {
-          dotsContainer.insertAdjacentHTML(
-            "beforeend",
-            `
+            data.forEach((item, i) => {
+                track.insertAdjacentHTML(
+                    "beforeend",
+                    buildOnDemandDesktopCard(item, i),
+                );
+                if (mobileTrack)
+                    mobileTrack.insertAdjacentHTML(
+                        "beforeend",
+                        buildOnDemandMobileCard(item, i),
+                    );
+                if (dotsContainer) {
+                    dotsContainer.insertAdjacentHTML(
+                        "beforeend",
+                        `
             <button class="dot${i === 0 ? " active" : ""}" data-index="${i}" aria-label="Ir a slide ${i + 1}"
               style="width: 6px; height: 6px; border-radius: 9999px; border: none; background: var(--color-muted); cursor: pointer; padding: 0; transition: all 0.3s;"></button>`,
-          );
-        }
-      });
+                    );
+                }
+            });
 
-      initSlider(peliculasWrapper);
-    } catch {
-      if (track) {
-        track.innerHTML = `
+            initSlider(peliculasWrapper);
+        } catch {
+            if (track) {
+                track.innerHTML = `
           <div style="flex: 0 0 100%; display: flex; align-items: center; justify-content: center; aspect-ratio: 16/9; color: var(--color-muted); font-size: 0.875rem;">
             Error al cargar el contenido
           </div>`;
-      }
+            }
+        }
     }
-  }
 
-  loadOnDemand();
+    loadOnDemand();
 
-  // TheSportsDB API - simplified to our backend
-  interface SportsEvent {
-    id: number;
-    idEvent: string;
-    strEvent: string;
-    strHomeTeam: string | null;
-    strAwayTeam: string | null;
-    strHomeTeamBadge: string | null;
-    strAwayTeamBadge: string | null;
-    strThumb: string | null;
-    strLeague: string;
-    strLeagueBadge: string;
-    intHomeScore: string | null;
-    intAwayScore: string | null;
-    label: string;
-    labelColor: string;
-    timeLocal: string;
-    dateFormatted: string;
-    type?: string;
-    borderColor?: string;
-  }
+    // TheSportsDB API - simplified to our backend
+    interface SportsEvent {
+        id: number;
+        idEvent: string;
+        strEvent: string;
+        strHomeTeam: string | null;
+        strAwayTeam: string | null;
+        strHomeTeamBadge: string | null;
+        strAwayTeamBadge: string | null;
+        strThumb: string | null;
+        strLeague: string;
+        strLeagueBadge: string;
+        intHomeScore: string | null;
+        intAwayScore: string | null;
+        label: string;
+        labelColor: string;
+        timeLocal: string;
+        dateFormatted: string;
+        type?: string;
+        borderColor?: string;
+    }
 
-  // Shared footer bar HTML for desktop and mobile
-  function footerBar(
-    name: string,
-    time: string,
-    date: string,
-    timeColor: string,
-    mobile = false,
-  ): string {
-    return mobile
-      ? `<div style="position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 0.5rem 0.75rem; display: flex; align-items: center; justify-content: space-between; gap: 0.4rem;">
+    // Shared footer bar HTML for desktop and mobile
+    function footerBar(
+        name: string,
+        time: string,
+        date: string,
+        timeColor: string,
+        mobile = false,
+    ): string {
+        return mobile
+            ? `<div style="position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 0.5rem 0.75rem; display: flex; align-items: center; justify-content: space-between; gap: 0.4rem;">
            <div style="font-size: 0.6875rem; font-weight: 800; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1;">${name}</div>
            <div style="display: flex; align-items: center; gap: 0.4rem; flex-shrink: 0;">
              <span style="font-size: 0.5625rem; font-weight: 700; color: ${timeColor};">${time}</span>
              <span style="font-size: 0.5rem; color: rgba(255,255,255,0.45); white-space: nowrap;">${date}</span>
            </div>
          </div>`
-      : `<div style="position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 0.625rem 1rem; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;">
+            : `<div style="position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 0.625rem 1rem; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;">
            <div style="font-size: 0.8125rem; font-weight: 800; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1;">${name}</div>
            <div style="display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0;">
              <span style="font-size: 0.6875rem; font-weight: 700; color: ${timeColor};">${time}</span>
              <span style="font-size: 0.5625rem; color: rgba(255,255,255,0.45); white-space: nowrap;">${date}</span>
            </div>
          </div>`;
-  }
-
-  function hexToRgba(hex: string, alpha: number): string {
-    const r = parseInt(hex.slice(1, 3), 16) || 249;
-    const g = parseInt(hex.slice(3, 5), 16) || 115;
-    const b = parseInt(hex.slice(5, 7), 16) || 22;
-    return `rgba(${r},${g},${b},${alpha})`;
-  }
-
-  function buildFeaturedDesktopCard(event: SportsEvent): string {
-    const borderCol = event.borderColor || event.labelColor || "#f97316";
-    const shadowCol = borderCol.startsWith("#")
-      ? hexToRgba(borderCol, 0.3)
-      : "rgba(249,115,22,0.3)";
-    const hoverShadowCol = borderCol.startsWith("#")
-      ? hexToRgba(borderCol, 0.6)
-      : "rgba(249,115,22,0.6)";
-    const bgType = event.type === "tarucas" ? "#1a0a00" : "#1a0000";
-
-    let imgHtml = "";
-    if (event.type === "tarucas") {
-      imgHtml = `<img src="/backgroundTarucas.png" alt="Tarucas" class="card-img" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.5s ease;" />`;
-    } else if (event.strThumb) {
-      imgHtml = `<img src="${event.strThumb}" alt="${event.strEvent}" class="card-img" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.5s ease;" loading="lazy" />`;
     }
 
-    let badgesHtml = "";
-    if (event.strHomeTeamBadge && event.strAwayTeamBadge) {
-      badgesHtml = `
-          <div style="position: absolute; inset: 0; bottom: 2.5rem; z-index: 2; display: flex; align-items: center; justify-content: space-around; padding: 0 1.5rem;">
+    function hexToRgba(hex: string, alpha: number): string {
+        const r = parseInt(hex.slice(1, 3), 16) || 249;
+        const g = parseInt(hex.slice(3, 5), 16) || 115;
+        const b = parseInt(hex.slice(5, 7), 16) || 22;
+        return `rgba(${r},${g},${b},${alpha})`;
+    }
+
+    function buildFeaturedDesktopCard(event: SportsEvent): string {
+        const borderCol = event.borderColor || event.labelColor || "#f97316";
+        const shadowCol = borderCol.startsWith("#")
+            ? hexToRgba(borderCol, 0.3)
+            : "rgba(249,115,22,0.3)";
+        const hoverShadowCol = borderCol.startsWith("#")
+            ? hexToRgba(borderCol, 0.6)
+            : "rgba(249,115,22,0.6)";
+        const bgType = event.type === "tarucas" ? "#1a0a00" : "#1a0000";
+
+        let imgHtml = "";
+        if (event.strThumb) {
+            imgHtml = `<img src="${event.strThumb}" alt="${event.strEvent}" class="card-img" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.5s ease;" loading="lazy" />`;
+        } else if (event.type === "tarucas") {
+            imgHtml = `<img src="/backgroundTarucas.png" alt="Tarucas" class="card-img" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.5s ease;" />`;
+        }
+
+        const hasThumb = !!event.strThumb;
+
+        const leagueBadgeHtml =
+            !hasThumb && event.strLeagueBadge
+                ? `<div style="position: absolute; top: 0.75rem; right: 0.875rem; z-index: 2;">
+            <img src="${event.strLeagueBadge}" alt="${event.strLeague}" width="44" height="44" style="object-fit: contain;" />
+          </div>`
+                : "";
+
+        const badgesHtml =
+            !hasThumb && event.strHomeTeamBadge && event.strAwayTeamBadge
+                ? `<div style="position: absolute; inset: 0; bottom: 2.5rem; z-index: 2; display: flex; align-items: center; justify-content: space-around; padding: 0 1.5rem;">
             <img src="${event.strHomeTeamBadge}" alt="${event.strHomeTeam}" width="120" height="120" style="object-fit: contain; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.8));" />
             <img src="${event.strAwayTeamBadge}" alt="${event.strAwayTeam}" width="120" height="120" style="object-fit: contain; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.8));" />
-          </div>`;
-    }
+          </div>`
+                : "";
 
-    return `
+        return `
       <div class="slider-card" style="flex: 0 0 33.333%; padding: 0 0.5rem; box-sizing: border-box;">
         <div class="match-inner-card featured-card" style="--hover-shadow: ${hoverShadowCol}; border-radius: 14px; border: 2px solid ${borderCol}; box-shadow: 0 0 24px ${shadowCol}; overflow: hidden; cursor: pointer; position: relative; aspect-ratio: 16/9; width: 100%; background: ${bgType};">
           ${imgHtml}
           <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.97) 100%); pointer-events: none; z-index: 1;"></div>
-          ${
-            event.strLeagueBadge
-              ? `
-          <div style="position: absolute; top: 0.75rem; right: 0.875rem; z-index: 2;">
-            <img src="${event.strLeagueBadge}" alt="${event.strLeague}" width="44" height="44" style="object-fit: contain;" />
-          </div>`
-              : ""
-          }
+          ${leagueBadgeHtml}
           ${badgesHtml}
           ${footerBar(event.strEvent, event.timeLocal, event.dateFormatted, event.labelColor)}
         </div>
       </div>`;
-  }
-
-  function buildFeaturedMobileCard(event: SportsEvent): string {
-    const borderCol = event.borderColor || event.labelColor || "#f97316";
-    const shadowCol = borderCol.startsWith("#")
-      ? hexToRgba(borderCol, 0.25)
-      : "rgba(249,115,22,0.25)";
-    const hoverShadowCol = borderCol.startsWith("#")
-      ? hexToRgba(borderCol, 0.6)
-      : "rgba(249,115,22,0.6)";
-    const bgType = event.type === "tarucas" ? "#1a0a00" : "#1a0000";
-
-    let imgHtml = "";
-    if (event.type === "tarucas") {
-      imgHtml = `<img src="/backgroundTarucas.png" alt="Tarucas" class="card-img" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.5s ease;" />`;
-    } else if (event.strThumb) {
-      imgHtml = `<img src="${event.strThumb}" alt="${event.strEvent}" class="card-img" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.5s ease;" loading="lazy" />`;
     }
 
-    let badgesHtml = "";
-    if (event.strHomeTeamBadge && event.strAwayTeamBadge) {
-      badgesHtml = `
-          <div style="position: absolute; inset: 0; bottom: 2.25rem; z-index: 2; display: flex; align-items: center; justify-content: space-around; padding: 0 1.25rem;">
+    function buildFeaturedMobileCard(event: SportsEvent): string {
+        const borderCol = event.borderColor || event.labelColor || "#f97316";
+        const shadowCol = borderCol.startsWith("#")
+            ? hexToRgba(borderCol, 0.25)
+            : "rgba(249,115,22,0.25)";
+        const hoverShadowCol = borderCol.startsWith("#")
+            ? hexToRgba(borderCol, 0.6)
+            : "rgba(249,115,22,0.6)";
+        const bgType = event.type === "tarucas" ? "#1a0a00" : "#1a0000";
+
+        let imgHtml = "";
+        if (event.strThumb) {
+            imgHtml = `<img src="${event.strThumb}" alt="${event.strEvent}" class="card-img" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.5s ease;" loading="lazy" />`;
+        } else if (event.type === "tarucas") {
+            imgHtml = `<img src="/backgroundTarucas.png" alt="Tarucas" class="card-img" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.5s ease;" />`;
+        }
+
+        const hasThumb = !!event.strThumb;
+
+        const leagueBadgeHtml =
+            !hasThumb && event.strLeagueBadge
+                ? `<div style="position: absolute; top: 0.6rem; right: 0.75rem; z-index: 2;">
+          <img src="${event.strLeagueBadge}" alt="${event.strLeague}" width="36" height="36" style="object-fit: contain;" />
+        </div>`
+                : "";
+
+        const badgesHtml =
+            !hasThumb && event.strHomeTeamBadge && event.strAwayTeamBadge
+                ? `<div style="position: absolute; inset: 0; bottom: 2.25rem; z-index: 2; display: flex; align-items: center; justify-content: space-around; padding: 0 1.25rem;">
             <img src="${event.strHomeTeamBadge}" alt="${event.strHomeTeam}" width="88" height="88" style="object-fit: contain; filter: drop-shadow(0 3px 8px rgba(0,0,0,0.8));" />
             <img src="${event.strAwayTeamBadge}" alt="${event.strAwayTeam}" width="88" height="88" style="object-fit: contain; filter: drop-shadow(0 3px 8px rgba(0,0,0,0.8));" />
-          </div>`;
-    }
+          </div>`
+                : "";
 
-    return `
+        return `
       <div class="mobile-card match-mobile-card" style="flex: 0 0 85vw; max-width: 400px; border-radius: 12px; border: 2px solid ${borderCol}; box-shadow: 0 0 20px ${shadowCol}; --hover-shadow: ${hoverShadowCol}; overflow: hidden; cursor: pointer; scroll-snap-align: start; position: relative; aspect-ratio: 16/9; box-sizing: border-box; background: ${bgType};">
         ${imgHtml}
         <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.97) 100%); pointer-events: none; z-index: 1;"></div>
-        ${
-          event.strLeagueBadge
-            ? `
-        <div style="position: absolute; top: 0.6rem; right: 0.75rem; z-index: 2;">
-          <img src="${event.strLeagueBadge}" alt="${event.strLeague}" width="36" height="36" style="object-fit: contain;" />
-        </div>`
-            : ""
-        }
+        ${leagueBadgeHtml}
         ${badgesHtml}
         ${footerBar(event.strEvent, event.timeLocal, event.dateFormatted, event.labelColor, true)}
       </div>`;
-  }
+    }
 
-  function buildDesktopCard(event: SportsEvent): string {
-    const thumb = event.strThumb || "";
-    return `
+    function buildDesktopCard(event: SportsEvent): string {
+        const thumb = event.strThumb || "";
+        return `
       <div class="slider-card" style="flex: 0 0 33.333%; padding: 0 0.5rem; box-sizing: border-box;">
         <div class="match-inner-card" style="background: linear-gradient(135deg, #0f2744 0%, #1e3a5f 100%); border-radius: 14px; border: 1px solid var(--color-pill-bg); overflow: hidden; cursor: pointer; position: relative; aspect-ratio: 16/9; width: 100%;">
           ${thumb ? `<img src="${thumb}" alt="${event.strEvent}" class="card-img" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.5s ease;" loading="lazy" />` : ""}
@@ -760,90 +783,117 @@ const categories = [
           ${footerBar(event.strEvent, event.timeLocal, event.dateFormatted, event.labelColor)}
         </div>
       </div>`;
-  }
+    }
 
-  function buildMobileCard(event: SportsEvent): string {
-    const thumb = event.strThumb || "";
-    return `
+    function buildMobileCard(event: SportsEvent): string {
+        const thumb = event.strThumb || "";
+        return `
       <div class="mobile-card match-mobile-card" style="flex: 0 0 85vw; max-width: 400px; border-radius: 12px; background: linear-gradient(135deg, #0f2744 0%, #1e3a5f 100%); border: 1px solid var(--color-pill-bg); overflow: hidden; cursor: pointer; scroll-snap-align: start; position: relative; aspect-ratio: 16/9; box-sizing: border-box;">
         ${thumb ? `<img src="${thumb}" alt="${event.strEvent}" class="card-img" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.5s ease;" loading="lazy" />` : ""}
         <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 45%, rgba(0,0,0,0.97) 100%); pointer-events: none; z-index: 1;"></div>
         ${footerBar(event.strEvent, event.timeLocal, event.dateFormatted, event.labelColor, true)}
       </div>`;
-  }
+    }
 
-  async function loadDeportes() {
-    const deportesWrapper = document.querySelector<HTMLElement>(
-      '[data-carousel="deportes"]',
-    );
-    const track = document.getElementById("deportes-track");
-    const mobileTrack = document.getElementById("deportes-mobile-track");
-    const dotsContainer = document.getElementById("deportes-dots");
-
-    if (!track || !deportesWrapper) return;
-
-    try {
-      const res = await fetch(`${import.meta.env.PUBLIC_API_SPORTS_URL}/api/sports`);
-      if (!res.ok) throw new Error("Network response was not ok");
-      const data = await res.json();
-
-      const MONTHS: Record<string, number> = { ENE:1,FEB:2,MAR:3,ABR:4,MAY:5,JUN:6,JUL:7,AGO:8,SEP:9,OCT:10,NOV:11,DIC:12 };
-      const sortKey = (e: SportsEvent) => {
-        const [day, mon] = e.dateFormatted.split(" ");
-        const [hh, mm] = e.timeLocal.split(":");
-        return (MONTHS[mon] ?? 0) * 1e6 + Number(day) * 1e4 + Number(hh) * 100 + Number(mm);
-      };
-      const allEvents: SportsEvent[] = [
-        ...(data.featured || []),
-        ...(data.events || []),
-      ].sort((a: SportsEvent, b: SportsEvent) => sortKey(a) - sortKey(b));
-
-      track.innerHTML = "";
-      if (mobileTrack) mobileTrack.innerHTML = "";
-      if (dotsContainer) dotsContainer.innerHTML = "";
-
-      const allCards: { desktop: string; mobile: string }[] = [];
-
-      allEvents.forEach((event) => {
-        allCards.push(
-          event.type
-            ? { desktop: buildFeaturedDesktopCard(event), mobile: buildFeaturedMobileCard(event) }
-            : { desktop: buildDesktopCard(event), mobile: buildMobileCard(event) },
+    async function loadDeportes() {
+        const deportesWrapper = document.querySelector<HTMLElement>(
+            '[data-carousel="deportes"]',
         );
-      });
+        const track = document.getElementById("deportes-track");
+        const mobileTrack = document.getElementById("deportes-mobile-track");
+        const dotsContainer = document.getElementById("deportes-dots");
 
-      if (allCards.length === 0) {
-        track.innerHTML = `
+        if (!track || !deportesWrapper) return;
+
+        try {
+            const res = await fetch(
+                `${import.meta.env.PUBLIC_API_SPORTS_URL}/api/sports`,
+            );
+            if (!res.ok) throw new Error("Network response was not ok");
+            const data = await res.json();
+
+            const MONTHS: Record<string, number> = {
+                ENE: 1,
+                FEB: 2,
+                MAR: 3,
+                ABR: 4,
+                MAY: 5,
+                JUN: 6,
+                JUL: 7,
+                AGO: 8,
+                SEP: 9,
+                OCT: 10,
+                NOV: 11,
+                DIC: 12,
+            };
+            const sortKey = (e: SportsEvent) => {
+                const [day, mon] = e.dateFormatted.split(" ");
+                const [hh, mm] = e.timeLocal.split(":");
+                return (
+                    (MONTHS[mon] ?? 0) * 1e6 +
+                    Number(day) * 1e4 +
+                    Number(hh) * 100 +
+                    Number(mm)
+                );
+            };
+            const allEvents: SportsEvent[] = [
+                ...(data.featured || []),
+                ...(data.events || []),
+            ].sort((a: SportsEvent, b: SportsEvent) => sortKey(a) - sortKey(b));
+
+            track.innerHTML = "";
+            if (mobileTrack) mobileTrack.innerHTML = "";
+            if (dotsContainer) dotsContainer.innerHTML = "";
+
+            const allCards: { desktop: string; mobile: string }[] = [];
+
+            allEvents.forEach((event) => {
+                allCards.push(
+                    event.type
+                        ? {
+                              desktop: buildFeaturedDesktopCard(event),
+                              mobile: buildFeaturedMobileCard(event),
+                          }
+                        : {
+                              desktop: buildDesktopCard(event),
+                              mobile: buildMobileCard(event),
+                          },
+                );
+            });
+
+            if (allCards.length === 0) {
+                track.innerHTML = `
           <div style="flex: 0 0 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; aspect-ratio: 16/9; color: var(--color-muted); gap: 0.5rem;">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
             <span style="font-size: 0.9375rem; font-weight: 500;">No hay partidos hoy</span>
           </div>`;
-        return;
-      }
+                return;
+            }
 
-      allCards.forEach(({ desktop, mobile }, i) => {
-        track.insertAdjacentHTML("beforeend", desktop);
-        if (mobileTrack) mobileTrack.insertAdjacentHTML("beforeend", mobile);
-        if (dotsContainer) {
-          dotsContainer.insertAdjacentHTML(
-            "beforeend",
-            `
+            allCards.forEach(({ desktop, mobile }, i) => {
+                track.insertAdjacentHTML("beforeend", desktop);
+                if (mobileTrack)
+                    mobileTrack.insertAdjacentHTML("beforeend", mobile);
+                if (dotsContainer) {
+                    dotsContainer.insertAdjacentHTML(
+                        "beforeend",
+                        `
             <button class="dot${i === 0 ? " active" : ""}" data-index="${i}" aria-label="Ir a slide ${i + 1}"
               style="width: 6px; height: 6px; border-radius: 9999px; border: none; background: var(--color-muted); cursor: pointer; padding: 0; transition: all 0.3s;"></button>`,
-          );
-        }
-      });
+                    );
+                }
+            });
 
-      initSlider(deportesWrapper);
-    } catch {
-      if (track) {
-        track.innerHTML = `
+            initSlider(deportesWrapper);
+        } catch {
+            if (track) {
+                track.innerHTML = `
           <div style="flex: 0 0 100%; display: flex; align-items: center; justify-content: center; aspect-ratio: 16/9; color: var(--color-muted); font-size: 0.875rem;">
             Error al cargar los partidos
           </div>`;
-      }
+            }
+        }
     }
-  }
 
-  loadDeportes();
+    loadDeportes();
 </script>

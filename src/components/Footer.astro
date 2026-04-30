@@ -8,7 +8,7 @@ const year = new Date().getFullYear();
     <div style="max-width: 1200px; margin: 0 auto; padding: 4rem 1.5rem 2rem;">
         <!-- Top grid -->
         <div
-            style="display: grid; grid-template-columns: 2fr repeat(3, 1fr); gap: 3rem; margin-bottom: 3rem;"
+            style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem;"
             class="footer-grid"
         >
             <!-- Brand column -->
@@ -29,7 +29,7 @@ const year = new Date().getFullYear();
                     style="font-size: 0.875rem; color: var(--color-foreground-alt); line-height: 1.65; max-width: 260px; margin: 0 0 1.5rem;"
                 >
                     Conectando a Tucumán con internet rápido y TV por cable
-                    desde hace más de 30 años.
+                    desde 1987.
                 </p>
                 <!-- Social icons -->
                 <div style="display: flex; gap: 0.75rem;">
@@ -92,49 +92,11 @@ const year = new Date().getFullYear();
                 <ul
                     style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.65rem;"
                 >
-                    {
-                        [
-                            "Internet de Alta Velocidad",
-                            "Cable TV",
-                            "Telefonía Fija",
-                            "Soluciones Empresariales",
-                            "Combos",
-                        ].map((item) => (
-                            <li>
-                                <a href="#" class="footer-link">
-                                    {item}
-                                </a>
-                            </li>
-                        ))
-                    }
-                </ul>
-            </div>
-
-            <!-- Company column -->
-            <div>
-                <h4
-                    style="font-size: 0.8125rem; font-weight: 600; color: var(--color-foreground); letter-spacing: 0.06em; text-transform: uppercase; margin: 0 0 1.1rem;"
-                >
-                    Empresa
-                </h4>
-                <ul
-                    style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.65rem;"
-                >
-                    {
-                        [
-                            "Sobre CCC",
-                            "Trabajá con nosotros",
-                            "Prensa",
-                            "Inversores",
-                            "Comunidad",
-                        ].map((item) => (
-                            <li>
-                                <a href="#" class="footer-link">
-                                    {item}
-                                </a>
-                            </li>
-                        ))
-                    }
+                    <li><a href="#services" class="footer-link">Internet de Alta Velocidad</a></li>
+                    <li><a href="#services" class="footer-link">Cable TV</a></li>
+                    <li><a href="#ccc-go" class="footer-link">Streaming</a></li>
+                    {/* <li><a href="#contact" class="footer-link">Soluciones Empresariales</a></li> */}
+                    <li><a href="#plans" class="footer-link">Planes</a></li>
                 </ul>
             </div>
 
@@ -148,46 +110,22 @@ const year = new Date().getFullYear();
                 <ul
                     style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.65rem;"
                 >
-                    {
-                        ["Centro de ayuda"].map((item) => (
-                            <li>
-                                <a href="#contact" class="footer-link">
-                                    {item}
-                                </a>
-                            </li>
-                        ))
-                    }
+                    <li>
+                        <a href="#contact" class="footer-link">Centro de ayuda</a>
+                    </li>
                 </ul>
-                <!-- Phone -->
             </div>
         </div>
 
         <!-- Bottom bar -->
         <div
-            style="padding-top: 2rem; border-top: 1px solid var(--color-surface2); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;"
+            style="padding-top: 2rem; border-top: 1px solid var(--color-surface2); text-align: center;"
         >
             <p
                 style="font-size: 0.8125rem; color: var(--color-foreground-alt); margin: 0;"
             >
                 © {year} Compañia de Circuitos Cerrados. Todos los derechos reservados.
             </p>
-            <div style="display: flex; gap: 1.5rem;">
-                {
-                    [
-                        "Política de privacidad",
-                        "Términos de servicio",
-                        "Accesibilidad",
-                    ].map((item) => (
-                        <a
-                            href="#"
-                            class="footer-link"
-                            style="font-size: 0.8125rem;"
-                        >
-                            {item}
-                        </a>
-                    ))
-                }
-            </div>
         </div>
     </div>
 </footer>
