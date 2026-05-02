@@ -573,4 +573,94 @@ const contactDetails = [
             updateSummary();
         }
     } catch (_) {}
+
+    const form = document.querySelector<HTMLFormElement>("form[novalidate]");
+    const submitBtn = form?.querySelector<HTMLButtonElement>(
+        'button[type="submit"]',
+    );
+
+    form?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const getValue = (name: string) =>
+            (form.elements.namedItem(name) as HTMLInputElement | null)?.value?.trim() ?? "";
+
+        const nombre = getValue("nombre");
+        const apellido = getValue("apellido");
+        const telefono = getValue("telefono");
+        const email = getValue("email");
+        const direccion = getValue("direccion");
+
+        // Basic required-field validation
+        let hasError = false;
+        for (const name of ["nombre", "apellido", "telefono", "direccion"]) {
+            const el = form.elements.namedItem(name) as HTMLInputElement | null;
+            if (!el) continue;
+            if (!el.value.trim()) {
+                el.style.borderColor = "var(--color-error, #e53e3e)";
+                hasError = true;
+            } else {
+                el.style.borderColor = "";
+            }
+        }
+        if (hasError) return;
+
+        const originalHTML = submitBtn?.innerHTML ?? "";
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Enviando…";
+        }
+
+        const payload = {
+            nombre,
+            apellido,
+            telefono,
+            email: email || undefined,
+            direccion,
+            plan: planSelect?.value || null,
+            tv_pack: tvCheck?.checked ?? false,
+            origen: "Web CCC",
+        };
+
+        try {
+            const res = await fetch(
+                import.meta.env.PUBLIC_LEADS_API_URL as string,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "x-api-key": import.meta.env.PUBLIC_LEADS_API_KEY as string,
+                    },
+                    body: JSON.stringify(payload),
+                },
+            );
+
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+            // Success: swap form for confirmation message
+            const container = form.parentElement;
+            if (container) {
+                form.style.display = "none";
+                const msg = document.createElement("p");
+                msg.textContent = "¡Gracias! Un asesor te contactará pronto.";
+                msg.style.cssText =
+                    "text-align:center;font-size:1.1rem;color:var(--color-accent);padding:2rem 0;";
+                container.appendChild(msg);
+            }
+        } catch (_) {
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalHTML;
+            }
+            let errMsg = form.querySelector<HTMLElement>(".form-submit-error");
+            if (!errMsg) {
+                errMsg = document.createElement("p");
+                errMsg.className = "form-submit-error";
+                errMsg.style.cssText =
+                    "color:var(--color-error,#e53e3e);font-size:.875rem;margin-top:.5rem;text-align:center;";
+                submitBtn?.insertAdjacentElement("afterend", errMsg);
+            }
+            errMsg.textContent = "Hubo un error. Intentá de nuevo.";
+        }
+    });
 </script>

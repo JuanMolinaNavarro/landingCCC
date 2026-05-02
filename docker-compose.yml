@@ -5,6 +5,8 @@ services:
       args:
         PUBLIC_API_ON_DEMAND_URL: ${PUBLIC_API_ON_DEMAND_URL}
         PUBLIC_API_SPORTS_URL: ${PUBLIC_API_SPORTS_URL}
+        PUBLIC_LEADS_API_URL: ${PUBLIC_LEADS_API_URL}
+        PUBLIC_LEADS_API_KEY: ${PUBLIC_LEADS_API_KEY}
     ports:
       - "4321:80"
     restart: unless-stopped
