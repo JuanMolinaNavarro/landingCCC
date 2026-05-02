@@ -1,25 +1,25 @@
 ---
 const services = [
   {
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`,
-    title: 'Cable TV',
-    description:
-      'Más de 200 canales con deportes premium, películas y programación local — en impactante calidad HD y 4K.',
-    features: ['200+ canales', 'Calidad 4K y HD', 'DVR incluido', 'Biblioteca on demand'],
-  },
-  {
     icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="var(--color-accent)"/></svg>`,
     title: 'Internet de Alta Velocidad',
     description:
-      'Internet por fibra de hasta 10 Gbps con velocidades simétricas — diseñado para streaming, gaming y trabajo remoto.',
-    features: ['Hasta 10 Gbps', 'Subida/bajada simétrica', 'Sin límite de datos', 'Módem y router gratis'],
+      'Conectividad simétrica por fibra óptica — hasta 300 Mbps de bajada y subida para todo el hogar.',
+    features: ['Hasta 300 Mbps', 'Sin límite de datos'],
+  },
+  {
+    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`,
+    title: 'TV HD',
+    description:
+      'Deco digital con canales premium — incluye Pack Fútbol y canales HBO. Agregalo a tu plan de internet.',
+    features: ['Deco digital', 'Canales HBO', 'Pack Fútbol'],
   },
   {
     icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="var(--color-accent)" stroke="none"/></svg>`,
-    title: 'Streaming',
+    title: 'CCC Go',
     description:
-      'Deportes en vivo, películas y series on demand desde cualquier dispositivo — con calidad 4K y sin cortes.',
-    features: ['Deportes en vivo', 'Películas on demand', 'Calidad 4K', 'Multidispositivo'],
+      'Lleva todo nuestro contenido adonde vayas con nuestra app de streaming CCC Go',
+    features: ['Multidispositivo', 'Películas y Series On Demand', 'Deportes en vivo'],
   },
 ];
 ---
@@ -39,7 +39,7 @@ const services = [
         Todo lo que necesitás, un solo proveedor
       </h2>
       <p style="font-size: 1rem; color: var(--color-muted); max-width: 480px; margin: 0 auto; line-height: 1.6;">
-        Soluciones combinadas para simplificar tu vida — una sola factura, un solo llamado, conectividad total.
+        Fibra óptica, televisión HD y streaming — todo bajo una misma factura.
       </p>
     </div>
 
@@ -55,11 +55,22 @@ const services = [
             set:html={service.icon}
           />
 
-          <h3
-            style="font-size: 1.0625rem; font-weight: 600; color: var(--color-foreground); margin: 0 0 0.625rem; letter-spacing: -0.01em;"
-          >
-            {service.title}
-          </h3>
+          {service.title === 'CCC Go' ? (
+            <!-- CCC Go logo lockup -->
+            <div style="display: flex; align-items: center; gap: 0.625rem; margin-bottom: 0.625rem;">
+              <img src="/logo.png" alt="CCC" class="logo-dark" style="height: 20px; width: auto;" />
+              <img src="/logoBlue.png" alt="CCC" class="logo-light" style="height: 20px; width: auto;" />
+              <span style="font-size: 1.25rem; font-weight: 900; background: linear-gradient(135deg, var(--color-accent-light), #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: -0.04em;">Go</span>
+              <span style="font-size: 0.6875rem; font-weight: 700; color: var(--color-accent); background: var(--color-accent-subtle); border: 1px solid var(--color-accent); border-radius: 9999px; padding: 0.2rem 0.6rem; letter-spacing: 0.08em;">STREAMING</span>
+            </div>
+          ) : (
+            <h3
+              style="font-size: 1.0625rem; font-weight: 600; color: var(--color-foreground); margin: 0 0 0.625rem; letter-spacing: -0.01em;"
+            >
+              {service.title}
+            </h3>
+          )}
+
           <p style="font-size: 0.9rem; color: var(--color-muted); line-height: 1.65; margin: 0 0 1.25rem;">
             {service.description}
           </p>

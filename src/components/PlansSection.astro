@@ -1,69 +1,47 @@
 ---
+const TV_ADDON_PRICE = 18000;
+
 const plans = [
   {
-    name: 'Esencial',
-    price: '49',
-    speed: '300 Mbps',
-    description: 'Ideal para streaming liviano y navegación.',
-    features: [
-      'Internet 300 Mbps',
-      '80+ Canales de Cable',
-      'Telefonía Fija',
-      'Instalación gratis',
-      'Soporte estándar',
-    ],
-    cta: 'Contratar Esencial',
+    name: 'Fibra 100 MB',
+    subtitle: 'Solo internet',
+    price: 12999,
     highlighted: false,
+    badge: null as string | null,
   },
   {
-    name: 'Estándar',
-    price: '89',
-    speed: '1 Gbps',
-    description: 'El plan más elegido por las familias.',
-    features: [
-      'Internet 1 Gbps',
-      '150+ Canales de Cable',
-      'Telefonía + Correo de voz',
-      'Router y Módem gratis',
-      'DVR incluido',
-      'Soporte prioritario',
-    ],
-    cta: 'Contratar Estándar',
+    name: 'Fibra 200 MB',
+    subtitle: 'Solo internet',
+    price: 14999,
+    highlighted: false,
+    badge: null as string | null,
+  },
+  {
+    name: 'Fibra 300 MB',
+    subtitle: 'Solo internet',
+    price: 16999,
     highlighted: true,
-    badge: 'Más popular',
-  },
-  {
-    name: 'Premium',
-    price: '139',
-    speed: '10 Gbps',
-    description: 'Velocidad máxima para usuarios exigentes y empresas.',
-    features: [
-      'Internet por Fibra 10 Gbps',
-      '200+ Canales de Cable',
-      'Telefonía + Todas las funciones',
-      'Router Wi-Fi 7 incluido',
-      'DVR ilimitado',
-      'Pack de streaming 4K',
-      'Línea de soporte dedicada',
-    ],
-    cta: 'Contratar Premium',
-    highlighted: false,
+    badge: '¡El más elegido!',
   },
 ];
+
+const BASE_FEATURES = ['Soporte los 7 días de la semana'];
+const TV_FEATURES   = ['Deco digital', 'Canales HBO', 'Bonificado por 12 meses'];
+
+function fmt(n: number) {
+  return Math.round(n).toLocaleString('es-AR');
+}
 ---
 
 <section id="plans" style="padding: 6rem 1.5rem; background: var(--color-bg);">
   <div style="max-width: 1200px; margin: 0 auto;">
+
     <!-- Section header -->
     <div style="text-align: center; margin-bottom: 3.5rem;">
-      <p
-        style="font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 0.75rem;"
-      >
+      <p style="font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 0.75rem;">
         Precios
       </p>
-      <h2
-        style="font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; letter-spacing: -0.025em; color: var(--color-foreground); margin: 0 0 1rem;"
-      >
+      <h2 style="font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; letter-spacing: -0.025em; color: var(--color-foreground); margin: 0 0 1rem;">
         Precios simples y transparentes
       </h2>
       <p style="font-size: 1rem; color: var(--color-muted); max-width: 400px; margin: 0 auto; line-height: 1.6;">
@@ -72,57 +50,37 @@ const plans = [
     </div>
 
     <!-- Plans grid -->
-    <div
-      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; align-items: stretch;"
-    >
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; align-items: stretch;">
       {plans.map((plan) => (
         <div
           class={plan.highlighted ? 'plan-card plan-highlighted' : 'plan-card'}
-          style={plan.highlighted ? 'position: relative;' : ''}
+          data-plan-name={plan.name}
+          data-base-price={plan.price}
+          data-tv-price={TV_ADDON_PRICE}
+          style="position: relative;"
         >
-          <!-- Popular badge -->
-          {plan.badge && (
-            <div
-              style="position: absolute; top: -13px; left: 50%; transform: translateX(-50%); padding: 0.25rem 0.875rem; background: var(--color-accent); color: #fff; font-size: 0.75rem; font-weight: 700; border-radius: 999px; white-space: nowrap; letter-spacing: 0.03em;"
-            >
-              {plan.badge}
-            </div>
-          )}
+          {plan.badge && <div class="plan-badge">{plan.badge}</div>}
 
-          <!-- Plan name & price -->
-          <div style="margin-bottom: 1.5rem;">
-            <h3
-              style="font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-muted); margin: 0 0 0.75rem;"
-            >
-              {plan.name}
-            </h3>
-            <div style="display: flex; align-items: baseline; gap: 0.25rem; margin-bottom: 0.5rem;">
-              <span style="font-size: 0.9375rem; color: var(--color-muted); font-weight: 400; align-self: flex-start; margin-top: 0.35rem;">$</span>
-              <span
-                style={`font-size: 3rem; font-weight: 800; letter-spacing: -0.04em; color: ${plan.highlighted ? 'var(--color-accent-light)' : 'var(--color-foreground)'}; line-height: 1;`}
-              >
-                {plan.price}
-              </span>
-              <span style="font-size: 0.875rem; color: var(--color-muted); font-weight: 400; align-self: flex-end; margin-bottom: 0.3rem;">/mes</span>
-            </div>
-            <div
-              style={`display: inline-block; padding: 0.2rem 0.6rem; background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.2); border-radius: 5px; font-size: 0.8rem; font-weight: 600; color: var(--color-accent); margin-bottom: 0.75rem;`}
-            >
-              {plan.speed}
-            </div>
-            <p style="font-size: 0.875rem; color: var(--color-muted); line-height: 1.5; margin: 0;">
-              {plan.description}
-            </p>
+          <!-- Header -->
+          <div class="plan-header">
+            <h3 class="plan-name">{plan.name}</h3>
+            <p class="plan-subtitle">{plan.subtitle}</p>
           </div>
 
-          <!-- Divider -->
-          <div style={`height: 1px; background: ${plan.highlighted ? 'rgba(59,130,246,0.25)' : 'var(--color-border)'}; margin-bottom: 1.25rem;`}></div>
+          <!-- Price -->
+          <div class="plan-price-block">
+            <div class="plan-price-row">
+              <span class="plan-price-currency">$</span>
+              <span class="plan-price-value">{fmt(plan.price)}</span>
+              <span class="plan-price-period">/mes</span>
+            </div>
+          </div>
 
-          <!-- Features -->
-          <ul style="list-style: none; padding: 0; margin: 0 0 1.75rem; display: flex; flex-direction: column; gap: 0.55rem;">
-            {plan.features.map((f) => (
-              <li style="display: flex; align-items: center; gap: 0.625rem; font-size: 0.875rem; color: #aaa;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5" style="flex-shrink:0;">
+          <!-- Base features -->
+          <ul class="plan-features">
+            {BASE_FEATURES.map((f) => (
+              <li>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5" style="flex-shrink:0;margin-top:1px;">
                   <polyline points="20 6 9 17 4 12"/>
                 </svg>
                 {f}
@@ -130,45 +88,268 @@ const plans = [
             ))}
           </ul>
 
+          <!-- TV HD addon -->
+          <div class="plan-addons">
+            <label class="plan-addon-row">
+              <input type="checkbox" class="plan-toggle" />
+              <span class="toggle-switch"></span>
+              <span class="addon-name">TV HD + Pack Fútbol</span>
+              <span class="addon-price">+ ${fmt(TV_ADDON_PRICE)}<span class="addon-period">/mes</span></span>
+            </label>
+
+            <!-- TV extra features — always visible -->
+            <ul class="tv-features is-open">
+              {TV_FEATURES.map((f) => (
+                <li>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5" style="flex-shrink:0;margin-top:1px;">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  {f}
+                </li>
+              ))}
+            </ul>
+          </div>
+
           <!-- CTA -->
-          <a
-            href="#contact"
-            class={plan.highlighted ? 'plan-btn plan-btn-primary' : 'plan-btn plan-btn-secondary'}
-          >
-            {plan.cta}
-          </a>
+          <div class="plan-cta-area">
+            <a href="#sales" class="plan-cta-btn">{plan.cta ?? 'Lo quiero'}</a>
+            <p class="plan-tax-price">
+              Precio sin impuestos nacionales: $ <span class="plan-tax-value">{fmt(plan.price / 1.21)}</span>
+            </p>
+          </div>
         </div>
       ))}
     </div>
 
-    <!-- Footer note
-    -->
     <p style="text-align: center; margin-top: 2.5rem; font-size: 0.8125rem; color: var(--color-foreground-alt);">
-      * Todos los planes estas sujetos a la zona de cobertura.
+      * Todos los planes están sujetos a la zona de cobertura.
     </p>
   </div>
 </section>
 
 <style>
+  /* ── Card base ── */
   .plan-card {
     display: flex;
     flex-direction: column;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: 16px;
-    padding: 2rem;
-    transition: border-color 0.25s, transform 0.2s;
-    height: 100%;
+    padding: 2rem 1.5rem 1.5rem;
+    transition: border-color 0.25s, transform 0.2s, box-shadow 0.25s;
   }
   .plan-card:hover {
-    transform: translateY(-2px);
+    border-color: var(--color-accent);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px var(--color-card-shadow);
   }
   .plan-highlighted {
-    border-color: rgba(29, 78, 216, 0.5);
-    box-shadow: 0 0 0 1px rgba(29, 78, 216, 0.15), 0 20px 60px rgba(29, 78, 216, 0.12);
     background: var(--color-accent-subtle);
+    border-color: rgba(0, 69, 182, 0.5);
+    box-shadow: 0 0 0 1px rgba(0, 69, 182, 0.15), 0 20px 60px rgba(0, 69, 182, 0.12);
   }
-  .plan-btn {
+  .plan-highlighted:hover {
+    border-color: var(--color-accent-light);
+    box-shadow: 0 0 0 1px rgba(0, 89, 230, 0.25), 0 20px 60px rgba(0, 69, 182, 0.2);
+    transform: translateY(-3px);
+  }
+
+  /* ── Badge ── */
+  .plan-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-accent);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.875rem;
+    border-radius: 9999px;
+    white-space: nowrap;
+    letter-spacing: 0.03em;
+    box-shadow: 0 0 16px rgba(0, 69, 182, 0.5);
+  }
+
+  /* ── Header ── */
+  .plan-header {
+    margin-bottom: 1rem;
+  }
+  .plan-name {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: var(--color-foreground);
+    margin: 0 0 0.2rem;
+    letter-spacing: -0.01em;
+  }
+  .plan-subtitle {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    margin: 0;
+  }
+
+  /* ── Price block ── */
+  .plan-price-block {
+    margin-bottom: 1.25rem;
+  }
+  .plan-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.15rem;
+    line-height: 1;
+  }
+  .plan-price-currency {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-foreground);
+    align-self: flex-start;
+    margin-top: 0.45rem;
+  }
+  .plan-price-value {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 800;
+    color: var(--color-foreground);
+    letter-spacing: -0.03em;
+  }
+  .plan-highlighted .plan-price-currency,
+  .plan-highlighted .plan-price-value {
+    color: var(--color-accent-light);
+  }
+  .plan-price-period {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    align-self: flex-end;
+    margin-bottom: 0.25rem;
+  }
+
+  /* ── Base features ── */
+  .plan-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex-grow: 1;
+  }
+  .plan-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--color-foreground-alt);
+    line-height: 1.4;
+  }
+
+  /* ── Addons section ── */
+  .plan-addons {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 1.5rem;
+    border-radius: 10px;
+    background: var(--color-surface2);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+  }
+  .plan-highlighted .plan-addons {
+    background: rgba(0, 69, 182, 0.08);
+    border-color: rgba(0, 69, 182, 0.2);
+  }
+  .plan-addon-row {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    cursor: pointer;
+    padding: 0.75rem 0.875rem;
+  }
+  .plan-toggle {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .toggle-switch {
+    position: relative;
+    width: 36px;
+    height: 20px;
+    background: var(--color-border);
+    border-radius: 9999px;
+    flex-shrink: 0;
+    transition: background 0.2s, box-shadow 0.2s;
+  }
+  .toggle-switch::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  }
+  .plan-toggle:checked + .toggle-switch {
+    background: var(--color-accent);
+    box-shadow: 0 0 8px rgba(0, 69, 182, 0.5);
+  }
+  .plan-toggle:checked + .toggle-switch::after {
+    transform: translateX(16px);
+  }
+  .addon-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-foreground);
+    flex: 1;
+  }
+  .addon-price {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-accent-light);
+  }
+  .addon-period {
+    font-weight: 400;
+    color: var(--color-muted);
+  }
+
+  /* TV extra features — collapsed by default */
+  .tv-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.25s ease;
+    opacity: 0;
+    border-top: 0px solid var(--color-border);
+  }
+  .tv-features.is-open {
+    max-height: 200px;
+    opacity: 1;
+    padding: 0.625rem 0.875rem 0.75rem;
+    border-top-width: 1px;
+  }
+  .tv-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.45rem;
+    font-size: 0.8125rem;
+    color: var(--color-foreground-alt);
+    line-height: 1.35;
+  }
+
+  /* ── CTA area ── */
+  .plan-cta-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: auto;
+  }
+  .plan-cta-btn {
     display: block;
     width: 100%;
     text-align: center;
@@ -177,27 +358,73 @@ const plans = [
     font-size: 0.9375rem;
     font-weight: 600;
     text-decoration: none;
-    transition: background 0.2s, border-color 0.2s, transform 0.15s;
-    margin-top: auto;
-  }
-  .plan-btn-primary {
     background: var(--color-accent);
     color: #fff;
     border: 1px solid var(--color-accent);
-    box-shadow: 0 4px 20px rgba(29, 78, 216, 0.3);
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    letter-spacing: 0.01em;
+    box-shadow: 0 4px 20px rgba(0, 69, 182, 0.3);
   }
-  .plan-btn-primary:hover {
+  .plan-cta-btn:hover {
     background: var(--color-accent-light);
+    border-color: var(--color-accent-light);
     transform: translateY(-1px);
+    box-shadow: 0 6px 28px rgba(0, 69, 182, 0.45);
   }
-  .plan-btn-secondary {
-    background: transparent;
-    color: var(--color-foreground);
-    border: 1px solid var(--color-border);
-  }
-  .plan-btn-secondary:hover {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
-    transform: translateY(-1px);
+  .plan-tax-price {
+    font-size: 0.75rem;
+    color: var(--color-muted);
+    margin: 0;
+    text-align: center;
   }
 </style>
+
+<script>
+  document.querySelectorAll('.plan-card').forEach((card) => {
+    const el         = card as HTMLElement;
+    const basePrice  = parseInt(el.dataset.basePrice  ?? '0', 10);
+    const tvPrice    = parseInt(el.dataset.tvPrice    ?? '0', 10);
+    const planName   = el.dataset.planName ?? '';
+
+    const toggle     = el.querySelector<HTMLInputElement>('.plan-toggle')!;
+    const priceVal   = el.querySelector<HTMLElement>('.plan-price-value')!;
+    const taxVal     = el.querySelector<HTMLElement>('.plan-tax-value')!;
+    const ctaBtn     = el.querySelector<HTMLAnchorElement>('.plan-cta-btn')!;
+
+    function update() {
+      const total = basePrice + (toggle.checked ? tvPrice : 0);
+      priceVal.textContent = total.toLocaleString('es-AR');
+      taxVal.textContent   = Math.round(total / 1.21).toLocaleString('es-AR');
+    }
+
+    toggle.addEventListener('change', update);
+
+    ctaBtn.addEventListener('click', () => {
+      const total  = basePrice + (toggle.checked ? tvPrice : 0);
+      const hasTV  = toggle.checked;
+
+      try {
+        localStorage.setItem('selectedPlan', JSON.stringify({ name: planName, price: total, tv: hasTV }));
+      } catch (_) {}
+
+      // Directly update the contact form if it's already in the DOM
+      const planSelect = document.getElementById('plan-select') as HTMLSelectElement | null;
+      const tvCheck    = document.getElementById('tv-check')    as HTMLInputElement  | null;
+      const summary    = document.getElementById('plan-summary')      as HTMLElement | null;
+      const summaryTxt = document.getElementById('plan-summary-text') as HTMLElement | null;
+
+      if (planSelect) {
+        planSelect.value = planName;
+        planSelect.dispatchEvent(new Event('change'));
+      }
+      if (tvCheck) {
+        tvCheck.checked = hasTV;
+        tvCheck.dispatchEvent(new Event('change'));
+      }
+      if (summary && summaryTxt && planName) {
+        summaryTxt.textContent = planName + (hasTV ? ' + TV HD' : '');
+        summary.style.display  = 'flex';
+      }
+    });
+  });
+</script>
