@@ -1,36 +1,5 @@
 ---
-const TV_ADDON_PRICE = 18000;
-
-const plans = [
-  {
-    name: 'Fibra 100 MB',
-    subtitle: 'Solo internet',
-    price: 12999,
-    highlighted: false,
-    badge: null as string | null,
-  },
-  {
-    name: 'Fibra 200 MB',
-    subtitle: 'Solo internet',
-    price: 14999,
-    highlighted: false,
-    badge: null as string | null,
-  },
-  {
-    name: 'Fibra 300 MB',
-    subtitle: 'Solo internet',
-    price: 16999,
-    highlighted: true,
-    badge: '¡El más elegido!',
-  },
-];
-
-const BASE_FEATURES = ['Soporte los 7 días de la semana'];
-const TV_FEATURES   = ['Deco digital', 'Canales HBO', 'Bonificado por 12 meses'];
-
-function fmt(n: number) {
-  return Math.round(n).toLocaleString('es-AR');
-}
+// No plan data here — fetched at runtime from PUBLIC_PLANS_API_URL
 ---
 
 <section id="plans" style="padding: 6rem 1.5rem; background: var(--color-bg);">
@@ -49,76 +18,12 @@ function fmt(n: number) {
       </p>
     </div>
 
-    <!-- Plans grid -->
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; align-items: stretch;">
-      {plans.map((plan) => (
-        <div
-          class={plan.highlighted ? 'plan-card plan-highlighted' : 'plan-card'}
-          data-plan-name={plan.name}
-          data-base-price={plan.price}
-          data-tv-price={TV_ADDON_PRICE}
-          style="position: relative;"
-        >
-          {plan.badge && <div class="plan-badge">{plan.badge}</div>}
-
-          <!-- Header -->
-          <div class="plan-header">
-            <h3 class="plan-name">{plan.name}</h3>
-            <p class="plan-subtitle">{plan.subtitle}</p>
-          </div>
-
-          <!-- Price -->
-          <div class="plan-price-block">
-            <div class="plan-price-row">
-              <span class="plan-price-currency">$</span>
-              <span class="plan-price-value">{fmt(plan.price)}</span>
-              <span class="plan-price-period">/mes</span>
-            </div>
-          </div>
-
-          <!-- Base features -->
-          <ul class="plan-features">
-            {BASE_FEATURES.map((f) => (
-              <li>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5" style="flex-shrink:0;margin-top:1px;">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-                {f}
-              </li>
-            ))}
-          </ul>
-
-          <!-- TV HD addon -->
-          <div class="plan-addons">
-            <label class="plan-addon-row">
-              <input type="checkbox" class="plan-toggle" />
-              <span class="toggle-switch"></span>
-              <span class="addon-name">TV HD + Pack Fútbol</span>
-              <span class="addon-price">+ ${fmt(TV_ADDON_PRICE)}<span class="addon-period">/mes</span></span>
-            </label>
-
-            <!-- TV extra features — always visible -->
-            <ul class="tv-features is-open">
-              {TV_FEATURES.map((f) => (
-                <li>
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5" style="flex-shrink:0;margin-top:1px;">
-                    <polyline points="20 6 9 17 4 12"/>
-                  </svg>
-                  {f}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <!-- CTA -->
-          <div class="plan-cta-area">
-            <a href="#sales" class="plan-cta-btn">{plan.cta ?? 'Lo quiero'}</a>
-            <p class="plan-tax-price">
-              Precio sin impuestos nacionales: $ <span class="plan-tax-value">{fmt(plan.price / 1.21)}</span>
-            </p>
-          </div>
-        </div>
-      ))}
+    <!-- Plans grid — populated by client script -->
+    <div id="plans-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; align-items: stretch;">
+      <!-- skeleton cards while loading -->
+      <div class="plan-skeleton"></div>
+      <div class="plan-skeleton"></div>
+      <div class="plan-skeleton"></div>
     </div>
 
     <p style="text-align: center; margin-top: 2.5rem; font-size: 0.8125rem; color: var(--color-foreground-alt);">
@@ -127,7 +32,20 @@ function fmt(n: number) {
   </div>
 </section>
 
-<style>
+<style is:global>
+  /* ── Skeleton loader ── */
+  .plan-skeleton {
+    height: 420px;
+    border-radius: 16px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    animation: skeleton-pulse 1.4s ease-in-out infinite;
+  }
+  @keyframes skeleton-pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.45; }
+  }
+
   /* ── Card base ── */
   .plan-card {
     display: flex;
@@ -380,51 +298,139 @@ function fmt(n: number) {
 </style>
 
 <script>
-  document.querySelectorAll('.plan-card').forEach((card) => {
-    const el         = card as HTMLElement;
-    const basePrice  = parseInt(el.dataset.basePrice  ?? '0', 10);
-    const tvPrice    = parseInt(el.dataset.tvPrice    ?? '0', 10);
-    const planName   = el.dataset.planName ?? '';
+  const CHECK_SVG = (size: number) =>
+    `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5" style="flex-shrink:0;margin-top:1px;"><polyline points="20 6 9 17 4 12"/></svg>`;
 
-    const toggle     = el.querySelector<HTMLInputElement>('.plan-toggle')!;
-    const priceVal   = el.querySelector<HTMLElement>('.plan-price-value')!;
-    const taxVal     = el.querySelector<HTMLElement>('.plan-tax-value')!;
-    const ctaBtn     = el.querySelector<HTMLAnchorElement>('.plan-cta-btn')!;
+  const BASE_FEATURES = ['Soporte los 7 días de la semana'];
+  const TV_FEATURES   = ['Deco digital', 'Canales HBO', 'Bonificado por 12 meses'];
 
-    function update() {
-      const total = basePrice + (toggle.checked ? tvPrice : 0);
-      priceVal.textContent = total.toLocaleString('es-AR');
-      taxVal.textContent   = Math.round(total / 1.21).toLocaleString('es-AR');
+  const FALLBACK = {
+    plans: [
+      { name: 'Fibra 100 MB', subtitle: 'Solo internet', price: 12999, highlighted: false, badge: null },
+      { name: 'Fibra 200 MB', subtitle: 'Solo internet', price: 14999, highlighted: false, badge: null },
+      { name: 'Fibra 300 MB', subtitle: 'Solo internet', price: 16999, highlighted: true,  badge: '¡El más elegido!' },
+    ],
+    tvAddonPrice: 18000,
+  };
+
+  function fmt(n: number) {
+    return Math.round(n).toLocaleString('es-AR');
+  }
+
+  function cardHTML(plan: typeof FALLBACK.plans[0], tvAddonPrice: number) {
+    return `
+      <div
+        class="${plan.highlighted ? 'plan-card plan-highlighted' : 'plan-card'}"
+        data-plan-name="${plan.name}"
+        data-base-price="${plan.price}"
+        data-tv-price="${tvAddonPrice}"
+        style="position: relative;"
+      >
+        ${plan.badge ? `<div class="plan-badge">${plan.badge}</div>` : ''}
+
+        <div class="plan-header">
+          <h3 class="plan-name">${plan.name}</h3>
+          <p class="plan-subtitle">${plan.subtitle}</p>
+        </div>
+
+        <div class="plan-price-block">
+          <div class="plan-price-row">
+            <span class="plan-price-currency">$</span>
+            <span class="plan-price-value">${fmt(plan.price)}</span>
+            <span class="plan-price-period">/mes</span>
+          </div>
+        </div>
+
+        <ul class="plan-features">
+          ${BASE_FEATURES.map(f => `<li>${CHECK_SVG(14)}${f}</li>`).join('')}
+        </ul>
+
+        <div class="plan-addons">
+          <label class="plan-addon-row">
+            <input type="checkbox" class="plan-toggle" />
+            <span class="toggle-switch"></span>
+            <span class="addon-name">TV HD + Pack Fútbol</span>
+            <span class="addon-price">+ $${fmt(tvAddonPrice)}<span class="addon-period">/mes</span></span>
+          </label>
+          <ul class="tv-features is-open">
+            ${TV_FEATURES.map(f => `<li>${CHECK_SVG(13)}${f}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div class="plan-cta-area">
+          <a href="#sales" class="plan-cta-btn">Lo quiero</a>
+          <p class="plan-tax-price">
+            Precio sin impuestos nacionales: $ <span class="plan-tax-value">${fmt(plan.price / 1.21)}</span>
+          </p>
+        </div>
+      </div>
+    `;
+  }
+
+  function attachListeners() {
+    document.querySelectorAll<HTMLElement>('.plan-card').forEach((el) => {
+      const basePrice = parseInt(el.dataset.basePrice ?? '0', 10);
+      const tvPrice   = parseInt(el.dataset.tvPrice   ?? '0', 10);
+      const planName  = el.dataset.planName ?? '';
+
+      const toggle   = el.querySelector<HTMLInputElement>('.plan-toggle')!;
+      const priceVal = el.querySelector<HTMLElement>('.plan-price-value')!;
+      const taxVal   = el.querySelector<HTMLElement>('.plan-tax-value')!;
+      const ctaBtn   = el.querySelector<HTMLAnchorElement>('.plan-cta-btn')!;
+
+      function update() {
+        const total = basePrice + (toggle.checked ? tvPrice : 0);
+        priceVal.textContent = total.toLocaleString('es-AR');
+        taxVal.textContent   = Math.round(total / 1.21).toLocaleString('es-AR');
+      }
+
+      toggle.addEventListener('change', update);
+
+      ctaBtn.addEventListener('click', () => {
+        const total = basePrice + (toggle.checked ? tvPrice : 0);
+        const hasTV = toggle.checked;
+
+        try {
+          localStorage.setItem('selectedPlan', JSON.stringify({ name: planName, price: total, tv: hasTV }));
+        } catch (_) {}
+
+        const planSelect = document.getElementById('plan-select') as HTMLSelectElement | null;
+        const tvCheck    = document.getElementById('tv-check')    as HTMLInputElement  | null;
+        const summary    = document.getElementById('plan-summary')      as HTMLElement | null;
+        const summaryTxt = document.getElementById('plan-summary-text') as HTMLElement | null;
+
+        if (planSelect) { planSelect.value = planName; planSelect.dispatchEvent(new Event('change')); }
+        if (tvCheck)    { tvCheck.checked = hasTV;     tvCheck.dispatchEvent(new Event('change')); }
+        if (summary && summaryTxt && planName) {
+          summaryTxt.textContent = planName + (hasTV ? ' + TV HD' : '');
+          summary.style.display  = 'flex';
+        }
+      });
+    });
+  }
+
+  async function loadPlans() {
+    const apiUrl = import.meta.env.PUBLIC_PLANS_API_URL as string | undefined;
+    let data = FALLBACK;
+
+    if (apiUrl) {
+      try {
+        const res = await fetch(apiUrl);
+        if (res.ok) data = await res.json();
+      } catch (_) {
+        // API unavailable — use fallback prices
+      }
     }
 
-    toggle.addEventListener('change', update);
+    const grid = document.getElementById('plans-grid');
+    if (!grid) return;
 
-    ctaBtn.addEventListener('click', () => {
-      const total  = basePrice + (toggle.checked ? tvPrice : 0);
-      const hasTV  = toggle.checked;
+    grid.innerHTML = data.plans
+      .map(plan => cardHTML(plan, data.tvAddonPrice))
+      .join('');
 
-      try {
-        localStorage.setItem('selectedPlan', JSON.stringify({ name: planName, price: total, tv: hasTV }));
-      } catch (_) {}
+    attachListeners();
+  }
 
-      // Directly update the contact form if it's already in the DOM
-      const planSelect = document.getElementById('plan-select') as HTMLSelectElement | null;
-      const tvCheck    = document.getElementById('tv-check')    as HTMLInputElement  | null;
-      const summary    = document.getElementById('plan-summary')      as HTMLElement | null;
-      const summaryTxt = document.getElementById('plan-summary-text') as HTMLElement | null;
-
-      if (planSelect) {
-        planSelect.value = planName;
-        planSelect.dispatchEvent(new Event('change'));
-      }
-      if (tvCheck) {
-        tvCheck.checked = hasTV;
-        tvCheck.dispatchEvent(new Event('change'));
-      }
-      if (summary && summaryTxt && planName) {
-        summaryTxt.textContent = planName + (hasTV ? ' + TV HD' : '');
-        summary.style.display  = 'flex';
-      }
-    });
-  });
+  loadPlans();
 </script>
