@@ -7,6 +7,7 @@ services:
         PUBLIC_API_SPORTS_URL: ${PUBLIC_API_SPORTS_URL}
         PUBLIC_LEADS_API_URL: ${PUBLIC_LEADS_API_URL}
         PUBLIC_LEADS_API_KEY: ${PUBLIC_LEADS_API_KEY}
+        PUBLIC_PLANS_API_URL: ${PUBLIC_PLANS_API_URL}
     ports:
       - "4321:80"
     restart: unless-stopped
