@@ -22,6 +22,9 @@
 
         <!-- Desktop nav links -->
         <div class="nav-links">
+            <a href="#mundial" class="nav-link nav-link--mundial"
+                >Mundial<span class="nav-live-dot"></span></a
+            >
             <a href="#services" class="nav-link">Servicios</a>
             <!--    <a href="#plans" class="nav-link">Planes</a> -->
             <a href="#contact" class="nav-link">Contacto</a>
@@ -84,6 +87,7 @@
 
 <!-- Mobile menu (outside pill, below) -->
 <div id="mobile-menu" class="mobile-menu">
+    <a href="#mundial" class="mobile-link">Mundial 2026</a>
     <a href="#services" class="mobile-link">Servicios</a>
     <a href="#plans" class="mobile-link">Planes</a>
     <a href="#coverage" class="mobile-link">Cobertura</a>
@@ -199,6 +203,37 @@
     .nav-link:hover {
         color: var(--color-foreground);
         background: var(--color-pill-hover);
+    }
+
+    /* Mundial link with live dot */
+    .nav-link--mundial {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+    }
+    .nav-live-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #e2001a;
+        box-shadow: 0 0 8px #e2001a;
+        animation: navLivePulse 1.5s ease-in-out infinite;
+    }
+    @keyframes navLivePulse {
+        0%,
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+        50% {
+            opacity: 0.4;
+            transform: scale(0.65);
+        }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .nav-live-dot {
+            animation: none;
+        }
     }
 
     .theme-btn {

@@ -1,0 +1,724 @@
+---
+// Promo section for the FIFA World Cup 2026 — drives CCC Go sign-ups.
+---
+
+<section id="mundial" class="mundial" aria-labelledby="mundial-title">
+    <!-- Animated tricolor mesh + grain (decorative) -->
+    <div class="mundial-bg" aria-hidden="true"></div>
+    <div class="mundial-grain" aria-hidden="true"></div>
+
+    <div class="mundial-inner">
+        <!-- Eyebrow -->
+        <div class="m-eyebrow reveal">
+            <span class="m-live">
+                <span class="m-live-dot"></span>
+                EN VIVO
+            </span>
+            <span class="m-eyebrow-text"
+                >FIFA WORLD CUP 2026™ · 11 jun – 19 jul</span
+            >
+        </div>
+
+        <!-- Banner showcase: real banner with promo text over the purple zone -->
+        <div class="m-banner reveal">
+            <img
+                src="/wc2026-banner.webp"
+                alt="FIFA World Cup 2026"
+                class="m-banner-img"
+                loading="lazy"
+                decoding="async"
+            />
+            <!-- Decorative caption (desktop only, sits on the empty purple area) -->
+            <div class="m-banner-caption" aria-hidden="true">
+                <span class="m-banner-kicker">Con CCC Go</span>
+                <span class="m-banner-head">Viví el<br />Mundial</span>
+            </div>
+        </div>
+
+        <!-- Content: copy + countdown -->
+        <div class="m-grid">
+            <!-- Left: pitch -->
+            <div class="m-pitch">
+                <h2 id="mundial-title" class="m-title reveal">
+                    Todos los partidos.<br />
+                    <span class="m-title-accent">En vivo.</span>
+                </h2>
+
+                <p class="m-sub reveal">
+                    Con <strong>CCC Go</strong> mirás los 104 partidos del Mundial
+                    2026 en vivo, donde vayas.
+                </p>
+
+                <div class="m-ctas reveal">
+                    <a
+                        href="https://wa.me/543816344659"
+                        id="mundialCta"
+                        class="m-btn-primary"
+                    >
+                        Contratá CCC Go
+                        <svg
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.5"
+                        >
+                            <path d="M5 12h14M12 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                    <a href="#ccc-go" class="m-btn-secondary">Conocé CCC Go</a>
+                </div>
+            </div>
+
+            <!-- Right: logo + countdown card -->
+            <aside
+                class="m-card reveal"
+                aria-label="Cuenta regresiva para el próximo partido de Argentina"
+            >
+                <img
+                    src="/argentina-logo.png"
+                    alt="Selección Argentina"
+                    class="m-card-logo m-card-logo--afa"
+                    width="100"
+                    height="122"
+                    loading="lazy"
+                    decoding="async"
+                />
+                <p class="m-card-label" id="cdLabel">
+                    Próximo partido de la Selección Argentina
+                </p>
+
+                <div
+                    class="m-cd"
+                    id="wcCountdown"
+                    role="timer"
+                    aria-label="Cuenta regresiva para el próximo partido de Argentina"
+                >
+                    <div class="m-cd-unit">
+                        <span class="m-cd-num" data-d>00</span>
+                        <span class="m-cd-lab">Días</span>
+                    </div>
+                    <span class="m-cd-sep">:</span>
+                    <div class="m-cd-unit">
+                        <span class="m-cd-num" data-h>00</span>
+                        <span class="m-cd-lab">Hs</span>
+                    </div>
+                    <span class="m-cd-sep">:</span>
+                    <div class="m-cd-unit">
+                        <span class="m-cd-num" data-m>00</span>
+                        <span class="m-cd-lab">Min</span>
+                    </div>
+                    <span class="m-cd-sep">:</span>
+                    <div class="m-cd-unit">
+                        <span class="m-cd-num" data-s>00</span>
+                        <span class="m-cd-lab">Seg</span>
+                    </div>
+                </div>
+
+                <!-- Live / finished state (toggled by JS) -->
+                <div class="m-cd-live" id="cdLive" hidden>
+                    <span class="m-live-badge" id="cdLiveBadge">
+                        <span class="m-live-dot"></span>
+                        EN VIVO
+                    </span>
+                    <span class="m-live-text" id="cdLiveText"
+                        >¡Vamos Argentina!</span
+                    >
+                </div>
+
+                <p class="m-card-foot" id="cdFoot">16 de junio · 22:00 hs</p>
+            </aside>
+        </div>
+    </div>
+</section>
+
+<style>
+    .mundial {
+        --wc-purple: #6a17e8;
+        --wc-red: #e2001a;
+        --wc-lime: #c2e812;
+        --wc-gold: #e7c069;
+
+        position: relative;
+        overflow: hidden;
+        background: var(--color-bg);
+        border-top: 1px solid var(--color-border);
+        border-bottom: 1px solid var(--color-border);
+        padding: 5.5rem 0 6rem;
+        isolation: isolate;
+    }
+
+    /* ── Background mesh ── */
+    .mundial-bg {
+        position: absolute;
+        inset: -20%;
+        z-index: -2;
+        background:
+            radial-gradient(
+                52% 70% at 10% 6%,
+                rgba(106, 23, 232, 0.34),
+                transparent 62%
+            ),
+            radial-gradient(
+                50% 64% at 92% 20%,
+                rgba(226, 0, 26, 0.26),
+                transparent 60%
+            ),
+            radial-gradient(
+                56% 60% at 74% 104%,
+                rgba(194, 232, 18, 0.18),
+                transparent 60%
+            );
+        animation: meshDrift 22s ease-in-out infinite alternate;
+        will-change: transform;
+    }
+    @keyframes meshDrift {
+        0% {
+            transform: translate3d(-2%, -1%, 0) scale(1);
+        }
+        100% {
+            transform: translate3d(3%, 2%, 0) scale(1.08);
+        }
+    }
+
+    /* ── Grain ── */
+    .mundial-grain {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        opacity: 0.5;
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    }
+
+    .mundial-inner {
+        position: relative;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+    }
+
+    /* ── Eyebrow ── */
+    .m-eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        margin-bottom: 1.75rem;
+    }
+    .m-live {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.3rem 0.75rem;
+        border-radius: 9999px;
+        background: var(--wc-red);
+        color: #fff;
+        font-size: 0.6875rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        box-shadow: 0 0 20px rgba(226, 0, 26, 0.45);
+    }
+    .m-live-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #fff;
+        animation: livePulse 1.4s ease-in-out infinite;
+    }
+    @keyframes livePulse {
+        0%,
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+        50% {
+            opacity: 0.35;
+            transform: scale(0.7);
+        }
+    }
+    .m-eyebrow-text {
+        font-size: 0.8125rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--color-foreground-alt);
+    }
+
+    /* ── Banner showcase ── */
+    .m-banner {
+        position: relative;
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid var(--color-border-light);
+        box-shadow:
+            0 30px 80px rgba(0, 0, 0, 0.5),
+            0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+        margin-bottom: 3rem;
+        line-height: 0;
+    }
+    .m-banner-img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+    .m-banner-caption {
+        position: absolute;
+        top: 50%;
+        left: clamp(1.5rem, 4vw, 3.5rem);
+        transform: translateY(-50%);
+        max-width: 44%;
+        line-height: 1;
+        text-shadow: 0 4px 30px rgba(0, 0, 0, 0.35);
+    }
+    .m-banner-kicker {
+        display: block;
+        font-size: clamp(0.75rem, 1.4vw, 1rem);
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.85);
+        margin-bottom: 1.1rem;
+    }
+    .m-banner-head {
+        font-family: "Anton", sans-serif;
+        font-weight: 400;
+        font-size: clamp(1.6rem, 5vw, 4.25rem);
+        line-height: 0.92;
+        letter-spacing: 0.01em;
+        text-transform: uppercase;
+        color: #fff;
+    }
+
+    /* ── Content grid ── */
+    .m-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 3rem;
+        align-items: center;
+    }
+
+    .m-title {
+        font-family: "Anton", sans-serif;
+        font-weight: 400;
+        font-size: clamp(2.25rem, 5vw, 4rem);
+        line-height: 0.98;
+        letter-spacing: 0.005em;
+        text-transform: uppercase;
+        color: var(--color-foreground);
+        margin: 0 0 1.25rem;
+    }
+    .m-title-accent {
+        background: linear-gradient(
+            100deg,
+            var(--wc-lime) 0%,
+            var(--wc-lime) 40%,
+            var(--wc-gold) 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .m-sub {
+        font-size: clamp(1rem, 1.7vw, 1.1875rem);
+        line-height: 1.65;
+        color: var(--color-foreground-alt);
+        max-width: 38ch;
+        margin: 0 0 1.75rem;
+    }
+    .m-sub strong {
+        color: var(--color-foreground);
+        font-weight: 700;
+    }
+
+    .m-ctas {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+    }
+    .m-btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.8rem 1.6rem;
+        border-radius: 9999px;
+        background: var(--wc-red);
+        color: #fff;
+        font-size: 0.9375rem;
+        font-weight: 700;
+        text-decoration: none;
+        border: 1px solid var(--wc-red);
+        box-shadow: 0 8px 30px rgba(226, 0, 26, 0.4);
+        transition:
+            transform 0.15s ease,
+            box-shadow 0.2s ease,
+            background 0.2s ease;
+    }
+    .m-btn-primary:hover {
+        transform: translateY(-2px);
+        background: #ff0a26;
+        box-shadow: 0 12px 38px rgba(226, 0, 26, 0.55);
+    }
+    .m-btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.8rem 1.5rem;
+        border-radius: 9999px;
+        background: transparent;
+        color: var(--color-foreground);
+        font-size: 0.9375rem;
+        font-weight: 600;
+        text-decoration: none;
+        border: 1px solid var(--color-border-light);
+        transition:
+            border-color 0.2s ease,
+            color 0.2s ease,
+            transform 0.15s ease;
+    }
+    .m-btn-secondary:hover {
+        transform: translateY(-2px);
+        border-color: var(--wc-lime);
+        color: var(--wc-lime);
+    }
+
+    /* ── Countdown card ── */
+    .m-card {
+        position: relative;
+        border-radius: 20px;
+        padding: 2rem 1.75rem 1.75rem;
+        background:
+            linear-gradient(
+                180deg,
+                rgba(18, 18, 24, 0.42),
+                rgba(10, 10, 14, 0.72)
+            ),
+            url("/wc2026-pattern.webp");
+        background-size: cover;
+        background-position: center;
+        border: 1px solid var(--color-border-light);
+        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
+        text-align: center;
+        overflow: hidden;
+    }
+    .m-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(
+            90deg,
+            var(--wc-purple),
+            var(--wc-red) 50%,
+            var(--wc-lime)
+        );
+    }
+    .m-card-logo {
+        width: 84px;
+        height: 84px;
+        object-fit: contain;
+        margin: 0.25rem auto 1rem;
+        filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.6));
+    }
+    /* AFA crest is portrait — size by height */
+    .m-card-logo--afa {
+        width: auto;
+        height: 104px;
+        filter: drop-shadow(0 6px 22px rgba(0, 0, 0, 0.55));
+    }
+    .m-card-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.82);
+        text-shadow: 0 1px 10px rgba(0, 0, 0, 0.55);
+        margin: 0 0 1.1rem;
+    }
+
+    .m-cd {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 0.35rem;
+    }
+    .m-cd[hidden],
+    .m-cd-live[hidden] {
+        display: none !important;
+    }
+    .m-cd-unit {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-width: 3.4rem;
+    }
+    .m-cd-num {
+        font-family: "Anton", sans-serif;
+        font-weight: 400;
+        font-size: clamp(2.4rem, 4.5vw, 3.25rem);
+        line-height: 1;
+        color: #fff;
+        font-variant-numeric: tabular-nums;
+        letter-spacing: 0.02em;
+        text-shadow:
+            0 2px 16px rgba(0, 0, 0, 0.7),
+            0 1px 3px rgba(0, 0, 0, 0.6);
+    }
+    .m-cd-lab {
+        margin-top: 0.4rem;
+        font-size: 0.625rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.72);
+        text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+    }
+    .m-cd-sep {
+        font-family: "Anton", sans-serif;
+        font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+        line-height: 1.2;
+        color: var(--wc-gold);
+        opacity: 0.85;
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Live / finished state */
+    .m-cd-live {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        min-height: 4.6rem;
+    }
+    .m-live-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.35rem 0.95rem;
+        border-radius: 9999px;
+        background: var(--wc-red);
+        color: #fff;
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        box-shadow: 0 0 22px rgba(226, 0, 26, 0.5);
+    }
+    .m-live-badge[hidden] {
+        display: none !important;
+    }
+    .m-live-text {
+        font-family: "Anton", sans-serif;
+        font-size: clamp(1.6rem, 3.2vw, 2.1rem);
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        color: #fff;
+        text-align: center;
+        line-height: 1.05;
+        text-shadow: 0 2px 16px rgba(0, 0, 0, 0.7);
+    }
+    .m-card-foot {
+        margin: 1.4rem 0 0;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: var(--wc-gold);
+        text-shadow: 0 1px 10px rgba(0, 0, 0, 0.55);
+    }
+
+    /* ── Reveal-on-scroll ── */
+    .reveal {
+        opacity: 0;
+        transform: translateY(26px);
+        transition:
+            opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+            transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .mundial.is-in .reveal {
+        opacity: 1;
+        transform: none;
+    }
+    .mundial.is-in .m-eyebrow {
+        transition-delay: 0.05s;
+    }
+    .mundial.is-in .m-banner {
+        transition-delay: 0.12s;
+    }
+    .mundial.is-in .m-title {
+        transition-delay: 0.2s;
+    }
+    .mundial.is-in .m-sub {
+        transition-delay: 0.28s;
+    }
+    .mundial.is-in .m-ctas {
+        transition-delay: 0.36s;
+    }
+    .mundial.is-in .m-card {
+        transition-delay: 0.3s;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+        .m-grid {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        .m-banner-caption {
+            max-width: 50%;
+        }
+    }
+    @media (max-width: 600px) {
+        .mundial {
+            padding: 4rem 0 4.5rem;
+        }
+        /* Banner becomes a thin strip on phones — drop the overlay, let the
+           official artwork speak and lead with the in-flow headline. */
+        .m-banner-caption {
+            display: none;
+        }
+        .m-banner {
+            margin-bottom: 2rem;
+        }
+        .m-cd-unit {
+            min-width: 2.9rem;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .mundial-bg,
+        .m-live-dot {
+            animation: none;
+        }
+        .reveal {
+            transition: none;
+            opacity: 1;
+            transform: none;
+        }
+    }
+</style>
+
+<script>
+    // ── Countdown to Argentina's next match (one at a time) ──
+    const cd = document.getElementById("wcCountdown");
+    const live = document.getElementById("cdLive");
+    const liveBadge = document.getElementById("cdLiveBadge");
+    const liveText = document.getElementById("cdLiveText");
+    const label = document.getElementById("cdLabel");
+    const foot = document.getElementById("cdFoot");
+
+    // Argentina group-stage fixtures — kick-off in Argentina time (UTC-3).
+    // A match is "running" from kick-off until ~match length later, then the
+    // countdown rolls over to the next fixture.
+    const MATCH_MS = 135 * 60 * 1000; // ~2h15 incl. half-time + stoppage
+    const matches = [
+        {
+            iso: "2026-06-16T22:00:00-03:00",
+            foot: "16 de junio · 22:00 hs",
+        },
+        {
+            iso: "2026-06-22T14:00:00-03:00",
+            foot: "22 de junio · 14:00 hs",
+        },
+        {
+            iso: "2026-06-27T23:00:00-03:00",
+            foot: "27 de junio · 23:00 hs",
+        },
+    ].map((m) => ({ ...m, ts: new Date(m.iso).getTime() }));
+
+    if (cd && live) {
+        const dEl = cd.querySelector<HTMLElement>("[data-d]");
+        const hEl = cd.querySelector<HTMLElement>("[data-h]");
+        const mEl = cd.querySelector<HTMLElement>("[data-m]");
+        const sEl = cd.querySelector<HTMLElement>("[data-s]");
+        const pad = (n: number) => String(n).padStart(2, "0");
+
+        const showCountdown = () => {
+            cd.hidden = false;
+            live.hidden = true;
+        };
+        const showLive = () => {
+            cd.hidden = true;
+            live.hidden = false;
+        };
+
+        const render = () => {
+            const now = Date.now();
+            // First fixture that hasn't finished yet.
+            const active = matches.find((m) => m.ts + MATCH_MS > now);
+
+            // All group-stage matches already played.
+            if (!active) {
+                showLive();
+                if (liveBadge) liveBadge.hidden = true;
+                if (liveText)
+                    liveText.textContent = "Seguí a la Selección en CCC Go";
+                if (label) label.textContent = "¡Vamos, Argentina!";
+                if (foot) foot.textContent = "Todos los partidos en CCC Go";
+                return false; // stop ticking
+            }
+
+            if (foot) foot.textContent = active.foot;
+            const diff = active.ts - now;
+
+            if (diff > 0) {
+                // Counting down to kick-off.
+                showCountdown();
+                if (label)
+                    label.textContent =
+                        "Próximo partido de la Selección Argentina";
+                if (dEl) dEl.textContent = pad(Math.floor(diff / 86400000));
+                if (hEl) hEl.textContent = pad(Math.floor(diff / 3600000) % 24);
+                if (mEl) mEl.textContent = pad(Math.floor(diff / 60000) % 60);
+                if (sEl) sEl.textContent = pad(Math.floor(diff / 1000) % 60);
+            } else {
+                // Match in progress.
+                showLive();
+                if (liveBadge) liveBadge.hidden = false;
+                if (liveText) liveText.textContent = "¡Vamos Argentina!";
+                if (label) label.textContent = "Argentina está jugando";
+            }
+            return true;
+        };
+
+        if (render()) {
+            const id = setInterval(() => {
+                if (!render()) clearInterval(id);
+            }, 1000);
+        }
+    }
+
+    // ── Reveal section on scroll ──
+    const section = document.getElementById("mundial");
+    if (section) {
+        if ("IntersectionObserver" in window) {
+            const io = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            section.classList.add("is-in");
+                            io.disconnect();
+                        }
+                    });
+                },
+                { threshold: 0.12 },
+            );
+            io.observe(section);
+        } else {
+            section.classList.add("is-in");
+        }
+    }
+
+    // ── Pre-select the TV + Pack Fútbol toggle when heading to contract ──
+    const cta = document.getElementById("mundialCta");
+    cta?.addEventListener("click", () => {
+        try {
+            localStorage.setItem("selectedPlan", JSON.stringify({ tv: true }));
+        } catch (_) {
+            /* ignore */
+        }
+    });
+</script>
