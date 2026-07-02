@@ -15,8 +15,8 @@ const contactDetails = [
     {
         icon: "M17.657 16.657L13.414 20.9a1.998 1.998 0 0 1-2.827 0l-4.244-4.243a8 8 0 1 1 11.314 0z M15 11a3 3 0 1 1-6 0 3 3 0 0 1 6 0z",
         label: "Oficinas",
-        value: "San Lorenzo 496, San Miguel de Tucumán",
-        href: "#",
+        value: "Gral. José María Paz 639, San Miguel de Tucumán",
+        href: "https://maps.app.goo.gl/YX5jE4LZgvn8Vfkn8",
     },
 ];
 ---
@@ -583,7 +583,9 @@ const contactDetails = [
         e.preventDefault();
 
         const getValue = (name: string) =>
-            (form.elements.namedItem(name) as HTMLInputElement | null)?.value?.trim() ?? "";
+            (
+                form.elements.namedItem(name) as HTMLInputElement | null
+            )?.value?.trim() ?? "";
 
         const nombre = getValue("nombre");
         const apellido = getValue("apellido");
@@ -629,7 +631,8 @@ const contactDetails = [
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
-                        "x-api-key": import.meta.env.PUBLIC_LEADS_API_KEY as string,
+                        "x-api-key": import.meta.env
+                            .PUBLIC_LEADS_API_KEY as string,
                     },
                     body: JSON.stringify(payload),
                 },
