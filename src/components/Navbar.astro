@@ -57,7 +57,10 @@
         <!-- CTA -->
         <a
             href="https://viaccc.portal.ispboss.com/Login.aspx?ReturnUrl=%2f"
-            class="cta-btn">Pagar mi factura</a
+            class="cta-btn"
+            >Pagar<span class="cta-word-mi">&nbsp;mi</span><span
+                class="cta-word-factura">&nbsp;factura</span
+            ></a
         >
 
         <!-- Mobile menu button -->
@@ -335,12 +338,52 @@
     }
 
     @media (max-width: 640px) {
-        .nav-links,
-        .cta-btn {
+        .nav-links {
             display: none !important;
         }
         .mobile-btn {
             display: flex !important;
+        }
+
+        nav {
+            gap: 0.375rem;
+            padding: 0.75rem 0.75rem 0.75rem 1rem;
+        }
+        #navbar.scrolled nav {
+            gap: 0.25rem;
+            padding: 0.5rem 0.625rem 0.5rem 0.875rem;
+        }
+
+        .logo-link {
+            margin-right: 0.5rem;
+        }
+
+        .theme-btn {
+            margin-left: 0;
+        }
+
+        /* Compact CTA lives inside the pill on mobile */
+        .cta-btn {
+            margin-left: 0.125rem;
+            padding: 0.4375rem 0.875rem;
+            font-size: 0.75rem;
+        }
+
+        /* The pill already carries the CTA */
+        .mobile-cta {
+            display: none;
+        }
+    }
+
+    /* Trim the label instead of letting the pill overflow */
+    @media (max-width: 370px) {
+        .cta-word-mi {
+            display: none;
+        }
+    }
+    @media (max-width: 350px) {
+        .cta-word-factura {
+            display: none;
         }
     }
 </style>
