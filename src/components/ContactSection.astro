@@ -625,9 +625,12 @@ const contactDetails = [
         };
 
         try {
-            // Postea al proxy same-origin. nginx inyecta la X-Api-Key del
-            // lado del servidor; la clave nunca llega al navegador.
-            const res = await fetch("/api/lead", {
+            // Postea a una ruta FUERA de /api/ a propósito: el Apache de
+            // adelante proxea /api/* directo al backend (salteándose nginx),
+            // así que usamos /enviar-lead para que caiga en el contenedor,
+            // donde nginx inyecta la X-Api-Key server-side. La clave nunca
+            // llega al navegador.
+            const res = await fetch("/enviar-lead", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),

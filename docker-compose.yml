@@ -9,8 +9,10 @@ services:
     environment:
       # Runtime (no build): nginx las sustituye por envsubst. NO se hornean en el cliente.
       # LEADS_API_KEY debe ser IGUAL a la del backend Next. LEADS_UPSTREAM incluye /api/leads.
-      LEADS_API_KEY: ${LEADS_API_KEY}
-      LEADS_UPSTREAM: ${LEADS_UPSTREAM}
+      # El :? aborta `docker compose up` si faltan, dejando el contenedor viejo corriendo,
+      # en vez de arrancar un nginx roto y tirar el sitio (503 de Apache).
+      LEADS_API_KEY: ${LEADS_API_KEY:?falta LEADS_API_KEY en el .env}
+      LEADS_UPSTREAM: ${LEADS_UPSTREAM:?falta LEADS_UPSTREAM en el .env (URL completa con /api/leads)}
     ports:
       - "4321:80"
     restart: unless-stopped
