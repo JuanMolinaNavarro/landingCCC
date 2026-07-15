@@ -5,9 +5,12 @@ services:
       args:
         PUBLIC_API_ON_DEMAND_URL: ${PUBLIC_API_ON_DEMAND_URL}
         PUBLIC_API_SPORTS_URL: ${PUBLIC_API_SPORTS_URL}
-        PUBLIC_LEADS_API_URL: ${PUBLIC_LEADS_API_URL}
-        PUBLIC_LEADS_API_KEY: ${PUBLIC_LEADS_API_KEY}
         PUBLIC_PLANS_API_URL: ${PUBLIC_PLANS_API_URL}
+    environment:
+      # Runtime (no build): nginx las sustituye por envsubst. NO se hornean en el cliente.
+      # LEADS_API_KEY debe ser IGUAL a la del backend Next. LEADS_UPSTREAM incluye /api/leads.
+      LEADS_API_KEY: ${LEADS_API_KEY}
+      LEADS_UPSTREAM: ${LEADS_UPSTREAM}
     ports:
       - "4321:80"
     restart: unless-stopped

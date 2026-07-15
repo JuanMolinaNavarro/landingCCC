@@ -625,18 +625,13 @@ const contactDetails = [
         };
 
         try {
-            const res = await fetch(
-                import.meta.env.PUBLIC_LEADS_API_URL as string,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "x-api-key": import.meta.env
-                            .PUBLIC_LEADS_API_KEY as string,
-                    },
-                    body: JSON.stringify(payload),
-                },
-            );
+            // Postea al proxy same-origin. nginx inyecta la X-Api-Key del
+            // lado del servidor; la clave nunca llega al navegador.
+            const res = await fetch("/api/lead", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+            });
 
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
