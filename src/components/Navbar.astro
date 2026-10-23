@@ -7,13 +7,13 @@
         <!-- Logo -->
         <a href="/" class="logo-link">
             <img
-                src="/logo.png"
+                src="/logo.webp" width="174" height="64" loading="lazy" decoding="async"
                 alt="CCC"
                 class="logo-dark"
                 style="height: 26px; width: auto;"
             />
             <img
-                src="/logoBlue.png"
+                src="/logoBlue.webp" width="174" height="64" loading="lazy" decoding="async"
                 alt="CCC"
                 class="logo-light"
                 style="height: 26px; width: auto;"
@@ -54,15 +54,6 @@
             >
         </button>
 
-        <!-- CTA -->
-        <a
-            href="https://viaccc.portal.ispboss.com/Login.aspx?ReturnUrl=%2f"
-            class="cta-btn"
-            >Pagar<span class="cta-word-mi">&nbsp;mi</span><span
-                class="cta-word-factura">&nbsp;factura</span
-            ></a
-        >
-
         <!-- Mobile menu button -->
         <button
             id="mobile-menu-btn"
@@ -88,13 +79,7 @@
 <!-- Mobile menu (outside pill, below) -->
 <div id="mobile-menu" class="mobile-menu">
     <a href="#services" class="mobile-link">Servicios</a>
-    <a href="#plans" class="mobile-link">Planes</a>
-    <a href="#coverage" class="mobile-link">Cobertura</a>
     <a href="#contact" class="mobile-link">Contacto</a>
-    <a
-        href="https://viaccc.portal.ispboss.com/Login.aspx?ReturnUrl=%2f"
-        class="mobile-cta">Pagar mi factura</a
-    >
 </div>
 
 <style>
@@ -233,31 +218,6 @@
         display: block;
     }
 
-    .cta-btn {
-        margin-left: 1rem;
-        padding: 0.4375rem 1.125rem;
-        background: rgba(29, 78, 216, 0.85);
-        color: #fff;
-        border-radius: 9999px;
-        font-size: 0.8125rem;
-        font-weight: 600;
-        text-decoration: none;
-        white-space: nowrap;
-        border: 1px solid rgba(59, 130, 246, 0.5);
-        box-shadow:
-            0 0 12px rgba(29, 78, 216, 0.4),
-            0 1px 0 rgba(255, 255, 255, 0.1) inset;
-        transition:
-            background 0.2s,
-            box-shadow 0.2s;
-        flex-shrink: 0;
-    }
-    .cta-btn:hover {
-        background: rgba(29, 78, 216, 1);
-        box-shadow:
-            0 0 20px rgba(29, 78, 216, 0.6),
-            0 1px 0 rgba(255, 255, 255, 0.1) inset;
-    }
 
     .mobile-btn {
         display: none;
@@ -318,24 +278,6 @@
         background: var(--color-surface2);
     }
 
-    .mobile-cta {
-        display: block;
-        margin-top: 0.25rem;
-        padding: 0.7rem 1rem;
-        background: rgba(29, 78, 216, 0.85);
-        color: #fff;
-        border-radius: 0.75rem;
-        font-size: 0.9375rem;
-        font-weight: 600;
-        text-decoration: none;
-        text-align: center;
-        border: 1px solid rgba(59, 130, 246, 0.4);
-        box-shadow: 0 0 12px rgba(29, 78, 216, 0.3);
-        transition: background 0.2s;
-    }
-    .mobile-cta:hover {
-        background: rgba(29, 78, 216, 1);
-    }
 
     @media (max-width: 640px) {
         .nav-links {
@@ -361,30 +303,6 @@
         .theme-btn {
             margin-left: 0;
         }
-
-        /* Compact CTA lives inside the pill on mobile */
-        .cta-btn {
-            margin-left: 0.125rem;
-            padding: 0.4375rem 0.875rem;
-            font-size: 0.75rem;
-        }
-
-        /* The pill already carries the CTA */
-        .mobile-cta {
-            display: none;
-        }
-    }
-
-    /* Trim the label instead of letting the pill overflow */
-    @media (max-width: 370px) {
-        .cta-word-mi {
-            display: none;
-        }
-    }
-    @media (max-width: 350px) {
-        .cta-word-factura {
-            display: none;
-        }
     }
 </style>
 
@@ -397,15 +315,11 @@
 
         // Toggle scroll state
         const handleScroll = () => {
-            if (window.scrollY > 20) {
-                navbar?.classList.add("scrolled");
-            } else {
-                navbar?.classList.remove("scrolled");
-            }
+            navbar?.classList.toggle("scrolled", window.scrollY > 20);
         };
 
-        // Run on mount to check initial position
-        handleScroll();
+        // Check initial position on the first frame (reading scrollY now would force a layout before first paint)
+        requestAnimationFrame(handleScroll);
         window.addEventListener("scroll", handleScroll, { passive: true });
 
         // Mobile menu handlers
@@ -435,5 +349,4 @@
     };
 
     setupNav();
-    document.addEventListener("astro:page-load", setupNav);
 </script>

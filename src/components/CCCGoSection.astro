@@ -5,11 +5,6 @@ const categories = [
 ];
 ---
 
-<!-- Preconnect to image CDNs so the TCP+TLS handshake is done before JS fires -->
-<link rel="preconnect" href="https://assets.fanart.tv" crossorigin />
-<link rel="preconnect" href="https://m.media-amazon.com" crossorigin />
-<link rel="preconnect" href="https://www.thesportsdb.com" crossorigin />
-
 <section
     id="ccc-go"
     style="padding: 5rem 0; background: var(--color-bg); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); overflow: hidden;"
@@ -24,13 +19,13 @@ const categories = [
                     style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;"
                 >
                     <img
-                        src="/logo.png"
+                        src="/logo.webp" width="174" height="64" loading="lazy" decoding="async"
                         alt="CCC"
                         class="logo-dark"
                         style="height: 22px; width: auto;"
                     />
                     <img
-                        src="/logoBlue.png"
+                        src="/logoBlue.webp" width="174" height="64" loading="lazy" decoding="async"
                         alt="CCC"
                         class="logo-light"
                         style="height: 22px; width: auto;"
@@ -66,6 +61,10 @@ const categories = [
                         <img
                             src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
                             alt="Download on the App Store"
+                            width="120"
+                            height="40"
+                            loading="lazy"
+                            decoding="async"
                             style="height: 38px; width: auto;"
                         />
                     </a>
@@ -77,6 +76,10 @@ const categories = [
                         <img
                             src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
                             alt="Disponible en Google Play"
+                            width="646"
+                            height="250"
+                            loading="lazy"
+                            decoding="async"
                             style="height: 56px; width: auto; margin: -9px -6px;"
                         />
                     </a>
@@ -510,7 +513,13 @@ const categories = [
             goTo(current - 1 < 0 ? maxIndex : current - 1);
         }
         function startAuto() {
-            timer = setInterval(next, 3500);
+            clearInterval(timer);
+            timer = setInterval(() => {
+                // Don't animate a hidden tab or a backgrounded page
+                if (wrapper.classList.contains("hidden") || document.hidden)
+                    return;
+                next();
+            }, 3500);
         }
         function stopAuto() {
             clearInterval(timer);
@@ -556,12 +565,8 @@ const categories = [
         logo: string;
     }
 
-    function buildOnDemandDesktopCard(
-        item: OnDemandItem,
-        index: number,
-    ): string {
-        const eager = index < 3;
-        const imgAttrs = `loading="${eager ? "eager" : "lazy"}" decoding="async"${eager ? ' fetchpriority="high"' : ""}`;
+    function buildOnDemandDesktopCard(item: OnDemandItem): string {
+        const imgAttrs = `loading="lazy" decoding="async"`;
         return `
       <div class="slider-card" style="flex: 0 0 33.333%; padding: 0 0.5rem; box-sizing: border-box;">
         <div class="inner-card" style="border-radius: 14px; background: #0a0a0a; border: 1px solid var(--color-pill-bg); overflow: hidden; cursor: pointer; position: relative; aspect-ratio: 16/9; width: 100%;">
@@ -573,7 +578,7 @@ const categories = [
           <div style="position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 0.75rem 1rem; display: flex; align-items: flex-end; justify-content: space-between; gap: 0.75rem;">
             ${
                 item.logo
-                    ? `<img src="${item.logo}" alt="${item.title}" decoding="async" loading="${eager ? "eager" : "lazy"}" style="max-height: 52px; max-width: 160px; object-fit: contain; filter: drop-shadow(0 2px 10px rgba(0,0,0,0.9)); opacity: 0; transition: opacity 0.5s ease;" onload="this.style.opacity='1'" />`
+                    ? `<img src="${item.logo}" alt="${item.title}" decoding="async" loading="lazy" style="max-height: 52px; max-width: 160px; object-fit: contain; filter: drop-shadow(0 2px 10px rgba(0,0,0,0.9)); opacity: 0; transition: opacity 0.5s ease;" onload="this.style.opacity='1'" />`
                     : `<div style="font-size: 0.9375rem; font-weight: 800; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.title}</div>`
             }
           </div>
@@ -581,12 +586,8 @@ const categories = [
       </div>`;
     }
 
-    function buildOnDemandMobileCard(
-        item: OnDemandItem,
-        index: number,
-    ): string {
-        const eager = index < 2;
-        const imgAttrs = `loading="${eager ? "eager" : "lazy"}" decoding="async"${eager ? ' fetchpriority="high"' : ""}`;
+    function buildOnDemandMobileCard(item: OnDemandItem): string {
+        const imgAttrs = `loading="lazy" decoding="async"`;
         return `
       <div class="mobile-card" style="flex: 0 0 85vw; max-width: 400px; border-radius: 12px; background: #0a0a0a; border: 1px solid var(--color-pill-bg); overflow: hidden; cursor: pointer; scroll-snap-align: start; position: relative; aspect-ratio: 16/9; box-sizing: border-box;">
         ${item.background ? `<img src="${item.background}" alt="${item.title}" class="card-img" ${imgAttrs} style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: 0; transition: opacity 0.5s ease, transform 0.5s ease;" onload="this.style.opacity='1'" />` : ""}
@@ -594,7 +595,7 @@ const categories = [
         <div style="position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 0.6rem 0.875rem; display: flex; align-items: flex-end; justify-content: space-between; gap: 0.5rem;">
           ${
               item.logo
-                  ? `<img src="${item.logo}" alt="${item.title}" decoding="async" loading="${eager ? "eager" : "lazy"}" style="max-height: 36px; max-width: 120px; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.9)); opacity: 0; transition: opacity 0.5s ease;" onload="this.style.opacity='1'" />`
+                  ? `<img src="${item.logo}" alt="${item.title}" decoding="async" loading="lazy" style="max-height: 36px; max-width: 120px; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.9)); opacity: 0; transition: opacity 0.5s ease;" onload="this.style.opacity='1'" />`
                   : `<div style="font-size: 0.875rem; font-weight: 800; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.title}</div>`
           }
         </div>
@@ -631,12 +632,12 @@ const categories = [
             data.forEach((item, i) => {
                 track.insertAdjacentHTML(
                     "beforeend",
-                    buildOnDemandDesktopCard(item, i),
+                    buildOnDemandDesktopCard(item),
                 );
                 if (mobileTrack)
                     mobileTrack.insertAdjacentHTML(
                         "beforeend",
-                        buildOnDemandMobileCard(item, i),
+                        buildOnDemandMobileCard(item),
                     );
                 if (dotsContainer) {
                     dotsContainer.insertAdjacentHTML(
@@ -659,7 +660,6 @@ const categories = [
         }
     }
 
-    loadOnDemand();
 
     // TheSportsDB API - simplified to our backend
     interface SportsEvent {
@@ -729,7 +729,7 @@ const categories = [
         if (event.strThumb) {
             imgHtml = `<img src="${event.strThumb}" alt="${event.strEvent}" class="card-img" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.5s ease;" loading="lazy" />`;
         } else if (event.type === "tarucas") {
-            imgHtml = `<img src="/backgroundTarucas.png" alt="Tarucas" class="card-img" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.5s ease;" />`;
+            imgHtml = `<img src="/backgroundTarucas.webp" alt="Tarucas" class="card-img" loading="lazy" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.5s ease;" />`;
         }
 
         const hasThumb = !!event.strThumb;
@@ -775,7 +775,7 @@ const categories = [
         if (event.strThumb) {
             imgHtml = `<img src="${event.strThumb}" alt="${event.strEvent}" class="card-img" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.5s ease;" loading="lazy" />`;
         } else if (event.type === "tarucas") {
-            imgHtml = `<img src="/backgroundTarucas.png" alt="Tarucas" class="card-img" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.5s ease;" />`;
+            imgHtml = `<img src="/backgroundTarucas.webp" alt="Tarucas" class="card-img" loading="lazy" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.5s ease;" />`;
         }
 
         const hasThumb = !!event.strThumb;
@@ -927,5 +927,18 @@ const categories = [
         }
     }
 
-    loadDeportes();
+    // Hit the APIs only once the section is about to scroll into view
+    const cccGo = document.getElementById("ccc-go");
+    if (cccGo) {
+        const io = new IntersectionObserver(
+            ([entry]) => {
+                if (!entry.isIntersecting) return;
+                io.disconnect();
+                loadDeportes();
+                loadOnDemand();
+            },
+            { rootMargin: "400px" },
+        );
+        io.observe(cccGo);
+    }
 </script>
