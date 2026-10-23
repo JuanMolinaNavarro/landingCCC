@@ -49,7 +49,7 @@
   --color-accent-light: var(--color-accent-light);
   --color-accent-subtle: var(--color-accent-subtle);
 
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Inter Variable', 'Inter', ui-sans-serif, system-ui, sans-serif;
 }
 
 * {
@@ -63,7 +63,7 @@ html {
 body {
   background-color: var(--color-bg);
   color: var(--color-foreground);
-  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  font-family: 'Inter Variable', 'Inter', ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   margin: 0;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -85,6 +85,15 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-muted);
+}
+
+/* Skip layout/paint of below-the-fold sections until they approach the viewport */
+#ccc-go,
+#services,
+#contact,
+body > footer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
 }
 
 /* Theme-dependent logos */
